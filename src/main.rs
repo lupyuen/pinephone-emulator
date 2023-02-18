@@ -1,3 +1,7 @@
+extern crate alloc;
+
+use alloc::rc::Rc;
+use core::cell::RefCell;
 use unicorn_engine::{Unicorn, RegisterARM64};
 use unicorn_engine::unicorn_const::{Arch, Mode, Permission};
 
@@ -44,6 +48,40 @@ fn main() {
     emu.reg_write(RegisterARM64::X15, X15)
         .expect("failed to set X15");
 
+    // tracing all basic blocks with customized callback
+    // let _ = emu
+    //     .add_block_hook(hook_block)
+    //     .expect("failed to add block hook");
+    // Previously: uc_hook_add(uc, &trace1, UC_HOOK_BLOCK, hook_block, NULL, 1, 0);
+
+    // tracing one instruction at ADDRESS with customized callback
+    #[derive(PartialEq, Debug)]
+    struct CodeExpectation(u64, u32);
+    // let expects = vec![
+    //     CodeExpectation(0x1000, 1),
+    //     CodeExpectation(0x1001, 1)
+    // ];
+    let codes: Vec<CodeExpectation> = Vec::new();
+    let codes_cell = Rc::new(RefCell::new(codes));
+
+    let callback_codes = codes_cell.clone();
+    let hook_code = move |_: &mut Unicorn<'_, ()>, address: u64, size: u32| {
+        let mut codes = callback_codes.borrow_mut();
+        codes.push(CodeExpectation(address, size));
+        println!("hook_code: address={:?}, size={:?}", address, size);
+    };
+
+    let _ = emu
+        .add_code_hook(
+            ADDRESS, 
+            ADDRESS, 
+            hook_code
+        ).expect("failed to add code hook");
+
+    // Previously: uc_hook_add(uc, &trace2, UC_HOOK_CODE, hook_code, NULL, ADDRESS, ADDRESS);
+
+    // emulate machine code in infinite time (last param = 0), or when
+    // finishing all the code.
     let _ = emu.emu_start(
         ADDRESS,
         ADDRESS + arm64_code.len() as u64,
