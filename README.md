@@ -13,3 +13,7 @@ This works OK for manipulating Arm64 Registers.
 TODO: Call Unicorn Emulator to add Code Emulation Hooks
 
 TODO: What happens when we run Apache NuttX RTOS for PinePhone?
+
+TODO: Use Unicorn Emulation Hooks to emulate PinePhone's Allwinner A64 UART Controller
+
+TODO: Emulate Apache NuttX NSH Shell on UART Controller
