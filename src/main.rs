@@ -45,10 +45,8 @@ fn main() {
         .expect("failed to set X15");
 
     // tracing all basic blocks with customized callback
-    // let _ = emu
-    //     .add_block_hook(hook_block)
-    //     .expect("failed to add block hook");
-    // Previously: uc_hook_add(uc, &trace1, UC_HOOK_BLOCK, hook_block, NULL, 1, 0);
+    let _ = emu.add_block_hook(hook_block)
+        .expect("failed to add block hook");
 
     // tracing one instruction at ADDRESS with customized callback
     let _ = emu.add_code_hook(
@@ -71,6 +69,11 @@ fn main() {
         emu.reg_read(RegisterARM64::X15),
         Ok(0x78)
     );
+}
+
+// Hook Function for Block Emulation
+fn hook_block(_: &mut Unicorn<()>, address: u64, size: u32) {
+    println!("hook_block: address={:?}, size={:?}", address, size);
 }
 
 // Hook Function for Code Emulation
