@@ -10,7 +10,7 @@ Let's find out! We'll call the [Unicorn Emulator](https://www.unicorn-engine.org
 
 ![Emulate Arm64 Machine Code](https://lupyuen.github.io/images/unicorn-code.png)
 
-Suppose we want to emulate some Arm64 Machine Code...
+Suppose we wish to emulate some Arm64 Machine Code...
 
 https://github.com/lupyuen/pinephone-emulator/blob/bc5643dea66c70f57a150955a12884f695acf1a4/src/main.rs#L7-L8
 
