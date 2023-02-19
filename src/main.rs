@@ -89,5 +89,9 @@ fn main() {
         0  // Previously: 1000
     );
 
-    assert_eq!(emu.reg_read(RegisterARM64::X15), Ok(0x78));
+    // Read register X15
+    assert_eq!(
+        emu.reg_read(RegisterARM64::X15),
+        Ok(0x78)
+    );
 }
