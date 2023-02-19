@@ -43,11 +43,13 @@ Let's try something interesting: Unicorn Hooks...
 
 # Memory Access Hook for Arm64 Emulation
 
-Unicorn Emulator lets us attach hooks to handle Memory Access.
+Unicorn Emulator lets us attach hooks to Emulate Memory Access.
 
 Here's a Hook Function for Memory Access...
 
 https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L83-L95
+
+Our Hook Functions prints all Read / Write Access to Emulated Arm64 Memory.
 
 This is how we attach the Hook Function to the Unicorn Emulator...
 
