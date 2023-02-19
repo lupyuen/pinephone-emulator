@@ -2,11 +2,13 @@
 
 We're porting a new operating system ([Apache NuttX RTOS](https://lupyuen.github.io/articles/what)) to [Pine64 PinePhone](https://wiki.pine64.org/index.php/PinePhone). And I wondered...
 
+_To make PinePhone testing easier..._
+
 _Can we emulate Arm64 PinePhone with [Unicorn Emulator](https://www.unicorn-engine.org/)?_
 
 Let's find out! We'll call the [Unicorn Emulator](https://www.unicorn-engine.org/) in Rust (instead of C).
 
-(I'm too old to write meticulous C... But I'm OK to get nagged by Rust Compiler if I miss something!)
+(Because I'm too old to write meticulous C... But I'm OK to get nagged by Rust Compiler if I miss something!)
 
 We begin by emulating simple Arm64 Machine Code...
 
