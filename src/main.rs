@@ -1,6 +1,7 @@
 use unicorn_engine::{Unicorn, RegisterARM64};
 use unicorn_engine::unicorn_const::{Arch, HookType, MemType, Mode, Permission};
 
+/// Emulate some Arm64 Machine Code
 fn main() {
     // Arm64 Machine Code
     let arm64_code: Vec<u8> = vec![
@@ -15,17 +16,17 @@ fn main() {
     ).expect("failed to initialize Unicorn instance");
     let emu = &mut unicorn;
 
-    // memory address where emulation starts
+    // Memory address where emulation starts
     const ADDRESS: u64 = 0x10000;
 
-    // map 2MB memory for this emulation
+    // Map 2MB memory for this emulation
     emu.mem_map(
-        ADDRESS,
-        2 * 1024 * 1024,
-        Permission::ALL
+        ADDRESS,          // Address
+        2 * 1024 * 1024,  // Size
+        Permission::ALL   // Permissions
     ).expect("failed to map code page");
 
-    // write machine code to be emulated to memory
+    // Write machine code to be emulated to memory
     emu.mem_write(
         ADDRESS, 
         &arm64_code
@@ -36,7 +37,7 @@ fn main() {
     const X13: u64 = 0x10000 + 0x8; // X13 register
     const X15: u64 = 0x33;          // X15 register
     
-    // initialize machine registers
+    // Initialize machine registers
     emu.reg_write(RegisterARM64::X11, X11)
         .expect("failed to set X11");
     emu.reg_write(RegisterARM64::X13, X13)
@@ -44,18 +45,18 @@ fn main() {
     emu.reg_write(RegisterARM64::X15, X15)
         .expect("failed to set X15");
 
-    // tracing all basic blocks with customized callback
+    // Add Hook for emulating each Basic Block of Arm64 Instructions
     let _ = emu.add_block_hook(hook_block)
         .expect("failed to add block hook");
 
-    // tracing one instruction at ADDRESS with customized callback
+    // Add Hook for emulating each Arm64 Instruction
     let _ = emu.add_code_hook(
-        ADDRESS, 
-        ADDRESS, 
+        ADDRESS,  // Begin Address
+        ADDRESS + arm64_code.len() as u64,  // End Address
         hook_code  // Hook Function for Code Emulation
     ).expect("failed to add code hook");
 
-    // Add Memory Hook
+    // Add Hook for Arm64 Memory Access
     let _ = emu.add_mem_hook(
         HookType::MEM_ALL, 
         0,
@@ -63,8 +64,8 @@ fn main() {
         hook_memory
     ).expect("failed to add memory hook");
 
-    // emulate machine code in infinite time (last param = 0), or when
-    // finishing all the code.
+    // Emulate machine code in infinite time (last param = 0),
+    // or when all code has completed
     let _ = emu.emu_start(
         ADDRESS,
         ADDRESS + arm64_code.len() as u64,
@@ -79,24 +80,44 @@ fn main() {
     );
 }
 
-// Hook Function for Block Emulation
-fn hook_block(_: &mut Unicorn<()>, address: u64, size: u32) {
-    println!("hook_block: address={:#x}, size={:?}", address, size);
-}
-
-// Hook Function for Code Emulation
-fn hook_code(_: &mut Unicorn<()>, address: u64, size: u32) {
-    println!("hook_code: address={:#x}, size={:?}", address, size);
-}
-
-// Hook Function for Memory Emulation
+// Hook Function for Memory Access.
+// Called once for every Arm64 Memory Access.
 fn hook_memory(
-    _: &mut Unicorn<()>,
-    mem_type: MemType,
-    address: u64,
-    size: usize,
-    value: i64
+    _: &mut Unicorn<()>,  // Emulator
+    mem_type: MemType,    // Read or Write Access
+    address: u64,  // Accessed Address
+    size: usize,   // Number of bytes accessed
+    value: i64     // Read / Write Value
 ) -> bool {
+    // TODO: Simulate Memory-Mapped Input/Output
     println!("hook_memory: mem_type={:?}, address={:#x}, size={:?}, value={:#x}", mem_type, address, size, value);
     true
 }
+
+// Hook Function for Block Emulation.
+// Called once for each Basic Block of Arm64 Instructions.
+fn hook_block(
+    _: &mut Unicorn<()>,  // Emulator
+    address: u64,  // Block Address
+    size: u32      // Block Size
+) {
+    println!("hook_block: address={:#x}, size={:?}", address, size);
+}
+
+// Hook Function for Code Emulation.
+// Called once for each Arm64 Instruction.
+fn hook_code(
+    _: &mut Unicorn<()>,  // Emulator
+    address: u64,  // Instruction Address
+    size: u32      // Instruction Size
+) {
+    println!("hook_code: address={:#x}, size={:?}", address, size);
+}
+
+/* Output:
+hook_block: address=0x10000, size=8
+hook_code: address=0x10000, size=4
+hook_memory: mem_type=WRITE, address=0x10008, size=4, value=0x12345678
+hook_code: address=0x10004, size=4
+hook_memory: mem_type=READ, address=0x10008, size=1, value=0x0
+*/
