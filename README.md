@@ -49,13 +49,13 @@ Here's a Hook Function for Memory Access...
 
 https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L83-L95
 
-Our Hook Functions prints all Read / Write Access to Emulated Arm64 Memory.
+Our Hook Function prints all Read / Write Access to Emulated Arm64 Memory.
 
 This is how we attach the Hook Function to the Unicorn Emulator...
 
 https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L59-L74
 
-When we run this, we'll see the Read and Write Memory Accesses made by the emulator...
+When we run this, we'll see the Read and Write Memory Accesses made by our [Emulated Arm64 Code](https://github.com/lupyuen/pinephone-emulator/blob/bc5643dea66c70f57a150955a12884f695acf1a4/src/main.rs#L7-L8)...
 
 ```text
 hook_memory: 
