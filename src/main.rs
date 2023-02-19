@@ -1,5 +1,5 @@
 use unicorn_engine::{Unicorn, RegisterARM64};
-use unicorn_engine::unicorn_const::{Arch, Mode, Permission};
+use unicorn_engine::unicorn_const::{Arch, HookType, MemType, Mode, Permission};
 
 fn main() {
     // Arm64 Machine Code
@@ -55,6 +55,14 @@ fn main() {
         hook_code  // Hook Function for Code Emulation
     ).expect("failed to add code hook");
 
+    // Add Memory Hook
+    let _ = emu.add_mem_hook(
+        HookType::MEM_ALL, 
+        0,
+        u64::MAX,
+        hook_memory
+    ).expect("failed to add memory hook");
+
     // emulate machine code in infinite time (last param = 0), or when
     // finishing all the code.
     let _ = emu.emu_start(
@@ -73,10 +81,22 @@ fn main() {
 
 // Hook Function for Block Emulation
 fn hook_block(_: &mut Unicorn<()>, address: u64, size: u32) {
-    println!("hook_block: address={:?}, size={:?}", address, size);
+    println!("hook_block: address={:#x}, size={:?}", address, size);
 }
 
 // Hook Function for Code Emulation
 fn hook_code(_: &mut Unicorn<()>, address: u64, size: u32) {
-    println!("hook_code: address={:?}, size={:?}", address, size);
+    println!("hook_code: address={:#x}, size={:?}", address, size);
+}
+
+// Hook Function for Memory Emulation
+fn hook_memory(
+    _: &mut Unicorn<()>,
+    mem_type: MemType,
+    address: u64,
+    size: usize,
+    value: i64
+) -> bool {
+    println!("hook_memory: mem_type={:?}, address={:#x}, size={:?}, value={:#x}", mem_type, address, size, value);
+    true
 }
