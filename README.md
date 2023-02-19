@@ -48,18 +48,35 @@ Unicorn Emulator allows Code Execution Hooks too...
 
 # Code Execution Hooks for Arm64 Emulation
 
-TODO: Call Unicorn Emulator to add Code Emulation Hooks
+TODO: Call Unicorn Emulator to add Code Execution Hooks
 
-https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L1-L117
+https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L108-L117
+
+TODO: Add hook
+
+https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L52-L57
+
+Output:
+
+```text
+hook_code: address=0x10000, size=4
+hook_code: address=0x10004, size=4
+```
+
+# Block Execution Hooks for Arm64 Emulation
+
+TODO: Call Unicorn Emulator to add Block Execution Hooks
+
+https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L97-L106
+
+TODO: Add hook
+
+https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L48-L50
 
 Output:
 
 ```text
 hook_block: address=0x10000, size=8
-hook_code: address=0x10000, size=4
-hook_memory: mem_type=WRITE, address=0x10008, size=4, value=0x12345678
-hook_code: address=0x10004, size=4
-hook_memory: mem_type=READ, address=0x10008, size=1, value=0x0
 ```
 
 TODO: What happens when we run Apache NuttX RTOS for PinePhone?
