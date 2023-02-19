@@ -89,7 +89,7 @@ fn hook_memory(
     size: usize,   // Number of bytes accessed
     value: i64     // Read / Write Value
 ) -> bool {
-    // TODO: Simulate Memory-Mapped Input/Output
+    // TODO: Simulate Memory-Mapped Input/Output (UART Controller)
     println!("hook_memory: mem_type={:?}, address={:#x}, size={:?}, value={:#x}", mem_type, address, size, value);
     true
 }
@@ -101,6 +101,7 @@ fn hook_block(
     address: u64,  // Block Address
     size: u32      // Block Size
 ) {
+    // TODO: Trace the flow of emulated code
     println!("hook_block: address={:#x}, size={:?}", address, size);
 }
 
@@ -111,6 +112,7 @@ fn hook_code(
     address: u64,  // Instruction Address
     size: u32      // Instruction Size
 ) {
+    // TODO: Handle special Arm64 Instructions
     println!("hook_code: address={:#x}, size={:?}", address, size);
 }
 
