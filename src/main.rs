@@ -1,14 +1,10 @@
-extern crate alloc;
-
-use alloc::rc::Rc;
-use core::cell::RefCell;
 use unicorn_engine::{Unicorn, RegisterARM64};
 use unicorn_engine::unicorn_const::{Arch, Mode, Permission};
 
 fn main() {
-    // Arm64 Code
+    // Arm64 Machine Code
     let arm64_code: Vec<u8> = vec![
-        0xab, 0x05, 0x00, 0xb8,  // str w11, [x13], #0
+        0xab, 0x05, 0x00, 0xb8,  // str  w11, [x13], #0
         0xaf, 0x05, 0x40, 0x38,  // ldrb w15, [x13], #0
     ];
 
@@ -55,30 +51,11 @@ fn main() {
     // Previously: uc_hook_add(uc, &trace1, UC_HOOK_BLOCK, hook_block, NULL, 1, 0);
 
     // tracing one instruction at ADDRESS with customized callback
-    #[derive(PartialEq, Debug)]
-    struct CodeExpectation(u64, u32);
-    // let expects = vec![
-    //     CodeExpectation(0x1000, 1),
-    //     CodeExpectation(0x1001, 1)
-    // ];
-    let codes: Vec<CodeExpectation> = Vec::new();
-    let codes_cell = Rc::new(RefCell::new(codes));
-
-    let callback_codes = codes_cell.clone();
-    let hook_code = move |_: &mut Unicorn<'_, ()>, address: u64, size: u32| {
-        let mut codes = callback_codes.borrow_mut();
-        codes.push(CodeExpectation(address, size));
-        println!("hook_code: address={:?}, size={:?}", address, size);
-    };
-
-    let _ = emu
-        .add_code_hook(
-            ADDRESS, 
-            ADDRESS, 
-            hook_code
-        ).expect("failed to add code hook");
-
-    // Previously: uc_hook_add(uc, &trace2, UC_HOOK_CODE, hook_code, NULL, ADDRESS, ADDRESS);
+    let _ = emu.add_code_hook(
+        ADDRESS, 
+        ADDRESS, 
+        hook_code  // Hook Function for Code Emulation
+    ).expect("failed to add code hook");
 
     // emulate machine code in infinite time (last param = 0), or when
     // finishing all the code.
@@ -94,4 +71,9 @@ fn main() {
         emu.reg_read(RegisterARM64::X15),
         Ok(0x78)
     );
+}
+
+// Hook Function for Code Emulation
+fn hook_code(_: &mut Unicorn<()>, address: u64, size: u32) {
+    println!("hook_code: address={:?}, size={:?}", address, size);
 }
