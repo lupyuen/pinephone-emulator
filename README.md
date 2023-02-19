@@ -51,13 +51,13 @@ https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5c
 
 Our Hook Function prints all Read / Write Access to Emulated Arm64 Memory.
 
-TODO: What is the return value?
+[(Return value is unused?)](https://github.com/unicorn-engine/unicorn/blob/master/qemu/accel/tcg/cputlb.c#L2004-L2005)
 
 This is how we attach the Hook Function to the Unicorn Emulator...
 
 https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L59-L74
 
-When we run this, we'll see the Read and Write Memory Accesses made by our [Emulated Arm64 Code](https://github.com/lupyuen/pinephone-emulator/blob/bc5643dea66c70f57a150955a12884f695acf1a4/src/main.rs#L7-L8)...
+When we run our Rust Program, we see the Read and Write Memory Accesses made by our [Emulated Arm64 Code](https://github.com/lupyuen/pinephone-emulator/blob/bc5643dea66c70f57a150955a12884f695acf1a4/src/main.rs#L7-L8)...
 
 ```text
 hook_memory: 
@@ -73,7 +73,7 @@ hook_memory:
   value=0x0
 ```
 
-This will be useful when we emulate Memory-Mapped Input/Output on PinePhone.
+This Memory Access Hook Function will be helpful when we emulate Memory-Mapped Input/Output on PinePhone.
 
 (Like for the Allwinner A64 UART Controller)
 
