@@ -2,7 +2,9 @@
 
 _Can we emulate Arm64 PinePhone with [Unicorn Emulator](https://www.unicorn-engine.org/)?_
 
-Let's find out!
+Let's find out! We'll call the [Unicorn Emulator](https://www.unicorn-engine.org/) in Rust (instead of C)...
+
+(I'm too old to write meticulous C... But I'm OK to get nagged by Rust Compiler if I miss something!)
 
 # Emulate Arm64 Machine Code
 
@@ -63,6 +65,8 @@ hook_code: address=0x10000, size=4
 hook_code: address=0x10004, size=4
 ```
 
+TODO: Emulate special Arm64 instructions
+
 # Block Execution Hooks for Arm64 Emulation
 
 TODO: Call Unicorn Emulator to add Block Execution Hooks
@@ -79,8 +83,12 @@ Output:
 hook_block: address=0x10000, size=8
 ```
 
+TODO: Trace the flow of Arm64 execution
+
 TODO: What happens when we run Apache NuttX RTOS for PinePhone?
 
 TODO: Use Unicorn Emulation Hooks to emulate PinePhone's Allwinner A64 UART Controller
 
 TODO: Emulate Apache NuttX NSH Shell on UART Controller
+
+TODO: Emulate PinePhone's Allwinner A64 Display Engine. How to render the emulated graphics: Use Web Browser + WebAssembly + Unicorn.js? Will framebuffer emulation be slow?
