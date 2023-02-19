@@ -41,7 +41,7 @@ The code above works OK for manipulating Arm64 Memory and Arm64 Registers.
 
 Let's try something interesting: Unicorn Hooks...
 
-# Memory Access Hooks for Arm64 Emulation
+# Memory Access Hook for Arm64 Emulation
 
 Unicorn Emulator lets us attach hooks to handle Memory Access.
 
@@ -75,7 +75,7 @@ This will be useful when we emulate Memory-Mapped Input/Output on PinePhone.
 
 Unicorn Emulator allows Code Execution Hooks too...
 
-# Code Execution Hooks for Arm64 Emulation
+# Code Execution Hook for Arm64 Emulation
 
 TODO: Call Unicorn Emulator to add Code Execution Hooks
 
