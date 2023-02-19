@@ -3,21 +3,21 @@ use unicorn_engine::unicorn_const::{Arch, HookType, MemType, Mode, Permission};
 
 /// Emulate some Arm64 Machine Code
 fn main() {
-    // Arm64 Machine Code
+    // Arm64 Memory Address where emulation starts
+    const ADDRESS: u64 = 0x10000;
+
+    // Arm64 Machine Code for the above address
     let arm64_code: Vec<u8> = vec![
         0xab, 0x05, 0x00, 0xb8,  // str  w11, [x13], #0
         0xaf, 0x05, 0x40, 0x38,  // ldrb w15, [x13], #0
     ];
 
-    // Initialize emulator in ARM64 mode
+    // Initialize emulator in Arm64 mode
     let mut unicorn = Unicorn::new(
         Arch::ARM64,
         Mode::LITTLE_ENDIAN
     ).expect("failed to initialize Unicorn instance");
     let emu = &mut unicorn;
-
-    // Memory address where emulation starts
-    const ADDRESS: u64 = 0x10000;
 
     // Map 2MB memory for this emulation
     emu.mem_map(
@@ -26,7 +26,7 @@ fn main() {
         Permission::ALL   // Permissions
     ).expect("failed to map code page");
 
-    // Write machine code to be emulated to memory
+    // Write machine code to emulated memory
     emu.mem_write(
         ADDRESS, 
         &arm64_code
