@@ -51,6 +51,8 @@ https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5c
 
 Our Hook Function prints all Read / Write Access to Emulated Arm64 Memory.
 
+TODO: What is the return value?
+
 This is how we attach the Hook Function to the Unicorn Emulator...
 
 https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L59-L74
