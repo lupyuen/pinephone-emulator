@@ -14,7 +14,7 @@ Suppose we want to emulate some Arm64 Machine Code...
 
 https://github.com/lupyuen/pinephone-emulator/blob/bc5643dea66c70f57a150955a12884f695acf1a4/src/main.rs#L7-L8
 
-Here's a simple Rust program that calls Unicorn Emulator to emulate the above code...
+Here's our Rust Program that calls Unicorn Emulator to emulate the Arm64 Machine Code...
 
 https://github.com/lupyuen/pinephone-emulator/blob/bc5643dea66c70f57a150955a12884f695acf1a4/src/main.rs#L1-L55
 
@@ -37,7 +37,7 @@ Finished dev [unoptimized + debuginfo] target(s) in 0.08s
   Running `target/debug/pinephone-emulator`
 ```
 
-The code above works OK for manipulating Arm64 Memory and Arm64 Registers.
+Our Rust Program works OK for emulating Arm64 Memory and Arm64 Registers.
 
 Let's try something interesting: Unicorn Hooks...
 
