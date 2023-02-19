@@ -16,6 +16,25 @@ Here's a simple Rust program that calls Unicorn Emulator to emulate the above co
 
 https://github.com/lupyuen/pinephone-emulator/blob/bc5643dea66c70f57a150955a12884f695acf1a4/src/main.rs#L1-L55
 
+We add `unicorn-engine` to [Cargo.toml](Cargo.toml)...
+
+https://github.com/lupyuen/pinephone-emulator/blob/bc5643dea66c70f57a150955a12884f695acf1a4/Cargo.toml#L8-L9
+
+And we run the code...
+
+```text
+→ cargo run --verbose
+  Fresh cc v1.0.79
+  Fresh cmake v0.1.49
+  Fresh pkg-config v0.3.26
+  Fresh bitflags v1.3.2
+  Fresh libc v0.2.139
+  Fresh unicorn-engine v2.0.1
+  Fresh pinephone-emulator v0.1.0
+Finished dev [unoptimized + debuginfo] target(s) in 0.08s
+  Running `target/debug/pinephone-emulator`
+```
+
 The code above works OK for manipulating Arm64 Memory and Arm64 Registers.
 
 Let's try something interesting: Unicorn Hooks...
