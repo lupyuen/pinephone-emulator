@@ -8,11 +8,17 @@ Let's find out! We'll call the [Unicorn Emulator](https://www.unicorn-engine.org
 
 # Emulate Arm64 Machine Code
 
-Here's a simple Rust program that calls Unicorn Emulator to emuate some Arm64 Machine Code...
+Suppose we want to emulate some Arm64 Machine Code...
+
+https://github.com/lupyuen/pinephone-emulator/blob/bc5643dea66c70f57a150955a12884f695acf1a4/src/main.rs#L7-L8
+
+Here's a simple Rust program that calls Unicorn Emulator to emulate the above code...
 
 https://github.com/lupyuen/pinephone-emulator/blob/bc5643dea66c70f57a150955a12884f695acf1a4/src/main.rs#L1-L55
 
-The code above works OK for manipulating Arm64 Registers. Let's do something more interesting: Unicorn Hooks...
+The code above works OK for manipulating Arm64 Memory and Arm64 Registers.
+
+Let's try something interesting: Unicorn Hooks...
 
 # Memory Access Hooks for Arm64 Emulation
 
