@@ -45,9 +45,13 @@ Finished dev [unoptimized + debuginfo] target(s) in 0.08s
 
 Our Rust Program works OK for emulating Arm64 Memory and Arm64 Registers.
 
-Let's try something interesting: Unicorn Hooks...
+Let's talk about Arm64 Memory-Mapped Input / Output...
 
 # Memory Access Hook for Arm64 Emulation
+
+![Memory Access Hook for Arm64 Emulation](https://lupyuen.github.io/images/unicorn-code2.png)
+
+_How will we emulate Arm64 Memory-Mapped Input / Output?_
 
 Unicorn Emulator lets us attach hooks to Emulate Memory Access.
 
@@ -57,7 +61,7 @@ https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5c
 
 Our Hook Function prints all Read / Write Access to Emulated Arm64 Memory.
 
-[(Return value is unused?)](https://github.com/unicorn-engine/unicorn/blob/master/qemu/accel/tcg/cputlb.c#L2004-L2005)
+[(Return value is unused)](https://github.com/unicorn-engine/unicorn/blob/master/qemu/accel/tcg/cputlb.c#L2004-L2005)
 
 This is how we attach the Hook Function to the Unicorn Emulator...
 
