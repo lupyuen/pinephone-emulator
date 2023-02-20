@@ -405,6 +405,47 @@ hook_memory: address=0x400b6a54, size=1, mem_type=WRITE, value=0x0
 
 TODO: Disable logging and find out what the emulator is running
 
+```text
+hook_block:  address=0x40080cec, size=16
+hook_code:   address=0x40080cec, size=4
+hook_memory: address=0x400c3f90, size=8, mem_type=READ, value=0x0
+hook_memory: address=0x400c3f98, size=8, mem_type=READ, value=0x0
+hook_code:   address=0x40080cf0, size=4
+hook_memory: address=0x400c3fa0, size=8, mem_type=READ, value=0x0
+hook_code:   address=0x40080cf4, size=4
+hook_memory: address=0x400c3f80, size=8, mem_type=READ, value=0x0
+hook_memory: address=0x400c3f88, size=8, mem_type=READ, value=0x0
+hook_code:   address=0x40080cf8, size=4
+hook_block:  address=0x40080eb0, size=12
+hook_code:   address=0x40080eb0, size=4
+hook_code:   address=0x40080eb4, size=4
+hook_code:   address=0x40080eb8, size=4
+hook_block:  address=0x40080ebc, size=16
+hook_code:   address=0x40080ebc, size=4
+hook_code:   address=0x40080ec0, size=4
+hook_code:   address=0x40080ec4, size=4
+hook_code:   address=0x40080ec8, size=4
+hook_block:  address=0x40080ecc, size=16
+hook_code:   address=0x40080ecc, size=4
+hook_code:   address=0x40080ed0, size=4
+hook_code:   address=0x40080ed4, size=4
+hook_code:   address=0x40080ed8, size=4
+hook_block:  address=0x40080edc, size=12
+hook_code:   address=0x40080edc, size=4
+hook_code:   address=0x40080ee0, size=4
+hook_code:   address=0x40080ee4, size=4
+hook_block:  address=0x40080ee8, size=4
+hook_code:   address=0x40080ee8, size=4
+hook_block:  address=0x40080eec, size=16
+hook_code:   address=0x40080eec, size=4
+hook_code:   address=0x40080ef0, size=4
+hook_code:   address=0x40080ef4, size=4
+hook_code:   address=0x40080ef8, size=4
+thread 'main' panicked at 'assertion failed: `(left == right)`
+  left: `Ok(3)`,
+ right: `Ok(120)`', src/main.rs:88:5
+```
+
 # TODO
 
 TODO: Use Unicorn Emulation Hooks to emulate PinePhone's Allwinner A64 UART Controller
