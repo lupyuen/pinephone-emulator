@@ -35,8 +35,14 @@ aarch64-none-elf-objdump \
 
 Which produces...
 
--   [nuttx.bin](nuttx.bin): Binary image for Apache NuttX RTOS
+-   [nuttx.bin](nuttx.bin): Binary Image for Apache NuttX RTOS
 
     (Address: `0x4008` `0000`, Size: 279 KB)
 
 -   [nuttx.S](nuttx.S): Arm64 Disassembly for Apache NuttX RTOS
+
+-   [nuttx](nuttx): ELF Image for Apache NuttX RTOS
+
+-   [nuttx.map](nuttx.map): Linker Map for Apache NuttX RTOS
+
+-   [nuttx.config](nuttx.config): Build Configuration for Apache NuttX RTOS
