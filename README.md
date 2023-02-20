@@ -229,7 +229,11 @@ TODO: What happens when we run [Apache NuttX RTOS for PinePhone](nuttx) in Unico
 
 [(Source)](https://github.com/lupyuen/pinephone-emulator/blob/main/src/main.rs#L6-L32)
 
-Here's the output...
+Unicorn Emulator hangs, waiting forever for UART Controller to be ready...
+
+# Unicorn Emulator Waits Forever for UART Controller Ready
+
+TODO: Here's the output...
 
 ```text
 hook_block:  address=0x40080000, size=8
@@ -384,6 +388,8 @@ SECTION_FUNC(text, up_lowputc)
 ```
 
 [(Source)](nuttx/nuttx.S)
+
+https://github.com/lupyuen/pinephone-emulator/blob/a1fb82d829856d86d6845c477709c2be24373aca/nuttx/nuttx.S#L3398-L3411
 
 # TODO
 
