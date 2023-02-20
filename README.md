@@ -126,8 +126,6 @@ hook_block: address=0x10000, size=8
 
 TODO: Trace the flow of Arm64 execution
 
-TODO: What happens when we run Apache NuttX RTOS for PinePhone?
-
 TODO: Use Unicorn Emulation Hooks to emulate PinePhone's Allwinner A64 UART Controller
 
 TODO: Emulate Apache NuttX NSH Shell on UART Controller
@@ -139,3 +137,81 @@ TODO: Emulate Interrupts
 TODO: Emulate Multiple CPUs
 
 TODO: Emulate Memory Protection
+
+TODO: What happens when we run [Apache NuttX RTOS for PinePhone](nuttx) in Unicorn Emulator?
+
+```rust
+// Arm64 Memory Address where emulation starts
+const ADDRESS: u64 = 0x40080000;
+
+// Arm64 Machine Code for the above address
+let arm64_code = include_bytes!("../nuttx/nuttx.bin");
+```
+
+Here's the output...
+
+```text
+hook_block:  address=0x40080000, size=8
+hook_code:   address=0x40080000, size=4
+hook_code:   address=0x40080004, size=4
+hook_block:  address=0x40080040, size=4
+hook_code:   address=0x40080040, size=4
+hook_block:  address=0x40080044, size=12
+hook_code:   address=0x40080044, size=4
+hook_memory: address=0x400801a8, size=8, mem_type=READ, value=0x0
+hook_code:   address=0x40080048, size=4
+hook_memory: address=0x400801b0, size=8, mem_type=READ, value=0x0
+hook_code:   address=0x4008004c, size=4
+hook_block:  address=0x40080118, size=16
+hook_code:   address=0x40080118, size=4
+hook_code:   address=0x4008011c, size=4
+hook_code:   address=0x40080120, size=4
+hook_code:   address=0x40080124, size=4
+hook_block:  address=0x40080128, size=8
+hook_code:   address=0x40080128, size=4
+hook_code:   address=0x4008012c, size=4
+hook_block:  address=0x40080130, size=8
+hook_code:   address=0x40080130, size=4
+hook_code:   address=0x40080134, size=4
+hook_block:  address=0x4008015c, size=12
+hook_code:   address=0x4008015c, size=4
+hook_code:   address=0x40080160, size=4
+hook_code:   address=0x40080164, size=4
+hook_block:  address=0x40080168, size=4
+hook_code:   address=0x40080168, size=4
+hook_block:  address=0x4008016c, size=8
+hook_code:   address=0x4008016c, size=4
+hook_code:   address=0x40080170, size=4
+hook_block:  address=0x40080174, size=4
+hook_code:   address=0x40080174, size=4
+hook_block:  address=0x40080178, size=8
+hook_code:   address=0x40080178, size=4
+hook_code:   address=0x4008017c, size=4
+hook_block:  address=0x40080050, size=4
+hook_code:   address=0x40080050, size=4
+hook_block:  address=0x400801e8, size=4
+hook_code:   address=0x400801e8, size=4
+hook_block:  address=0x40080054, size=12
+hook_code:   address=0x40080054, size=4
+hook_code:   address=0x40080058, size=4
+hook_memory: address=0x400801b8, size=8, mem_type=READ, value=0x0
+hook_code:   address=0x4008005c, size=4
+hook_block:  address=0x40080180, size=12
+hook_code:   address=0x40080180, size=4
+hook_memory: address=0x400ab000, size=1, mem_type=READ, value=0x0
+hook_code:   address=0x40080184, size=4
+hook_code:   address=0x40080188, size=4
+hook_block:  address=0x4008018c, size=8
+hook_code:   address=0x4008018c, size=4
+hook_memory: address=0x400c3ff0, size=8, mem_type=WRITE, value=0x0
+hook_memory: address=0x400c3ff8, size=8, mem_type=WRITE, value=0x40080060
+hook_code:   address=0x40080190, size=4
+hook_block:  address=0x400801f0, size=16
+hook_code:   address=0x400801f0, size=4
+hook_memory: address=0x40080208, size=8, mem_type=READ, value=0x0
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ_UNMAPPED, value=0x0
+thread 'main' panicked at 'assertion failed: `(left == right)`
+  left: `Ok(29523968)`,
+ right: `Ok(120)`', src/main.rs:74:5
+```

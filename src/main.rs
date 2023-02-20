@@ -4,13 +4,10 @@ use unicorn_engine::unicorn_const::{Arch, HookType, MemType, Mode, Permission};
 /// Emulate some Arm64 Machine Code
 fn main() {
     // Arm64 Memory Address where emulation starts
-    const ADDRESS: u64 = 0x10000;
+    const ADDRESS: u64 = 0x40080000;
 
     // Arm64 Machine Code for the above address
-    let arm64_code: Vec<u8> = vec![
-        0xab, 0x05, 0x00, 0xb8,  // str  w11, [x13], #0
-        0xaf, 0x05, 0x40, 0x38,  // ldrb w15, [x13], #0
-    ];
+    let arm64_code = include_bytes!("../nuttx/nuttx.bin");
 
     // Initialize emulator in Arm64 mode
     let mut unicorn = Unicorn::new(
@@ -29,7 +26,7 @@ fn main() {
     // Write machine code to emulated memory
     emu.mem_write(
         ADDRESS, 
-        &arm64_code
+        arm64_code
     ).expect("failed to write instructions");
 
     // Register Values
@@ -90,7 +87,7 @@ fn hook_memory(
     value: i64     // Read / Write Value
 ) -> bool {
     // TODO: Simulate Memory-Mapped Input/Output (UART Controller)
-    println!("hook_memory: mem_type={:?}, address={:#x}, size={:?}, value={:#x}", mem_type, address, size, value);
+    println!("hook_memory: address={:#010x}, size={:?}, mem_type={:?}, value={:#x}", address, size, mem_type, value);
     true
 }
 
@@ -102,7 +99,7 @@ fn hook_block(
     size: u32      // Block Size
 ) {
     // TODO: Trace the flow of emulated code
-    println!("hook_block: address={:#x}, size={:?}", address, size);
+    println!("hook_block:  address={:#010x}, size={:?}", address, size);
 }
 
 // Hook Function for Code Emulation.
@@ -113,13 +110,5 @@ fn hook_code(
     size: u32      // Instruction Size
 ) {
     // TODO: Handle special Arm64 Instructions
-    println!("hook_code: address={:#x}, size={:?}", address, size);
+    println!("hook_code:   address={:#010x}, size={:?}", address, size);
 }
-
-/* Output:
-hook_block: address=0x10000, size=8
-hook_code: address=0x10000, size=4
-hook_memory: mem_type=WRITE, address=0x10008, size=4, value=0x12345678
-hook_code: address=0x10004, size=4
-hook_memory: mem_type=READ, address=0x10008, size=1, value=0x0
-*/
