@@ -4,7 +4,7 @@ use unicorn_engine::unicorn_const::{Arch, HookType, MemType, Mode, Permission};
 /// Emulate some Arm64 Machine Code
 fn main() {
     // Arm64 Memory Address where emulation starts
-    const ADDRESS: u64 = 0x40080000;
+    const ADDRESS: u64 = 0x4008_0000;
 
     // Arm64 Machine Code for the above address
     let arm64_code = include_bytes!("../nuttx/nuttx.bin");
@@ -23,9 +23,10 @@ fn main() {
         Permission::ALL    // Read, Write and Execute Access
     ).expect("failed to map code page");
 
-    // Map 16 MB at 0x01000000 for Memory-Mapped I/O by Allwinner A64 Peripherals
+    // Map 16 MB at 0x0100 0000 for Memory-Mapped I/O by Allwinner A64 Peripherals
+    // https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/hardware/a64_memorymap.h#L33-L51
     emu.mem_map(
-        0x01000000,        // Address
+        0x0100_0000,       // Address
         16 * 1024 * 1024,  // Size
         Permission::READ | Permission::WRITE  // Read and Write Access
     ).expect("failed to map memory mapped I/O");

@@ -142,7 +142,7 @@ TODO: What happens when we run [Apache NuttX RTOS for PinePhone](nuttx) in Unico
 
 ```rust
     // Arm64 Memory Address where emulation starts
-    const ADDRESS: u64 = 0x40080000;
+    const ADDRESS: u64 = 0x4008_0000;
 
     // Arm64 Machine Code for the above address
     let arm64_code = include_bytes!("../nuttx/nuttx.bin");
@@ -154,22 +154,23 @@ TODO: What happens when we run [Apache NuttX RTOS for PinePhone](nuttx) in Unico
     ).expect("failed to initialize Unicorn instance");
     let emu = &mut unicorn;
 
-    // Map 2 MB memory at the above address for Arm64 Machine Code
+    // Map executable memory at the above address for Arm64 Machine Code
     emu.mem_map(
-        ADDRESS,          // Address
-        2 * 1024 * 1024,  // Size
-        Permission::ALL   // Read, Write and Execute Access
+        ADDRESS,           // Address
+        arm64_code.len(),  // Size
+        Permission::ALL    // Read, Write and Execute Access
     ).expect("failed to map code page");
 
-    // Map 16 MB at 0x01000000 for Memory-Mapped I/O by Allwinner A64 Peripherals
+    // Map 16 MB at 0x0100 0000 for Memory-Mapped I/O by Allwinner A64 Peripherals
+    // https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/hardware/a64_memorymap.h#L33-L51
     emu.mem_map(
-        0x01000000,        // Address
+        0x0100_0000,       // Address
         16 * 1024 * 1024,  // Size
         Permission::READ | Permission::WRITE  // Read and Write Access
     ).expect("failed to map memory mapped I/O");
 ```
 
-[(Source)](https://github.com/lupyuen/pinephone-emulator/blob/main/src/main.rs#L6-L31)
+[(Source)](https://github.com/lupyuen/pinephone-emulator/blob/main/src/main.rs#L6-L32)
 
 Here's the output...
 
