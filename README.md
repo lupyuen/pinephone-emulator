@@ -168,7 +168,7 @@ hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
 
 [(Source)](https://github.com/lupyuen/pinephone-emulator/blob/cd030954c2ace4cf0207872f275abc3ffb7343c6/README.md)
 
-# Unmapped Memory
+# Unmapped Memory in Unicorn Emulator
 
 TODO
 
@@ -193,19 +193,7 @@ Here's the fix...
 
 [(Source)](https://github.com/lupyuen/pinephone-emulator/blob/main/src/main.rs#L6-L32)
 
-# TODO
-
-TODO: Use Unicorn Emulation Hooks to emulate PinePhone's Allwinner A64 UART Controller
-
-TODO: Emulate Apache NuttX NSH Shell on UART Controller
-
-TODO: Emulate PinePhone's Allwinner A64 Display Engine. How to render the emulated graphics: Use Web Browser + WebAssembly + Unicorn.js? Will framebuffer emulation be slow?
-
-TODO: Emulate Interrupts
-
-TODO: Emulate Multiple CPUs
-
-TODO: Emulate Memory Protection
+# Run Apache NuttX RTOS in Unicorn Emulator
 
 TODO: What happens when we run [Apache NuttX RTOS for PinePhone](nuttx) in Unicorn Emulator?
 
@@ -396,3 +384,17 @@ SECTION_FUNC(text, up_lowputc)
 ```
 
 [(Source)](nuttx/nuttx.S)
+
+# TODO
+
+TODO: Use Unicorn Emulation Hooks to emulate PinePhone's Allwinner A64 UART Controller
+
+TODO: Emulate Apache NuttX NSH Shell on UART Controller
+
+TODO: Emulate PinePhone's Allwinner A64 Display Engine. How to render the emulated graphics: Use Web Browser + WebAssembly + Unicorn.js? Will framebuffer emulation be slow?
+
+TODO: Emulate Interrupts
+
+TODO: Emulate Multiple CPUs
+
+TODO: Emulate Memory Protection
