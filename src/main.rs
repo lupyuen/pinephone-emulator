@@ -16,12 +16,19 @@ fn main() {
     ).expect("failed to initialize Unicorn instance");
     let emu = &mut unicorn;
 
-    // Map 2MB memory for this emulation
+    // Map 2 MB memory at the above address for Arm64 Machine Code
     emu.mem_map(
         ADDRESS,          // Address
         2 * 1024 * 1024,  // Size
-        Permission::ALL   // Permissions
+        Permission::ALL   // Read, Write and Execute Access
     ).expect("failed to map code page");
+
+    // Map 16 MB at 0x01000000 for Memory-Mapped I/O by Allwinner A64 Peripherals
+    emu.mem_map(
+        0x01000000,        // Address
+        16 * 1024 * 1024,  // Size
+        Permission::READ | Permission::WRITE  // Read and Write Access
+    ).expect("failed to map memory mapped I/O");
 
     // Write machine code to emulated memory
     emu.mem_write(

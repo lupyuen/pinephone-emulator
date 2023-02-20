@@ -141,12 +141,35 @@ TODO: Emulate Memory Protection
 TODO: What happens when we run [Apache NuttX RTOS for PinePhone](nuttx) in Unicorn Emulator?
 
 ```rust
-// Arm64 Memory Address where emulation starts
-const ADDRESS: u64 = 0x40080000;
+    // Arm64 Memory Address where emulation starts
+    const ADDRESS: u64 = 0x40080000;
 
-// Arm64 Machine Code for the above address
-let arm64_code = include_bytes!("../nuttx/nuttx.bin");
+    // Arm64 Machine Code for the above address
+    let arm64_code = include_bytes!("../nuttx/nuttx.bin");
+
+    // Initialize emulator in Arm64 mode
+    let mut unicorn = Unicorn::new(
+        Arch::ARM64,
+        Mode::LITTLE_ENDIAN
+    ).expect("failed to initialize Unicorn instance");
+    let emu = &mut unicorn;
+
+    // Map 2 MB memory at the above address for Arm64 Machine Code
+    emu.mem_map(
+        ADDRESS,          // Address
+        2 * 1024 * 1024,  // Size
+        Permission::ALL   // Read, Write and Execute Access
+    ).expect("failed to map code page");
+
+    // Map 16 MB at 0x01000000 for Memory-Mapped I/O by Allwinner A64 Peripherals
+    emu.mem_map(
+        0x01000000,        // Address
+        16 * 1024 * 1024,  // Size
+        Permission::READ | Permission::WRITE  // Read and Write Access
+    ).expect("failed to map memory mapped I/O");
 ```
+
+[(Source)](https://github.com/lupyuen/pinephone-emulator/blob/main/src/main.rs#L6-L31)
 
 Here's the output...
 
@@ -210,8 +233,96 @@ hook_block:  address=0x400801f0, size=16
 hook_code:   address=0x400801f0, size=4
 hook_memory: address=0x40080208, size=8, mem_type=READ, value=0x0
 hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ_UNMAPPED, value=0x0
-thread 'main' panicked at 'assertion failed: `(left == right)`
-  left: `Ok(29523968)`,
- right: `Ok(120)`', src/main.rs:74:5
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
 ```
+
+TODO: Loops forever waiting for UART Controller to be ready. Need to simulate UART Controller Ready.
+
+```text
+SECTION_FUNC(text, up_lowputc)
+    ldr   x15, =UART0_BASE_ADDRESS
+    400801f0:	580000cf 	ldr	x15, 40080208 <up_lowputc+0x18>
+/private/tmp/nuttx/nuttx/arch/arm64/src/chip/a64_lowputc.S:89
+    early_uart_ready x15, w2
+    400801f4:	794029e2 	ldrh	w2, [x15, #20]
+    400801f8:	721b005f 	tst	w2, #0x20
+    400801fc:	54ffffc0 	b.eq	400801f4 <up_lowputc+0x4>  // b.none
+/private/tmp/nuttx/nuttx/arch/arm64/src/chip/a64_lowputc.S:90
+    early_uart_transmit x15, w0
+    40080200:	390001e0 	strb	w0, [x15]
+/private/tmp/nuttx/nuttx/arch/arm64/src/chip/a64_lowputc.S:91
+    ret
+    40080204:	d65f03c0 	ret
+```
+
+[(Source)](nuttx/nuttx.S)
