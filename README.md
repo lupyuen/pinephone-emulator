@@ -126,6 +126,75 @@ hook_block: address=0x10000, size=8
 
 TODO: Trace the flow of Arm64 execution
 
+# What is a Block of Arm64 Instructions?
+
+TODO
+
+```text
+SECTION_FUNC(text, up_lowputc)
+    ldr   x15, =UART0_BASE_ADDRESS
+    400801f0:	580000cf 	ldr	x15, 40080208 <up_lowputc+0x18>
+/private/tmp/nuttx/nuttx/arch/arm64/src/chip/a64_lowputc.S:89
+    early_uart_ready x15, w2
+    400801f4:	794029e2 	ldrh	w2, [x15, #20]
+    400801f8:	721b005f 	tst	w2, #0x20
+    400801fc:	54ffffc0 	b.eq	400801f4 <up_lowputc+0x4>  // b.none
+/private/tmp/nuttx/nuttx/arch/arm64/src/chip/a64_lowputc.S:90
+    early_uart_transmit x15, w0
+    40080200:	390001e0 	strb	w0, [x15]
+/private/tmp/nuttx/nuttx/arch/arm64/src/chip/a64_lowputc.S:91
+    ret
+    40080204:	d65f03c0 	ret
+```
+
+[(Source)](nuttx/nuttx.S)
+
+Output:
+
+```text
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+```
+
+[(Source)](https://github.com/lupyuen/pinephone-emulator/blob/cd030954c2ace4cf0207872f275abc3ffb7343c6/README.md)
+
+# Unmapped Memory
+
+TODO
+
+```text
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ_UNMAPPED, value=0x0
+```
+
+[(Source)](https://github.com/lupyuen/pinephone-emulator/blob/b842358ba457b67ffa9f4c1a362b0386cfd97c4a/README.md)
+
+Here's the fix...
+
+```rust
+    // Map 16 MB at 0x0100 0000 for Memory-Mapped I/O by Allwinner A64 Peripherals
+    // https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/hardware/a64_memorymap.h#L33-L51
+    emu.mem_map(
+        0x0100_0000,       // Address
+        16 * 1024 * 1024,  // Size
+        Permission::READ | Permission::WRITE  // Read and Write Access
+    ).expect("failed to map memory mapped I/O");
+```
+
+[(Source)](https://github.com/lupyuen/pinephone-emulator/blob/main/src/main.rs#L6-L32)
+
+# TODO
+
 TODO: Use Unicorn Emulation Hooks to emulate PinePhone's Allwinner A64 UART Controller
 
 TODO: Emulate Apache NuttX NSH Shell on UART Controller
