@@ -347,9 +347,15 @@ SECTION_FUNC(text, up_lowputc)
     40080204:	d65f03c0 	ret
 ```
 
-[(Source)](nuttx/nuttx.S)
+[(Source)](https://github.com/lupyuen/pinephone-emulator/blob/a1fb82d829856d86d6845c477709c2be24373aca/nuttx/nuttx.S#L3398-L3411)
 
-https://github.com/lupyuen/pinephone-emulator/blob/a1fb82d829856d86d6845c477709c2be24373aca/nuttx/nuttx.S#L3398-L3411
+According to the Allwinner A64 Doc...
+
+-   ["Wait To Transmit"](https://lupyuen.github.io/articles/serial#wait-to-transmit)
+
+`0x01c2` `8014` is the UART Line Status Register (UART_LSR) at Offset 0x14.
+
+Bit 5 needs to be set to 1 to indicate that the UART Transmit FIFO is ready.
 
 # TODO
 

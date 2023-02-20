@@ -37,6 +37,12 @@ fn main() {
         arm64_code
     ).expect("failed to write instructions");
 
+    // Allwinner A64 UART Line Status Register (UART_LSR) at Offset 0x14.
+    // To indicate that the UART Transmit FIFO is ready:
+    // Set Bit 5 to 1.
+    emu.mem_write(0x01c2_8014, &[0b10_0000])
+        .expect("failed to set UART_LSR");
+
     // Register Values
     const X11: u64 = 0x12345678;    // X11 register
     const X13: u64 = 0x10000 + 0x8; // X13 register
