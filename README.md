@@ -328,7 +328,7 @@ hook_code:   address=0x400801f4, size=4
 hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
 ```
 
-TODO: Loops forever waiting for UART Controller to be ready. Need to simulate UART Controller Ready.
+TODO: Loops forever waiting for UART Controller to be ready at `0x01c2` `8014`. Need to simulate UART Controller Ready.
 
 ```text
 SECTION_FUNC(text, up_lowputc)
