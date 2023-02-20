@@ -179,55 +179,15 @@ hook_memory: address=0x01c28014, size=2, mem_type=READ_UNMAPPED, value=0x0
 
 [(Source)](https://github.com/lupyuen/pinephone-emulator/blob/b842358ba457b67ffa9f4c1a362b0386cfd97c4a/README.md)
 
-Here's the fix...
+Here's how we map the memory...
 
-```rust
-    // Map 16 MB at 0x0100 0000 for Memory-Mapped I/O by Allwinner A64 Peripherals
-    // https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/hardware/a64_memorymap.h#L33-L51
-    emu.mem_map(
-        0x0100_0000,       // Address
-        16 * 1024 * 1024,  // Size
-        Permission::READ | Permission::WRITE  // Read and Write Access
-    ).expect("failed to map memory mapped I/O");
-```
-
-[(Source)](https://github.com/lupyuen/pinephone-emulator/blob/main/src/main.rs#L6-L32)
+https://github.com/lupyuen/pinephone-emulator/blob/cd030954c2ace4cf0207872f275abc3ffb7343c6/src/main.rs#L26-L32
 
 # Run Apache NuttX RTOS in Unicorn Emulator
 
 TODO: What happens when we run [Apache NuttX RTOS for PinePhone](nuttx) in Unicorn Emulator?
 
-```rust
-    // Arm64 Memory Address where emulation starts
-    const ADDRESS: u64 = 0x4008_0000;
-
-    // Arm64 Machine Code for the above address
-    let arm64_code = include_bytes!("../nuttx/nuttx.bin");
-
-    // Initialize emulator in Arm64 mode
-    let mut unicorn = Unicorn::new(
-        Arch::ARM64,
-        Mode::LITTLE_ENDIAN
-    ).expect("failed to initialize Unicorn instance");
-    let emu = &mut unicorn;
-
-    // Map executable memory at the above address for Arm64 Machine Code
-    emu.mem_map(
-        ADDRESS,           // Address
-        arm64_code.len(),  // Size
-        Permission::ALL    // Read, Write and Execute Access
-    ).expect("failed to map code page");
-
-    // Map 16 MB at 0x0100 0000 for Memory-Mapped I/O by Allwinner A64 Peripherals
-    // https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/hardware/a64_memorymap.h#L33-L51
-    emu.mem_map(
-        0x0100_0000,       // Address
-        16 * 1024 * 1024,  // Size
-        Permission::READ | Permission::WRITE  // Read and Write Access
-    ).expect("failed to map memory mapped I/O");
-```
-
-[(Source)](https://github.com/lupyuen/pinephone-emulator/blob/main/src/main.rs#L6-L32)
+https://github.com/lupyuen/pinephone-emulator/blob/cd030954c2ace4cf0207872f275abc3ffb7343c6/src/main.rs#L6-L32
 
 Unicorn Emulator hangs, waiting forever for UART Controller to be ready...
 
