@@ -256,6 +256,37 @@ hook_code:   address=0x400801f0, size=4
 hook_memory: address=0x40080208, size=8, mem_type=READ, value=0x0
 hook_code:   address=0x400801f4, size=4
 hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+
 hook_code:   address=0x400801f8, size=4
 hook_code:   address=0x400801fc, size=4
 hook_block:  address=0x400801f4, size=12
@@ -266,61 +297,43 @@ hook_code:   address=0x400801fc, size=4
 hook_block:  address=0x400801f4, size=12
 hook_code:   address=0x400801f4, size=4
 hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+
 hook_code:   address=0x400801f8, size=4
 hook_code:   address=0x400801fc, size=4
 hook_block:  address=0x400801f4, size=12
 hook_code:   address=0x400801f4, size=4
 hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+
 hook_code:   address=0x400801f8, size=4
 hook_code:   address=0x400801fc, size=4
 hook_block:  address=0x400801f4, size=12
 hook_code:   address=0x400801f4, size=4
 hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+
 hook_code:   address=0x400801f8, size=4
 hook_code:   address=0x400801fc, size=4
 hook_block:  address=0x400801f4, size=12
 hook_code:   address=0x400801f4, size=4
 hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+
 hook_code:   address=0x400801f8, size=4
 hook_code:   address=0x400801fc, size=4
 hook_block:  address=0x400801f4, size=12
 hook_code:   address=0x400801f4, size=4
 hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+
 hook_code:   address=0x400801f8, size=4
 hook_code:   address=0x400801fc, size=4
 hook_block:  address=0x400801f4, size=12
 hook_code:   address=0x400801f4, size=4
 hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+
 hook_code:   address=0x400801f8, size=4
 hook_code:   address=0x400801fc, size=4
 hook_block:  address=0x400801f4, size=12
 hook_code:   address=0x400801f4, size=4
 hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
-hook_code:   address=0x400801f8, size=4
-hook_code:   address=0x400801fc, size=4
-hook_block:  address=0x400801f4, size=12
-hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
-hook_code:   address=0x400801f8, size=4
-hook_code:   address=0x400801fc, size=4
-hook_block:  address=0x400801f4, size=12
-hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
-hook_code:   address=0x400801f8, size=4
-hook_code:   address=0x400801fc, size=4
-hook_block:  address=0x400801f4, size=12
-hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
-hook_code:   address=0x400801f8, size=4
-hook_code:   address=0x400801fc, size=4
-hook_block:  address=0x400801f4, size=12
-hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
-hook_code:   address=0x400801f8, size=4
-hook_code:   address=0x400801fc, size=4
-hook_block:  address=0x400801f4, size=12
-hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+
 hook_code:   address=0x400801f8, size=4
 hook_code:   address=0x400801fc, size=4
 hook_block:  address=0x400801f4, size=12
@@ -355,7 +368,42 @@ According to the Allwinner A64 Doc...
 
 `0x01c2` `8014` is the UART Line Status Register (UART_LSR) at Offset 0x14.
 
-Bit 5 needs to be set to 1 to indicate that the UART Transmit FIFO is ready.
+Bit 5 needs to be set to 1 to indicate that the UART Transmit FIFO is ready, like this...
+
+https://github.com/lupyuen/pinephone-emulator/blob/6dd4c932fbc503e73c4fb842b236c2f8160195d6/src/main.rs#L40-L44
+
+Unicorn Emulator now continues execution to `memset`...
+
+```text
+hook_code:   address=0x40089338, size=4
+hook_code:   address=0x4008933c, size=4
+hook_block:  address=0x40089328, size=8
+hook_code:   address=0x40089328, size=4
+hook_code:   address=0x4008932c, size=4
+hook_block:  address=0x40089334, size=12
+hook_code:   address=0x40089334, size=4
+hook_memory: address=0x400b6a52, size=1, mem_type=WRITE, value=0x0
+
+hook_code:   address=0x40089338, size=4
+hook_code:   address=0x4008933c, size=4
+hook_block:  address=0x40089328, size=8
+hook_code:   address=0x40089328, size=4
+hook_code:   address=0x4008932c, size=4
+hook_block:  address=0x40089334, size=12
+hook_code:   address=0x40089334, size=4
+hook_memory: address=0x400b6a53, size=1, mem_type=WRITE, value=0x0
+
+hook_code:   address=0x40089338, size=4
+hook_code:   address=0x4008933c, size=4
+hook_block:  address=0x40089328, size=8
+hook_code:   address=0x40089328, size=4
+hook_code:   address=0x4008932c, size=4
+hook_block:  address=0x40089334, size=12
+hook_code:   address=0x40089334, size=4
+hook_memory: address=0x400b6a54, size=1, mem_type=WRITE, value=0x0
+```
+
+TODO: Disable logging and find out what the emulator is running
 
 # TODO
 
