@@ -446,7 +446,21 @@ thread 'main' panicked at 'halted emulation: EXCEPTION', src/main.rs:85:7
 
 Unicorn Emulator halts at the MMU / EL1 code at `0x4008` `0ef8`...
 
+```text
+/private/tmp/nuttx/nuttx/arch/arm64/src/common/arm64_mmu.c:544
+  write_sysreg((value | SCTLR_M_BIT | SCTLR_C_BIT), sctlr_el1);
+    40080ef0:	d28000a1 	mov	x1, #0x5                   	// #5
+    40080ef4:	aa010000 	orr	x0, x0, x1
+    40080ef8:	d5181000 	msr	sctlr_el1, x0
 ```
+
+TODO: Why did MSR fail with an Exception?
+
+TODO: Dump the Exception Registers
+
+Here's the context...
+
+```text
 /private/tmp/nuttx/nuttx/arch/arm64/src/common/arm64_mmu.c:516
   for (index = 0; index < mmu_nxrt_config.num_regions; index++)
     40080eb0:	9100a273 	add	x19, x19, #0x28
