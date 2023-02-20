@@ -77,12 +77,13 @@ fn main() {
 
     // Emulate machine code in infinite time (last param = 0),
     // or when all code has completed
-    let _ = emu.emu_start(
+    let err = emu.emu_start(
         ADDRESS,
         ADDRESS + arm64_code.len() as u64,
         0, // Previously: 10 * SECOND_SCALE,
         0  // Previously: 1000
-    ).expect("halted emulation");
+    );
+    println!("err={:?}", err);
 
     // Read register X15
     assert_eq!(
@@ -101,7 +102,7 @@ fn hook_memory(
     value: i64     // Read / Write Value
 ) -> bool {
     // TODO: Simulate Memory-Mapped Input/Output (UART Controller)
-    println!("hook_memory: address={:#010x}, size={:?}, mem_type={:?}, value={:#x}", address, size, mem_type, value);
+    // println!("hook_memory: address={:#010x}, size={:?}, mem_type={:?}, value={:#x}", address, size, mem_type, value);
     true
 }
 
@@ -124,5 +125,5 @@ fn hook_code(
     size: u32      // Instruction Size
 ) {
     // TODO: Handle special Arm64 Instructions
-    println!("hook_code:   address={:#010x}, size={:?}", address, size);
+    // println!("hook_code:   address={:#010x}, size={:?}", address, size);
 }

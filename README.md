@@ -441,9 +441,7 @@ hook_code:   address=0x40080eec, size=4
 hook_code:   address=0x40080ef0, size=4
 hook_code:   address=0x40080ef4, size=4
 hook_code:   address=0x40080ef8, size=4
-thread 'main' panicked at 'assertion failed: `(left == right)`
-  left: `Ok(3)`,
- right: `Ok(120)`', src/main.rs:88:5
+thread 'main' panicked at 'halted emulation: EXCEPTION', src/main.rs:85:7
 ```
 
 Unicorn Emulator halts at the MMU / EL1 code at `0x4008` `0ef8`...
