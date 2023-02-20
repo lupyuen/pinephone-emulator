@@ -129,3 +129,9 @@ TODO: Use Unicorn Emulation Hooks to emulate PinePhone's Allwinner A64 UART Cont
 TODO: Emulate Apache NuttX NSH Shell on UART Controller
 
 TODO: Emulate PinePhone's Allwinner A64 Display Engine. How to render the emulated graphics: Use Web Browser + WebAssembly + Unicorn.js? Will framebuffer emulation be slow?
+
+TODO: Emulate Interrupts
+
+TODO: Emulate Multiple CPUs
+
+TODO: Emulate Memory Protection
