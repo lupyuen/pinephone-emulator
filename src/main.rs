@@ -82,7 +82,7 @@ fn main() {
         ADDRESS + arm64_code.len() as u64,
         0, // Previously: 10 * SECOND_SCALE,
         0  // Previously: 1000
-    );
+    ).expect("halted emulation");
 
     // Read register X15
     assert_eq!(
