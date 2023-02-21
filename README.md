@@ -471,11 +471,6 @@ TODO: Why did MSR fail with an Exception?
 Here's the context...
 
 ```text
-/private/tmp/nuttx/nuttx/arch/arm64/src/common/arm64_mmu.c:516
-  for (index = 0; index < mmu_nxrt_config.num_regions; index++)
-    40080eb0:	9100a273 	add	x19, x19, #0x28
-    40080eb4:	71000694 	subs	w20, w20, #0x1
-    40080eb8:	54ffff01 	b.ne	40080e98 <arm64_mmu_init+0x48>  // b.any
 enable_mmu_el1():
 /private/tmp/nuttx/nuttx/arch/arm64/src/common/arm64_mmu.c:533
   write_sysreg(MEMORY_ATTRIBUTES, mair_el1);
@@ -510,11 +505,9 @@ enable_mmu_el1():
 arm64_isb():
 /private/tmp/nuttx/nuttx/arch/arm64/src/common/barriers.h:58
     40080efc:	d5033fdf 	isb
-arm64_mmu_init():
-/private/tmp/nuttx/nuttx/arch/arm64/src/common/arm64_mmu.c:623
-
-  enable_mmu_el1(flags);
 ```
+
+[(NuttX MMU Source Code)](https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L526-L552)
 
 Let's dump the Arm64 Exception...
 
@@ -583,6 +576,8 @@ TODO: Why the MMU Fault?
 TODO: What is address `0x400c` `3fff`?
 
 TODO: What is FSR 5?
+
+TODO: Should we skip the MMU Update to SCTLR_EL1?
 
 # Debug the Unicorn Emulator
 
