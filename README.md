@@ -91,6 +91,8 @@ Unicorn Emulator allows Code Execution Hooks too...
 
 # Code Execution Hook for Arm64 Emulation
 
+![Code Execution Hook for Arm64 Emulation](https://lupyuen.github.io/images/unicorn-code3.png)
+
 _Can we intercept every Arm64 Instruction that will be emulated?_
 
 Yep we can call Unicorn Emulator to add a Code Execution Hook.
