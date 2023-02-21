@@ -61,7 +61,7 @@ https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5c
 
 Our Hook Function prints all Read / Write Access to Emulated Arm64 Memory.
 
-[(Return value is unused)](https://github.com/unicorn-engine/unicorn/blob/master/qemu/accel/tcg/cputlb.c#L2004-L2005)
+[(Return value is unused)](https://github.com/unicorn-engine/unicorn/blob/dev/docs/FAQ.md#i-cant-recover-from-unmapped-readwrite-even-i-return-true-in-the-hook-why)
 
 This is how we attach the Hook Function to the Unicorn Emulator...
 
