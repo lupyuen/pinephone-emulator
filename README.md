@@ -114,7 +114,7 @@ hook_code: address=0x10004, size=4
 
 We might use this to emulate special Arm64 Instructions.
 
-Similar to Code Execution Hook is the Block Execution Hook...
+If we don't need to intercept every single instruction, try the Block Execution Hook...
 
 # Block Execution Hooks for Arm64 Emulation
 
@@ -464,8 +464,6 @@ Unicorn Emulator halts at the MMU / EL1 code at `0x4008` `0ef8`...
 
 TODO: Why did MSR fail with an Exception?
 
-TODO: Dump the Exception Registers
-
 Here's the context...
 
 ```text
@@ -512,6 +510,14 @@ arm64_mmu_init():
 /private/tmp/nuttx/nuttx/arch/arm64/src/common/arm64_mmu.c:623
 
   enable_mmu_el1(flags);
+```
+
+TODO: Dump the Exception Registers
+
+TODO: Trace the exception in the debugger. Set a breakpoint at `cpu_aarch64_init()` in...
+
+```text
+$HOME/.cargo/registry/src/github.com-1ecc6299db9ec823/unicorn-engine-2.0.1/qemu/target/arm/cpu64.c
 ```
 
 TODO: Emulate the special Arm64 Instructions 
