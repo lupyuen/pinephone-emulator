@@ -526,7 +526,7 @@ This won't work...
 
 https://github.com/lupyuen/pinephone-emulator/blob/1cbfa48de10ef4735ebaf91ab85631cb48e37591/src/main.rs#L86-L91
 
-Because `ESR_EL` is decprecated and `CP_REG` can't be read in Rust...
+Because `ESR_EL` is no longer supported and `CP_REG` can't be read in Rust...
 
 ```text
 err=Err(EXCEPTION)
@@ -537,7 +537,7 @@ ESR_EL2=Ok(0)
 ESR_EL3=Ok(0)
 ```
 
-That's because `CP_REG` requires us to pass a pointer to `uc_arm64_cp_reg` [(like this)](https://github.com/unicorn-engine/unicorn/blob/master/bindings/python/sample_arm64.py#L76-L82), which isn't supported by the Rust Bindings...
+`CP_REG` can't be read in Rust because it needs a pointer to `uc_arm64_cp_reg` [(like this)](https://github.com/unicorn-engine/unicorn/blob/master/bindings/python/sample_arm64.py#L76-L82)...
 
 ```c
 static uc_err reg_read(CPUARMState *env, unsigned int regid, void *value) {
@@ -548,6 +548,8 @@ static uc_err reg_read(CPUARMState *env, unsigned int regid, void *value) {
 ```
 
 [(Source)](https://github.com/unicorn-engine/unicorn/blob/master/qemu/target/arm/unicorn_aarch64.c#L225-L227)
+
+Which isn't supported by the Rust Bindings.
 
 So instead we set a breakpoint at `arm64_reg_read()` in...
 
@@ -568,7 +570,7 @@ env.exception = {
 }
 ```
 
-Bits 26-31 of Syndrome = 0b100001
+Bits 26-31 of Syndrome = 0b100001, which means...
 
 > 0b100001: Instruction Abort taken without a change in Exception level.
 
@@ -584,27 +586,27 @@ _To troubleshoot the MMU Fault..._
 
 _Can we use a debugger to step through Unicorn Emulator?_
 
-TODO: Trace the exception in the debugger. Set a breakpoint at `cpu_aarch64_init()` in...
-
-```text
-$HOME/.cargo/registry/src/github.com-1ecc6299db9ec823/unicorn-engine-2.0.1/qemu/target/arm/cpu64.c
-```
-
-Disassembly of system instructions:
+TODO: Trace the exception in the debugger. Look for...
 
 ```text
 $HOME/.cargo/registry/src/github.com-1ecc6299db9ec823/unicorn-engine-2.0.1/qemu/target/arm/translate-a64.c
 ```
 
-`aarch64_tr_translate_insn()`
+Set a breakpoint in `aarch64_tr_translate_insn()`
 
--   Calls `disas_b_exc_sys()`
+-   Which calls `disas_b_exc_sys()`
 
--   Calls `disas_system()`
+-   Which calls `disas_system()`
 
--   Calls `handle_sys()` to handle system instructions
+-   Which calls `handle_sys()` to handle system instructions
 
 TODO: Emulate the special Arm64 Instructions 
+
+To inspect the Emulator Settings, set a breakpoint at `cpu_aarch64_init()` in...
+
+```text
+$HOME/.cargo/registry/src/github.com-1ecc6299db9ec823/unicorn-engine-2.0.1/qemu/target/arm/cpu64.c
+```
 
 # TODO
 
