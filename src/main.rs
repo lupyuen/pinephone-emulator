@@ -16,16 +16,17 @@ fn main() {
     ).expect("failed to initialize Unicorn instance");
     let emu = &mut unicorn;
 
-    // Map 128 MB Executable Memory at the above address for Arm64 Machine Code
+    // Map 128 MB Executable Memory at 0x4000 0000 for Arm64 Machine Code
+    // https://github.com/apache/nuttx/blob/master/arch/arm64/include/a64/chip.h#L44-L52
     emu.mem_map(
-        ADDRESS,            // Address
+        0x4000_0000,        // Address
         128 * 1024 * 1024,  // Size
         Permission::ALL     // Read, Write and Execute Access
     ).expect("failed to map code page");
 
     // Map 512 MB Read/Write Memory at 0x0000 0000 for
     // Memory-Mapped I/O by Allwinner A64 Peripherals
-    // https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/hardware/a64_memorymap.h#L33-L51
+    // https://github.com/apache/nuttx/blob/master/arch/arm64/include/a64/chip.h#L44-L52
     emu.mem_map(
         0x0000_0000,        // Address
         512 * 1024 * 1024,  // Size
@@ -41,21 +42,10 @@ fn main() {
     // Allwinner A64 UART Line Status Register (UART_LSR) at Offset 0x14.
     // To indicate that the UART Transmit FIFO is ready:
     // Set Bit 5 to 1.
-    emu.mem_write(0x01c2_8014, &[0b10_0000])
-        .expect("failed to set UART_LSR");
-
-    // Register Values
-    const X11: u64 = 0x12345678;    // X11 register
-    const X13: u64 = 0x10000 + 0x8; // X13 register
-    const X15: u64 = 0x33;          // X15 register
-    
-    // Initialize machine registers
-    emu.reg_write(RegisterARM64::X11, X11)
-        .expect("failed to set X11");
-    emu.reg_write(RegisterARM64::X13, X13)
-        .expect("failed to set X13");
-    emu.reg_write(RegisterARM64::X15, X15)
-        .expect("failed to set X15");
+    emu.mem_write(
+        0x01c2_8014,  // UART Register Address
+        &[0b10_0000]  // UART Register Value
+    ).expect("failed to set UART_LSR");
 
     // Add Hook for emulating each Basic Block of Arm64 Instructions
     let _ = emu.add_block_hook(hook_block)
@@ -76,17 +66,18 @@ fn main() {
         hook_memory
     ).expect("failed to add memory hook");
 
-    // Emulate machine code in infinite time (last param = 0),
-    // or when all code has completed
+    // Emulate Arm64 Machine Code
     let err = emu.emu_start(
-        ADDRESS,
-        ADDRESS + arm64_code.len() as u64,
-        0, // Previously: 10 * SECOND_SCALE,
-        0  // Previously: 1000
+        ADDRESS,  // Begin Address
+        ADDRESS + arm64_code.len() as u64,  // End Address
+        0,  // No Timeout
+        0   // No Limit for number of instructions
     );
 
-    // Print the error
+    // Print the Emulator Error
     println!("err={:?}", err);
+
+    // Doesn't work for printing the Exception Registers
     println!("CP_REG={:?}",  emu.reg_read(RegisterARM64::CP_REG));
     println!("ESR_EL0={:?}", emu.reg_read(RegisterARM64::ESR_EL0));
     println!("ESR_EL1={:?}", emu.reg_read(RegisterARM64::ESR_EL1));
