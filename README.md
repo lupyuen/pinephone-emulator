@@ -580,6 +580,10 @@ Bits 26-31 of Syndrome = 0b100001, which means...
 
 TODO: Why the MMU Fault?
 
+TODO: What is address `0x400c` `3fff`?
+
+TODO: What is FSR 5?
+
 # Debug the Unicorn Emulator
 
 _To troubleshoot the MMU Fault..._
