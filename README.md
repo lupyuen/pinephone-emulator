@@ -91,22 +91,28 @@ Unicorn Emulator allows Code Execution Hooks too...
 
 # Code Execution Hook for Arm64 Emulation
 
-TODO: Call Unicorn Emulator to add Code Execution Hooks
+_Can we intercept every Arm64 Instruction that will be emulated?_
+
+Yep we can call Unicorn Emulator to add a Code Execution Hook.
+
+This is a Code Execution Hook that will be called for every Arm64 Instruction...
 
 https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L108-L117
 
-TODO: Add hook
+And this is how we call Unicorn Emulator to add the above Code Execution Hook...
 
 https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L52-L57
 
-Output:
+When we run our Rust Program, we see the Address of every Arm64 Instruction emulated (and its size)...
 
 ```text
 hook_code: address=0x10000, size=4
 hook_code: address=0x10004, size=4
 ```
 
-TODO: Emulate special Arm64 instructions
+We might use this to emulate special Arm64 Instructions.
+
+Similar to Code Execution Hook is the Block Execution Hook...
 
 # Block Execution Hooks for Arm64 Emulation
 
