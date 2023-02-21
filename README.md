@@ -108,8 +108,13 @@ https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5c
 When we run our Rust Program, we see the Address of every Arm64 Instruction emulated (and its size)...
 
 ```text
-hook_code: address=0x10000, size=4
-hook_code: address=0x10004, size=4
+hook_code:
+  address=0x10000,
+  size=4
+
+hook_code:
+  address=0x10004,
+  size=4
 ```
 
 We might use this to emulate special Arm64 Instructions.
@@ -135,7 +140,9 @@ https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5c
 When we run the Rust Program, we see that that the Block Size is 8...
 
 ```text
-hook_block: address=0x10000, size=8
+hook_block:
+  address=0x10000,
+  size=8
 ```
 
 Which means that Unicorn Emulator calls our Hook Function only once for the entire Block of 2 Arm64 Instructions.
@@ -200,16 +207,21 @@ So from this we deduce that Unicorn Emulator treats a sequence of Arm64 Instruct
 
 _What happens when Unicorn Emulator tries to access memory that isn't mapped?_
 
-TODO
+Unicorn Emulator will call our Memory Access Hook with `mem_type` set to `READ_UNMAPPED`...
 
 ```text
-hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ_UNMAPPED, value=0x0
+hook_memory:
+  address=0x01c28014,
+  size=2,
+  mem_type=READ_UNMAPPED,
+  value=0x0
 ```
 
 [(Source)](https://github.com/lupyuen/pinephone-emulator/blob/b842358ba457b67ffa9f4c1a362b0386cfd97c4a/README.md#block-execution-hooks-for-arm64-emulation)
 
-Here's how we map the memory...
+The log above says that address `0x01c2` `8014` is unmapped.
+
+This is how we map the memory...
 
 https://github.com/lupyuen/pinephone-emulator/blob/cd030954c2ace4cf0207872f275abc3ffb7343c6/src/main.rs#L26-L32
 
@@ -220,6 +232,8 @@ _Can we map Memory Regions during emulation?_
 Yep we may use a Memory Access Hook to map memory regions on the fly. [(See this)](https://github.com/unicorn-engine/unicorn/blob/dev/docs/FAQ.md#i-cant-recover-from-unmapped-readwrite-even-i-return-true-in-the-hook-why)
 
 # Run Apache NuttX RTOS in Unicorn Emulator
+
+Let's run Apache NuttX RTOS in Unicorn Emulator!
 
 TODO: What happens when we run [Apache NuttX RTOS for PinePhone](nuttx) in Unicorn Emulator?
 
