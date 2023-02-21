@@ -529,7 +529,7 @@ ESR_EL2=Ok(0)
 ESR_EL3=Ok(0)
 ```
 
-That's because `CP_REG` requires us to pass a pointer to `uc_arm64_cp_reg`, which isn't supported by the Rust Bindings...
+That's because `CP_REG` requires us to pass a pointer to `uc_arm64_cp_reg` [(like this)](https://github.com/unicorn-engine/unicorn/blob/master/bindings/python/sample_arm64.py#L76-L82), which isn't supported by the Rust Bindings...
 
 ```c
 static uc_err reg_read(CPUARMState *env, unsigned int regid, void *value) {
