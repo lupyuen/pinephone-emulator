@@ -118,25 +118,37 @@ If we don't need to intercept every single instruction, try the Block Execution 
 
 # Block Execution Hooks for Arm64 Emulation
 
-TODO: Call Unicorn Emulator to add Block Execution Hooks
+_Is there something that works like a Code Execution Hook..._
+
+_But doesn't stop at every single Arm64 Instruction?_
+
+Yep Unicorn Emulator supports Block Execution Hooks.
+
+This Hook Function will be called once when executing a Block of Arm64 Instructions...
 
 https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L97-L106
 
-TODO: Add hook
+This is how we add the Block Execution Hook...
 
 https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L48-L50
 
-Output:
+When we run the Rust Program, we see that that the Block Size is 8...
 
 ```text
 hook_block: address=0x10000, size=8
 ```
 
-TODO: Trace the flow of Arm64 execution
+Which means that Unicorn Emulator calls our Hook Function only once for the entire Block of 2 Arm64 Instructions.
+
+This Block Execution Hook will be super helpful for monitoring the Execution Flow of our emulated code.
+
+Let's talk about the Block...
 
 # What is a Block of Arm64 Instructions?
 
-TODO
+_What exactly is a Block of Arm64 Instructions?_
+
+Let's run this code from Apache NuttX RTOS (that handles UART Output)...
 
 ```text
 SECTION_FUNC(text, up_lowputc)
@@ -157,26 +169,36 @@ SECTION_FUNC(text, up_lowputc)
 
 [(Source)](nuttx/nuttx.S)
 
-Output:
+We observe that Unicorm Emulator treats `400801f0` to `400801fc` as a Block of Arm64 Instructins...
 
 ```text
+hook_block:  address=0x400801f0, size=16
+hook_code:   address=0x400801f0, size=4
 hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f4, size=4
 hook_code:   address=0x400801f8, size=4
 hook_code:   address=0x400801fc, size=4
+
 hook_block:  address=0x400801f4, size=12
 hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
 hook_code:   address=0x400801f8, size=4
 hook_code:   address=0x400801fc, size=4
+
 hook_block:  address=0x400801f4, size=12
 hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
 ```
 
 [(Source)](https://github.com/lupyuen/pinephone-emulator/blob/cd030954c2ace4cf0207872f275abc3ffb7343c6/README.md#block-execution-hooks-for-arm64-emulation)
 
+The Block ends at `400801fc` because there's an Arm64 Branch Instruction `b.eq`.
+
+So from this we deduce that Unicorn Emulator treats a sequence of Arm64 Instructions as a Block, until it encounters a Branch Instruction. (Including function calls)
+
 # Unmapped Memory in Unicorn Emulator
+
+_What happens when Unicorn Emulator tries to access memory that isn't mapped?_
 
 TODO
 
@@ -624,4 +646,3 @@ TODO: Emulate Memory Protection
 TODO: Emulate GIC v2
 
 TODO: Read the Symbol Table in ELF File to get the addresses
- 
