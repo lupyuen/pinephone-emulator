@@ -570,7 +570,7 @@ Bits 26-31 of Syndrome = 0b100001
 
 [(Source)](https://developer.arm.com/documentation/ddi0601/2022-03/AArch64-Registers/ESR-EL1--Exception-Syndrome-Register--EL1-)
 
-Could this be caused by our Mapped Memory too small for the MMU?
+Could this be caused by our Mapped Memory being too small for the MMU?
 
 https://github.com/lupyuen/pinephone-emulator/blob/1cbfa48de10ef4735ebaf91ab85631cb48e37591/src/main.rs#L19-L24
 
