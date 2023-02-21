@@ -215,6 +215,10 @@ https://github.com/lupyuen/pinephone-emulator/blob/cd030954c2ace4cf0207872f275ab
 
 [(NuttX Memory Map)](https://github.com/apache/nuttx/blob/master/arch/arm64/include/a64/chip.h#L44-L52)
 
+_Can we map Memory Regions during emulation?_
+
+Yep we may use a Memory Access Hook to map memory regions on the fly. [(See this)](https://github.com/unicorn-engine/unicorn/blob/dev/docs/FAQ.md#i-cant-recover-from-unmapped-readwrite-even-i-return-true-in-the-hook-why)
+
 # Run Apache NuttX RTOS in Unicorn Emulator
 
 TODO: What happens when we run [Apache NuttX RTOS for PinePhone](nuttx) in Unicorn Emulator?
