@@ -512,7 +512,26 @@ arm64_mmu_init():
   enable_mmu_el1(flags);
 ```
 
-TODO: Dump the Exception Registers
+TODO: Dump the Exception Registers ESR, FAR, ELR for EL1 [(Because of this)](https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_fatal.c#L381-L390)
+
+Set a breakpoint at `arm64_reg_read()` in...
+
+```text
+.cargo/registry/src/github.com-1ecc6299db9ec823/unicorn-engine-2.0.1/qemu/target/arm/unicorn_aarch64.c
+```
+
+Exception shows...
+
+```text
+env.exception = {
+  syndrome: 0x8600 003f, 
+  fsr: 5, 
+  vaddress: 0x400c 3fff,
+  target_el: 1
+}
+```
+
+`arm64_reg_read()` calls `reg_read()` in unicorn_aarch64.c
 
 TODO: Trace the exception in the debugger. Set a breakpoint at `cpu_aarch64_init()` in...
 
@@ -549,3 +568,5 @@ TODO: Emulate Interrupts
 TODO: Emulate Multiple CPUs
 
 TODO: Emulate Memory Protection
+
+TODO: Emulate GIC v2
