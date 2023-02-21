@@ -520,6 +520,20 @@ TODO: Trace the exception in the debugger. Set a breakpoint at `cpu_aarch64_init
 $HOME/.cargo/registry/src/github.com-1ecc6299db9ec823/unicorn-engine-2.0.1/qemu/target/arm/cpu64.c
 ```
 
+Disassembly of system instructions:
+
+```text
+$HOME/.cargo/registry/src/github.com-1ecc6299db9ec823/unicorn-engine-2.0.1/qemu/target/arm/translate-a64.c
+```
+
+`aarch64_tr_translate_insn()`
+
+-   Calls `disas_b_exc_sys()`
+
+-   Calls `disas_system()`
+
+-   Calls `handle_sys()` to handle system instructions
+
 TODO: Emulate the special Arm64 Instructions 
 
 # TODO
