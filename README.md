@@ -577,7 +577,7 @@ TODO: What is address `0x400c` `3fff`?
 
 TODO: What is FSR 5?
 
-TODO: Should we skip the MMU Update to SCTLR_EL1?
+TODO: Should we skip the MMU Update to SCTLR_EL1? Since we don't use MMU?
 
 # Debug the Unicorn Emulator
 
@@ -622,3 +622,6 @@ TODO: Emulate Multiple CPUs
 TODO: Emulate Memory Protection
 
 TODO: Emulate GIC v2
+
+TODO: Read the Symbol Table in ELF File to get the addresses
+ 
