@@ -452,7 +452,9 @@ hook_code:   address=0x40080ef8, size=4
 thread 'main' panicked at 'halted emulation: EXCEPTION', src/main.rs:85:7
 ```
 
-Unicorn Emulator halts at the MMU / EL1 code at `0x4008` `0ef8`...
+# Unicorn Emulator Halts in NuttX MMU
+
+Unicorn Emulator halts at the NuttX MMU (EL1) code at `0x4008` `0ef8`...
 
 ```text
 /private/tmp/nuttx/nuttx/arch/arm64/src/common/arm64_mmu.c:544
