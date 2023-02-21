@@ -95,11 +95,11 @@ _Can we intercept every Arm64 Instruction that will be emulated?_
 
 Yep we can call Unicorn Emulator to add a Code Execution Hook.
 
-This Hook Function that will be called for every Arm64 Instruction...
+Here's a sample Hook Function that will be called for every Arm64 Instruction...
 
 https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L108-L117
 
-And this is how we call Unicorn Emulator to add the above Code Execution Hook...
+And this is how we call Unicorn Emulator to add the above Hook Function...
 
 https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L52-L57
 
