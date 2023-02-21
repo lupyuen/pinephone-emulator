@@ -191,7 +191,7 @@ Here's how we map the memory...
 
 https://github.com/lupyuen/pinephone-emulator/blob/cd030954c2ace4cf0207872f275abc3ffb7343c6/src/main.rs#L26-L32
 
-TODO: [Memory Map should be this](https://github.com/apache/nuttx/blob/master/arch/arm64/include/a64/chip.h#L44-L52)
+[(NuttX Memory Map)](https://github.com/apache/nuttx/blob/master/arch/arm64/include/a64/chip.h#L44-L52)
 
 # Run Apache NuttX RTOS in Unicorn Emulator
 
@@ -516,6 +516,10 @@ arm64_mmu_init():
   enable_mmu_el1(flags);
 ```
 
+Let's dump the Arm64 Exception...
+
+# Dump the Arm64 Exception
+
 TODO: Dump the Exception Registers ESR, FAR, ELR for EL1 [(Because of this)](https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_fatal.c#L381-L390)
 
 This won't work...
@@ -573,6 +577,12 @@ Bits 26-31 of Syndrome = 0b100001
 [(Source)](https://developer.arm.com/documentation/ddi0601/2022-03/AArch64-Registers/ESR-EL1--Exception-Syndrome-Register--EL1-)
 
 TODO: Why the MMU Fault?
+
+# Debug the Unicorn Emulator
+
+_To troubleshoot the MMU Fault..._
+
+_Can we use a debugger to step through Unicorn Emulator?_
 
 TODO: Trace the exception in the debugger. Set a breakpoint at `cpu_aarch64_init()` in...
 
