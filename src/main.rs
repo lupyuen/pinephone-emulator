@@ -16,22 +16,23 @@ fn main() {
     ).expect("failed to initialize Unicorn instance");
     let emu = &mut unicorn;
 
-    // Map executable memory at the above address for Arm64 Machine Code
+    // Map 128 MB Executable Memory at the above address for Arm64 Machine Code
     emu.mem_map(
-        ADDRESS,           // Address
-        arm64_code.len(),  // Size
-        Permission::ALL    // Read, Write and Execute Access
+        ADDRESS,            // Address
+        128 * 1024 * 1024,  // Size
+        Permission::ALL     // Read, Write and Execute Access
     ).expect("failed to map code page");
 
-    // Map 16 MB at 0x0100 0000 for Memory-Mapped I/O by Allwinner A64 Peripherals
+    // Map 512 MB Read/Write Memory at 0x0000 0000 for
+    // Memory-Mapped I/O by Allwinner A64 Peripherals
     // https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/hardware/a64_memorymap.h#L33-L51
     emu.mem_map(
-        0x0100_0000,       // Address
-        16 * 1024 * 1024,  // Size
+        0x0000_0000,        // Address
+        512 * 1024 * 1024,  // Size
         Permission::READ | Permission::WRITE  // Read and Write Access
     ).expect("failed to map memory mapped I/O");
 
-    // Write machine code to emulated memory
+    // Write Arm64 Machine Code to emulated Executable Memory
     emu.mem_write(
         ADDRESS, 
         arm64_code

@@ -191,6 +191,8 @@ Here's how we map the memory...
 
 https://github.com/lupyuen/pinephone-emulator/blob/cd030954c2ace4cf0207872f275abc3ffb7343c6/src/main.rs#L26-L32
 
+TODO: [Memory Map should be this](https://github.com/apache/nuttx/blob/master/arch/arm64/include/a64/chip.h#L44-L52)
+
 # Run Apache NuttX RTOS in Unicorn Emulator
 
 TODO: What happens when we run [Apache NuttX RTOS for PinePhone](nuttx) in Unicorn Emulator?
