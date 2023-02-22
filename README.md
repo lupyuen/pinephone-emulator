@@ -280,7 +280,7 @@ hook_code:   address=0x400801f4, size=4
 
 [(Source)](https://github.com/lupyuen/pinephone-emulator/blob/045fa5da84d9e07ead5a820a075c1445661328b6/README.md#unicorn-emulator-waits-forever-for-uart-controller-ready)
 
-The above log shows that Unicorn Emulator loops forever at address `0x4008` `01f4`, reading the data from address `0x01c2` `8014`.
+The above log shows that Unicorn Emulator loops forever at address `0x4008` `01f4`, while reading the data from address `0x01c2` `8014`.
 
 Let's check the NuttX Arm64 Code at address `0x4008` `01f4`...
 
@@ -303,7 +303,11 @@ SECTION_FUNC(text, up_lowputc)
 
 [(Source)](https://github.com/lupyuen/pinephone-emulator/blob/a1fb82d829856d86d6845c477709c2be24373aca/nuttx/nuttx.S#L3398-L3411)
 
-This code waits for the UART Controller to be ready (before printing UART Output), by checking the value at `0x01c2` `8014`.
+This code waits for the UART Controller to be ready (before printing UART Output), by checking the value at `0x01c2` `8014`. The code is explained here...
+
+-   ["Wait for UART Ready"](https://lupyuen.github.io/articles/uboot#wait-for-uart-ready)
+
+_What is `0x01c2` `8014`?_
 
 According to the Allwinner A64 Doc...
 
@@ -333,7 +337,7 @@ hook_memory: address=0x400b6a54, size=1, mem_type=WRITE, value=0x0
 
 But we don't see any UART Output. Let's print the UART Output...
 
-# Handle UART Output in Unicorn Emulator
+# Emulate UART Output in Unicorn Emulator
 
 TODO: [UART Output](https://gist.github.com/lupyuen/587dbeb9329d9755e4d007dd8e1246cd)
 
