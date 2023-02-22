@@ -107,6 +107,7 @@ fn hook_memory(
     }
 
     // Always return true, value is unused by caller
+    // https://github.com/unicorn-engine/unicorn/blob/dev/docs/FAQ.md#i-cant-recover-from-unmapped-readwrite-even-i-return-true-in-the-hook-why
     true
 }
 

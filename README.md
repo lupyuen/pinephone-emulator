@@ -465,9 +465,13 @@ hook_code:   address=0x40089334, size=4
 hook_memory: address=0x400b6a54, size=1, mem_type=WRITE, value=0x0
 ```
 
+Let's print the UART Output...
+
 # Handle UART Output
 
 TODO: [UART Output](https://gist.github.com/lupyuen/587dbeb9329d9755e4d007dd8e1246cd)
+
+https://github.com/lupyuen/pinephone-emulator/blob/aa6dd986857231a935617e8346978d7750aa51e7/src/main.rs#L89-L111
 
 # Unicorn Emulator Halts in NuttX MMU
 
