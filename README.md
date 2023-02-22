@@ -161,15 +161,15 @@ Let's run this code from Apache NuttX RTOS (that handles UART Output)...
 SECTION_FUNC(text, up_lowputc)
     ldr   x15, =UART0_BASE_ADDRESS
     400801f0:	580000cf 	ldr	x15, 40080208 <up_lowputc+0x18>
-/private/tmp/nuttx/nuttx/arch/arm64/src/chip/a64_lowputc.S:89
+nuttx/arch/arm64/src/chip/a64_lowputc.S:89
     early_uart_ready x15, w2
     400801f4:	794029e2 	ldrh	w2, [x15, #20]
     400801f8:	721b005f 	tst	w2, #0x20
     400801fc:	54ffffc0 	b.eq	400801f4 <up_lowputc+0x4>  // b.none
-/private/tmp/nuttx/nuttx/arch/arm64/src/chip/a64_lowputc.S:90
+nuttx/arch/arm64/src/chip/a64_lowputc.S:90
     early_uart_transmit x15, w0
     40080200:	390001e0 	strb	w0, [x15]
-/private/tmp/nuttx/nuttx/arch/arm64/src/chip/a64_lowputc.S:91
+nuttx/arch/arm64/src/chip/a64_lowputc.S:91
     ret
     40080204:	d65f03c0 	ret
 ```
@@ -288,15 +288,15 @@ Let's check the NuttX Arm64 Code at address `0x4008` `01f4`...
 SECTION_FUNC(text, up_lowputc)
     ldr   x15, =UART0_BASE_ADDRESS
     400801f0:	580000cf 	ldr	x15, 40080208 <up_lowputc+0x18>
-/private/tmp/nuttx/nuttx/arch/arm64/src/chip/a64_lowputc.S:89
+nuttx/arch/arm64/src/chip/a64_lowputc.S:89
     early_uart_ready x15, w2
     400801f4:	794029e2 	ldrh	w2, [x15, #20]
     400801f8:	721b005f 	tst	w2, #0x20
     400801fc:	54ffffc0 	b.eq	400801f4 <up_lowputc+0x4>  // b.none
-/private/tmp/nuttx/nuttx/arch/arm64/src/chip/a64_lowputc.S:90
+nuttx/arch/arm64/src/chip/a64_lowputc.S:90
     early_uart_transmit x15, w0
     40080200:	390001e0 	strb	w0, [x15]
-/private/tmp/nuttx/nuttx/arch/arm64/src/chip/a64_lowputc.S:91
+nuttx/arch/arm64/src/chip/a64_lowputc.S:91
     ret
     40080204:	d65f03c0 	ret
 ```
@@ -416,7 +416,7 @@ thread 'main' panicked at 'halted emulation: EXCEPTION', src/main.rs:85:7
 Unicorn Emulator halts at the NuttX MMU (EL1) code at `0x4008` `0ef8`...
 
 ```text
-/private/tmp/nuttx/nuttx/arch/arm64/src/common/arm64_mmu.c:544
+nuttx/arch/arm64/src/common/arm64_mmu.c:544
   write_sysreg((value | SCTLR_M_BIT | SCTLR_C_BIT), sctlr_el1);
     40080ef0:	d28000a1 	mov	x1, #0x5                   	// #5
     40080ef4:	aa010000 	orr	x0, x0, x1
@@ -429,38 +429,38 @@ Here's the context...
 
 ```text
 enable_mmu_el1():
-/private/tmp/nuttx/nuttx/arch/arm64/src/common/arm64_mmu.c:533
+nuttx/arch/arm64/src/common/arm64_mmu.c:533
   write_sysreg(MEMORY_ATTRIBUTES, mair_el1);
     40080ebc:	d2808000 	mov	x0, #0x400                 	// #1024
     40080ec0:	f2a88180 	movk	x0, #0x440c, lsl #16
     40080ec4:	f2c01fe0 	movk	x0, #0xff, lsl #32
     40080ec8:	d518a200 	msr	mair_el1, x0
-/private/tmp/nuttx/nuttx/arch/arm64/src/common/arm64_mmu.c:534
+nuttx/arch/arm64/src/common/arm64_mmu.c:534
   write_sysreg(get_tcr(1), tcr_el1);
     40080ecc:	d286a380 	mov	x0, #0x351c                	// #13596
     40080ed0:	f2a01000 	movk	x0, #0x80, lsl #16
     40080ed4:	f2c00020 	movk	x0, #0x1, lsl #32
     40080ed8:	d5182040 	msr	tcr_el1, x0
-/private/tmp/nuttx/nuttx/arch/arm64/src/common/arm64_mmu.c:535
+nuttx/arch/arm64/src/common/arm64_mmu.c:535
   write_sysreg(((uint64_t)base_xlat_table), ttbr0_el1);
     40080edc:	d00001a0 	adrp	x0, 400b6000 <g_uart1port>
     40080ee0:	91200000 	add	x0, x0, #0x800
     40080ee4:	d5182000 	msr	ttbr0_el1, x0
 arm64_isb():
-/private/tmp/nuttx/nuttx/arch/arm64/src/common/barriers.h:58
+nuttx/arch/arm64/src/common/barriers.h:58
   __asm__ volatile ("isb" : : : "memory");
     40080ee8:	d5033fdf 	isb
 enable_mmu_el1():
-/private/tmp/nuttx/nuttx/arch/arm64/src/common/arm64_mmu.c:543
+nuttx/arch/arm64/src/common/arm64_mmu.c:543
   value = read_sysreg(sctlr_el1);
     40080eec:	d5381000 	mrs	x0, sctlr_el1
-/private/tmp/nuttx/nuttx/arch/arm64/src/common/arm64_mmu.c:544
+nuttx/arch/arm64/src/common/arm64_mmu.c:544
   write_sysreg((value | SCTLR_M_BIT | SCTLR_C_BIT), sctlr_el1);
     40080ef0:	d28000a1 	mov	x1, #0x5                   	// #5
     40080ef4:	aa010000 	orr	x0, x0, x1
     40080ef8:	d5181000 	msr	sctlr_el1, x0
 arm64_isb():
-/private/tmp/nuttx/nuttx/arch/arm64/src/common/barriers.h:58
+nuttx/arch/arm64/src/common/barriers.h:58
     40080efc:	d5033fdf 	isb
 ```
 
