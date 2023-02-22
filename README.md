@@ -225,7 +225,7 @@ This is how we map the memory...
 
 https://github.com/lupyuen/pinephone-emulator/blob/cd030954c2ace4cf0207872f275abc3ffb7343c6/src/main.rs#L26-L32
 
-[(NuttX Memory Map)](https://github.com/apache/nuttx/blob/master/arch/arm64/include/a64/chip.h#L44-L52)
+[(See the NuttX Memory Map)](https://github.com/apache/nuttx/blob/master/arch/arm64/include/a64/chip.h#L44-L52)
 
 _Can we map Memory Regions during emulation?_
 
@@ -239,7 +239,15 @@ We have compiled [Apache NuttX RTOS for PinePhone](nuttx) into an Arm64 Binary I
 
 This is how we load the NuttX Binary Image into Unicorn...
 
-https://github.com/lupyuen/pinephone-emulator/blob/cd030954c2ace4cf0207872f275abc3ffb7343c6/src/main.rs#L6-L32
+https://github.com/lupyuen/pinephone-emulator/blob/aa24d1c61256f38f92cf627d52c3e9a0c189bfc6/src/main.rs#L6-L40
+
+In our Rust Program above, we mapped 2 Memory Regions for NuttX...
+
+-   Map 128 MB Executable Memory at `0x4000` `0000` for Arm64 Machine Code
+
+-   Map 512 MB Read/Write Memory at `0x0000` `0000` for Memory-Mapped I/O by Allwinner A64 Peripherals
+
+This is based on the [NuttX Memory Map](https://github.com/apache/nuttx/blob/master/arch/arm64/include/a64/chip.h#L44-L52) for PinePhone.
 
 When we run this, Unicorn Emulator loops forever. Let's find out why...
 
@@ -666,3 +674,5 @@ TODO: Emulate Memory Protection
 TODO: Emulate GIC v2
 
 TODO: Read the Symbol Table in ELF File to get the addresses
+
+TODO: Select Cortex-A53 as CPU
