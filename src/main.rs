@@ -42,6 +42,7 @@ fn main() {
     // Allwinner A64 UART Line Status Register (UART_LSR) at Offset 0x14.
     // To indicate that the UART Transmit FIFO is ready:
     // Set Bit 5 to 1.
+    // https://lupyuen.github.io/articles/serial#wait-to-transmit
     emu.mem_write(
         0x01c2_8014,  // UART Register Address
         &[0b10_0000]  // UART Register Value
@@ -94,8 +95,18 @@ fn hook_memory(
     size: usize,   // Number of bytes accessed
     value: i64     // Read / Write Value
 ) -> bool {
-    // TODO: Simulate Memory-Mapped Input/Output (UART Controller)
-    // println!("hook_memory: address={:#010x}, size={:?}, mem_type={:?}, value={:#x}", address, size, mem_type, value);
+    // Ignore RAM access, we only intercept Memory-Mapped Input / Output
+    if address >= 0x4000_0000 { return true; }
+    println!("hook_memory: address={:#010x}, size={:?}, mem_type={:?}, value={:#x}", address, size, mem_type, value);
+
+    // If writing to UART Transmit Holding Register (THR):
+    // Print the output
+    // https://lupyuen.github.io/articles/serial#transmit-uart
+    if address == 0x01c2_8000 {
+        println!("uart output: {:?}", value as u8 as char);
+    }
+
+    // Always return true, value is unused by caller
     true
 }
 
@@ -106,7 +117,7 @@ fn hook_block(
     address: u64,  // Block Address
     size: u32      // Block Size
 ) {
-    // TODO: Trace the flow of emulated code
+    // Trace the flow of emulated code
     println!("hook_block:  address={:#010x}, size={:?}", address, size);
 }
 
@@ -117,6 +128,9 @@ fn hook_code(
     address: u64,  // Instruction Address
     size: u32      // Instruction Size
 ) {
+    // Ignore the memset() loop. TODO: Read the ELF Symbol Table to get address of memset().
+    if address >= 0x4008_9328 && address <= 0x4008_933c { return; }
+
     // TODO: Handle special Arm64 Instructions
     // println!("hook_code:   address={:#010x}, size={:?}", address, size);
 }
