@@ -201,7 +201,7 @@ hook_code:   address=0x400801fc, size=4
 
 The Block ends at `400801fc` because there's an Arm64 Branch Instruction `b.eq`.
 
-From this we deduce that Unicorn Emulator treats a sequence of Arm64 Instructions as a Block, until it encounters a Branch Instruction. (Including function calls)
+From this we deduce that Unicorn Emulator treats a sequence of Arm64 Instructions as a Block, until it sees a Branch Instruction. (Including function calls)
 
 # Unmapped Memory in Unicorn Emulator
 
