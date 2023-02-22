@@ -586,6 +586,8 @@ ESR_EL2=Ok(0)
 ESR_EL3=Ok(0)
 ```
 
+[(See the Complete Log)](https://gist.github.com/lupyuen/778f15875edf632ccb5a093a656084cb)
+
 `CP_REG` can't be read in Rust because it needs a pointer to `uc_arm64_cp_reg` [(like this)](https://github.com/unicorn-engine/unicorn/blob/master/bindings/python/sample_arm64.py#L76-L82)...
 
 ```c
