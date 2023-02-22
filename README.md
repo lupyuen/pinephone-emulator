@@ -301,7 +301,9 @@ nuttx/arch/arm64/src/chip/a64_lowputc.S:91
     40080204:	d65f03c0 	ret
 ```
 
-[(Source)](https://github.com/lupyuen/pinephone-emulator/blob/a1fb82d829856d86d6845c477709c2be24373aca/nuttx/nuttx.S#L3398-L3411)
+[(Arm64 Disassembly)](https://github.com/lupyuen/pinephone-emulator/blob/a1fb82d829856d86d6845c477709c2be24373aca/nuttx/nuttx.S#L3398-L3411)
+
+[(Source Code)](https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/a64_lowputc.S#L81-L91)
 
 This code waits for the UART Controller to be ready (before printing UART Output), by checking the value at `0x01c2` `8014`. The code is explained here...
 
