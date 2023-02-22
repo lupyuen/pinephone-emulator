@@ -315,7 +315,7 @@ Bit 5 needs to be set to 1 to indicate that the UART Transmit FIFO is ready.
 
 We set the UART Ready Bit like so...
 
-https://github.com/lupyuen/pinephone-emulator/blob/6dd4c932fbc503e73c4fb842b236c2f8160195d6/src/main.rs#L40-L44
+https://github.com/lupyuen/pinephone-emulator/blob/4d78876ad6f40126bf68cb2da4a43f56d9ef6e76/src/main.rs#L42-L49
 
 And Unicorn Emulator stops looping! It continues execution to `memset()` (to init the BSS Section to 0)...
 
@@ -329,9 +329,11 @@ hook_memory: address=0x400b6a54, size=1, mem_type=WRITE, value=0x0
 ...
 ```
 
+[(Source)](https://github.com/lupyuen/pinephone-emulator/blob/045fa5da84d9e07ead5a820a075c1445661328b6/README.md#unicorn-emulator-waits-forever-for-uart-controller-ready)
+
 But we don't see any UART Output. Let's print the UART Output...
 
-# Handle UART Output
+# Handle UART Output in Unicorn Emulator
 
 TODO: [UART Output](https://gist.github.com/lupyuen/587dbeb9329d9755e4d007dd8e1246cd)
 
