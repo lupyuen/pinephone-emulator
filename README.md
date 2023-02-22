@@ -528,7 +528,7 @@ _What is FSR 5?_
 
 FSR 5 means...
 
-> 0b00101: Translation fault (in) section
+> 0b00101: Translation Fault (in) Section
 
 [(Source)](https://developer.arm.com/documentation/ddi0500/d/system-control/aarch64-register-descriptions/instruction-fault-status-register--el2)
 
