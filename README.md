@@ -617,6 +617,10 @@ env.exception = {
 }
 ```
 
+TODO: What is address `0x400c` `3fff`?
+
+_What is Syndrome 0x8600 003f?_
+
 Bits 26-31 of Syndrome = 0b100001, which means...
 
 > 0b100001: Instruction Abort taken without a change in Exception level.
@@ -625,11 +629,35 @@ Bits 26-31 of Syndrome = 0b100001, which means...
 
 [(Source)](https://developer.arm.com/documentation/ddi0601/2022-03/AArch64-Registers/ESR-EL1--Exception-Syndrome-Register--EL1-)
 
-TODO: Why the MMU Fault?
+_What is FSR 5?_
 
-TODO: What is address `0x400c` `3fff`?
+FSR 5 means...
 
-TODO: What is FSR 5?
+> 0b00101: Translation fault, section.
+
+[(Source)](https://developer.arm.com/documentation/ddi0500/d/system-control/aarch64-register-descriptions/instruction-fault-status-register--el2)
+
+_Why the MMU Fault?_
+
+Unicorn Emulator triggers the exception when NuttX writes to SCTLR_EL1...
+
+```c
+  /* Enable the MMU and data cache */
+  value = read_sysreg(sctlr_el1);
+  write_sysreg((value | SCTLR_M_BIT | SCTLR_C_BIT), sctlr_el1);
+```
+
+[(Source)](https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L541-L544)
+
+The above code sets these flags in SCTLR_EL1 (System Control Register EL1)...
+
+- SCTLR_M_BIT (Bit 0): Enable Address Translation for EL0 and EL1 Stage 1
+
+- SCTLR_C_BIT (Bit 2): Enable Caching for EL0 and EL1 Stage 1
+
+[(More about SCTLR_EL1)](https://developer.arm.com/documentation/ddi0595/2021-06/AArch64-Registers/SCTLR-EL1--System-Control-Register--EL1-)
+
+TODO: Why did the Address Translation (or Caching) fail?
 
 TODO: Should we skip the MMU Update to SCTLR_EL1? Since we don't use MMU?
 
@@ -638,6 +666,8 @@ TODO: Should we skip the MMU Update to SCTLR_EL1? Since we don't use MMU?
 _To troubleshoot the MMU Fault..._
 
 _Can we use a debugger to step through Unicorn Emulator?_
+
+Yes but it gets messy.
 
 TODO: Trace the exception in the debugger. Look for...
 
