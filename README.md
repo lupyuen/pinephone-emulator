@@ -358,11 +358,19 @@ But we don't see any UART Output. Let's print the UART Output...
 
 # Emulate UART Output in Unicorn Emulator
 
-TODO: [UART Output](https://gist.github.com/lupyuen/587dbeb9329d9755e4d007dd8e1246cd)
+_How do we print the UART Output?_
+
+According to the Allwinner A64 Doc...
+
+-   ["Transmit UART"](https://lupyuen.github.io/articles/serial#transmit-uart)
+
+NuttX RTOS will write the UART Output to the UART Transmit Holding Register (THR) at `0x01c2` `8000`.
+
+In our Memory Access Hook, let's intercept all writes to `0x01c2` `8000` and dump the characters written to UART Output...
 
 https://github.com/lupyuen/pinephone-emulator/blob/aa6dd986857231a935617e8346978d7750aa51e7/src/main.rs#L89-L111
 
-We see a long chain of UART Output...
+When we run this, we see a long chain of UART Output...
 
 ```text
 → cargo run | grep uart
@@ -387,7 +395,9 @@ Which reads as...
 - Boot to C runtime for OS Initialize
 ```
 
-[(Similar to this)](https://gist.github.com/lupyuen/b01b325d91c9ad72a0ec88e057e982a8)
+[(Similar to this)](https://lupyuen.github.io/articles/uboot#pinephone-boots-nuttx)
+
+Yep NuttX RTOS is booting on Unicorn Emulator! But Unicorn Emulator halts while booting NuttX...
 
 # Unicorn Emulator Halts in NuttX MMU
 
@@ -429,7 +439,7 @@ hook_code:   address=0x40080eec, size=4
 hook_code:   address=0x40080ef0, size=4
 hook_code:   address=0x40080ef4, size=4
 hook_code:   address=0x40080ef8, size=4
-thread 'main' panicked at 'halted emulation: EXCEPTION', src/main.rs:85:7
+err=Err(EXCEPTION)
 ```
 
 Unicorn Emulator halts at the NuttX MMU (EL1) code at `0x4008` `0ef8`...
