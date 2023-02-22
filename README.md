@@ -476,9 +476,7 @@ static uc_err reg_read(CPUARMState *env, unsigned int regid, void *value) {
 
 Which isn't supported by the Rust Bindings.
 
-![Debug the Arm64 Exception](https://lupyuen.github.io/images/unicorn-debug.png)
-
-So instead we set a breakpoint at `arm64_reg_read()` (pic above) in...
+So instead we set a breakpoint at `arm64_reg_read()` (pic below) in...
 
 ```text
 .cargo/registry/src/github.com-1ecc6299db9ec823/unicorn-engine-2.0.1/qemu/target/arm/unicorn_aarch64.c
@@ -487,6 +485,23 @@ So instead we set a breakpoint at `arm64_reg_read()` (pic above) in...
 (`arm64_reg_read()` calls `reg_read()` in unicorn_aarch64.c)
 
 Which shows the Exception as...
+
+```text
+env.exception = {
+  syndrome: 0x8600 003f, 
+  fsr: 5, 
+  vaddress: 0x400c 3fff,
+  target_el: 1
+}
+```
+
+Let's study the Arm64 Exception...
+
+![Debug the Arm64 Exception](https://lupyuen.github.io/images/unicorn-debug.png)
+
+# Arm64 MMU Exception
+
+Earlier we saw this Arm64 Exception in Unicorn Emulator...
 
 ```text
 env.exception = {
@@ -543,7 +558,7 @@ TODO: Should we skip the MMU Update to SCTLR_EL1? Since we don't use MMU?
 
 # Debug the Unicorn Emulator
 
-_To troubleshoot the MMU Fault..._
+_To troubleshoot the Arm64 MMU Exception..._
 
 _Can we use a debugger to step through Unicorn Emulator?_
 
