@@ -235,15 +235,17 @@ Yep we may use a Memory Access Hook to map memory regions on the fly. [(See this
 
 Let's run Apache NuttX RTOS in Unicorn Emulator!
 
-TODO: What happens when we run [Apache NuttX RTOS for PinePhone](nuttx) in Unicorn Emulator?
+We have compiled [Apache NuttX RTOS for PinePhone](nuttx) into an Arm64 Binary Image `nuttx.bin`.
+
+This is how we load the NuttX Binary Image into Unicorn...
 
 https://github.com/lupyuen/pinephone-emulator/blob/cd030954c2ace4cf0207872f275abc3ffb7343c6/src/main.rs#L6-L32
 
-Unicorn Emulator hangs, waiting forever for UART Controller to be ready...
+When we run this, Unicorn Emulator loops forever. Let's find out why...
 
 # Unicorn Emulator Waits Forever for UART Controller Ready
 
-TODO: Here's the output...
+TODO: Here's the output when we run NuttX RTOS in Unicorn Emulator...
 
 ```text
 hook_block:  address=0x40080000, size=8
