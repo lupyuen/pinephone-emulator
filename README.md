@@ -233,6 +233,8 @@ Yep we may use a Memory Access Hook to map memory regions on the fly. [(See this
 
 # Run Apache NuttX RTOS in Unicorn Emulator
 
+![Run Apache NuttX RTOS in Unicorn Emulator](https://lupyuen.github.io/images/unicorn-code4.png)
+
 Let's run Apache NuttX RTOS in Unicorn Emulator!
 
 We have compiled [Apache NuttX RTOS for PinePhone](nuttx) into an Arm64 Binary Image `nuttx.bin`.
@@ -594,7 +596,9 @@ static uc_err reg_read(CPUARMState *env, unsigned int regid, void *value) {
 
 Which isn't supported by the Rust Bindings.
 
-So instead we set a breakpoint at `arm64_reg_read()` in...
+![Debug the Arm64 Exception](https://lupyuen.github.io/images/unicorn-debug.png)
+
+So instead we set a breakpoint at `arm64_reg_read()` (pic above) in...
 
 ```text
 .cargo/registry/src/github.com-1ecc6299db9ec823/unicorn-engine-2.0.1/qemu/target/arm/unicorn_aarch64.c
