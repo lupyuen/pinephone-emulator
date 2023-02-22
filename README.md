@@ -343,6 +343,33 @@ TODO: [UART Output](https://gist.github.com/lupyuen/587dbeb9329d9755e4d007dd8e12
 
 https://github.com/lupyuen/pinephone-emulator/blob/aa6dd986857231a935617e8346978d7750aa51e7/src/main.rs#L89-L111
 
+We see a long chain of UART Output...
+
+```text
+→ cargo run | grep uart
+uart output: '-'
+uart output: ' '
+uart output: 'R'
+uart output: 'e'
+uart output: 'a'
+uart output: 'd'
+uart output: 'y'
+...
+```
+
+[(Source)](https://gist.github.com/lupyuen/587dbeb9329d9755e4d007dd8e1246cd)
+
+Which reads as...
+
+```text
+- Ready to Boot CPU
+- Boot from EL2
+- Boot from EL1
+- Boot to C runtime for OS Initialize
+```
+
+[(Similar to this)](https://gist.github.com/lupyuen/b01b325d91c9ad72a0ec88e057e982a8)
+
 # Unicorn Emulator Halts in NuttX MMU
 
 TODO: Unicorn Emulator halts...
