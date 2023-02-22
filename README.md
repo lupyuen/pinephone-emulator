@@ -255,155 +255,34 @@ When we run this, Unicorn Emulator loops forever. Let's find out why...
 
 # Unicorn Emulator Waits Forever for UART Controller Ready
 
-TODO: Here's the output when we run NuttX RTOS in Unicorn Emulator...
+Here's the output when we run NuttX RTOS in Unicorn Emulator...
 
 ```text
-hook_block:  address=0x40080000, size=8
-hook_code:   address=0x40080000, size=4
-hook_code:   address=0x40080004, size=4
-hook_block:  address=0x40080040, size=4
-hook_code:   address=0x40080040, size=4
-hook_block:  address=0x40080044, size=12
-hook_code:   address=0x40080044, size=4
-hook_memory: address=0x400801a8, size=8, mem_type=READ, value=0x0
-hook_code:   address=0x40080048, size=4
-hook_memory: address=0x400801b0, size=8, mem_type=READ, value=0x0
-hook_code:   address=0x4008004c, size=4
-hook_block:  address=0x40080118, size=16
-hook_code:   address=0x40080118, size=4
-hook_code:   address=0x4008011c, size=4
-hook_code:   address=0x40080120, size=4
-hook_code:   address=0x40080124, size=4
-hook_block:  address=0x40080128, size=8
-hook_code:   address=0x40080128, size=4
-hook_code:   address=0x4008012c, size=4
-hook_block:  address=0x40080130, size=8
-hook_code:   address=0x40080130, size=4
-hook_code:   address=0x40080134, size=4
-hook_block:  address=0x4008015c, size=12
-hook_code:   address=0x4008015c, size=4
-hook_code:   address=0x40080160, size=4
-hook_code:   address=0x40080164, size=4
-hook_block:  address=0x40080168, size=4
-hook_code:   address=0x40080168, size=4
-hook_block:  address=0x4008016c, size=8
-hook_code:   address=0x4008016c, size=4
-hook_code:   address=0x40080170, size=4
-hook_block:  address=0x40080174, size=4
-hook_code:   address=0x40080174, size=4
-hook_block:  address=0x40080178, size=8
-hook_code:   address=0x40080178, size=4
-hook_code:   address=0x4008017c, size=4
-hook_block:  address=0x40080050, size=4
-hook_code:   address=0x40080050, size=4
-hook_block:  address=0x400801e8, size=4
-hook_code:   address=0x400801e8, size=4
-hook_block:  address=0x40080054, size=12
-hook_code:   address=0x40080054, size=4
-hook_code:   address=0x40080058, size=4
-hook_memory: address=0x400801b8, size=8, mem_type=READ, value=0x0
-hook_code:   address=0x4008005c, size=4
-hook_block:  address=0x40080180, size=12
-hook_code:   address=0x40080180, size=4
-hook_memory: address=0x400ab000, size=1, mem_type=READ, value=0x0
-hook_code:   address=0x40080184, size=4
-hook_code:   address=0x40080188, size=4
-hook_block:  address=0x4008018c, size=8
-hook_code:   address=0x4008018c, size=4
-hook_memory: address=0x400c3ff0, size=8, mem_type=WRITE, value=0x0
-hook_memory: address=0x400c3ff8, size=8, mem_type=WRITE, value=0x40080060
-hook_code:   address=0x40080190, size=4
-hook_block:  address=0x400801f0, size=16
-hook_code:   address=0x400801f0, size=4
-hook_memory: address=0x40080208, size=8, mem_type=READ, value=0x0
-hook_code:   address=0x400801f4, size=4
 hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+hook_code:   address=0x400801f8, size=4
+hook_code:   address=0x400801fc, size=4
+hook_block:  address=0x400801f4, size=12
+hook_code:   address=0x400801f4, size=4
 
+hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
 hook_code:   address=0x400801f8, size=4
 hook_code:   address=0x400801fc, size=4
 hook_block:  address=0x400801f4, size=12
 hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
 
-hook_code:   address=0x400801f8, size=4
-hook_code:   address=0x400801fc, size=4
-hook_block:  address=0x400801f4, size=12
-hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
-
-hook_code:   address=0x400801f8, size=4
-hook_code:   address=0x400801fc, size=4
-hook_block:  address=0x400801f4, size=12
-hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
-
-hook_code:   address=0x400801f8, size=4
-hook_code:   address=0x400801fc, size=4
-hook_block:  address=0x400801f4, size=12
-hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
-
-hook_code:   address=0x400801f8, size=4
-hook_code:   address=0x400801fc, size=4
-hook_block:  address=0x400801f4, size=12
-hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
-
-hook_code:   address=0x400801f8, size=4
-hook_code:   address=0x400801fc, size=4
-hook_block:  address=0x400801f4, size=12
-hook_code:   address=0x400801f4, size=4
 hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
 hook_code:   address=0x400801f8, size=4
 hook_code:   address=0x400801fc, size=4
 hook_block:  address=0x400801f4, size=12
 hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
-
-hook_code:   address=0x400801f8, size=4
-hook_code:   address=0x400801fc, size=4
-hook_block:  address=0x400801f4, size=12
-hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
-
-hook_code:   address=0x400801f8, size=4
-hook_code:   address=0x400801fc, size=4
-hook_block:  address=0x400801f4, size=12
-hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
-
-hook_code:   address=0x400801f8, size=4
-hook_code:   address=0x400801fc, size=4
-hook_block:  address=0x400801f4, size=12
-hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
-
-hook_code:   address=0x400801f8, size=4
-hook_code:   address=0x400801fc, size=4
-hook_block:  address=0x400801f4, size=12
-hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
-
-hook_code:   address=0x400801f8, size=4
-hook_code:   address=0x400801fc, size=4
-hook_block:  address=0x400801f4, size=12
-hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
-
-hook_code:   address=0x400801f8, size=4
-hook_code:   address=0x400801fc, size=4
-hook_block:  address=0x400801f4, size=12
-hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
-
-hook_code:   address=0x400801f8, size=4
-hook_code:   address=0x400801fc, size=4
-hook_block:  address=0x400801f4, size=12
-hook_code:   address=0x400801f4, size=4
-hook_memory: address=0x01c28014, size=2, mem_type=READ, value=0x0
+...
 ```
 
-TODO: Loops forever waiting for UART Controller to be ready at `0x01c2` `8014`. Need to simulate UART Controller Ready.
+[(Source)](https://github.com/lupyuen/pinephone-emulator/blob/045fa5da84d9e07ead5a820a075c1445661328b6/README.md#unicorn-emulator-waits-forever-for-uart-controller-ready)
+
+The above log shows that Unicorn Emulator loops forever at address `0x4008` `01f4`, reading the data from address `0x01c2` `8014`.
+
+Let's check the NuttX Arm64 Code at address `0x4008` `01f4`...
 
 ```text
 SECTION_FUNC(text, up_lowputc)
@@ -424,48 +303,33 @@ SECTION_FUNC(text, up_lowputc)
 
 [(Source)](https://github.com/lupyuen/pinephone-emulator/blob/a1fb82d829856d86d6845c477709c2be24373aca/nuttx/nuttx.S#L3398-L3411)
 
+This code waits for the UART Controller to be ready (before printing UART Output), by checking the value at `0x01c2` `8014`.
+
 According to the Allwinner A64 Doc...
 
 -   ["Wait To Transmit"](https://lupyuen.github.io/articles/serial#wait-to-transmit)
 
 `0x01c2` `8014` is the UART Line Status Register (UART_LSR) at Offset 0x14.
 
-Bit 5 needs to be set to 1 to indicate that the UART Transmit FIFO is ready, like this...
+Bit 5 needs to be set to 1 to indicate that the UART Transmit FIFO is ready.
+
+We set the UART Ready Bit like so...
 
 https://github.com/lupyuen/pinephone-emulator/blob/6dd4c932fbc503e73c4fb842b236c2f8160195d6/src/main.rs#L40-L44
 
-Unicorn Emulator now continues execution to `memset`...
+And Unicorn Emulator stops looping! It continues execution to `memset()` (to init the BSS Section to 0)...
 
 ```text
-hook_code:   address=0x40089338, size=4
-hook_code:   address=0x4008933c, size=4
 hook_block:  address=0x40089328, size=8
-hook_code:   address=0x40089328, size=4
-hook_code:   address=0x4008932c, size=4
-hook_block:  address=0x40089334, size=12
-hook_code:   address=0x40089334, size=4
 hook_memory: address=0x400b6a52, size=1, mem_type=WRITE, value=0x0
-
-hook_code:   address=0x40089338, size=4
-hook_code:   address=0x4008933c, size=4
 hook_block:  address=0x40089328, size=8
-hook_code:   address=0x40089328, size=4
-hook_code:   address=0x4008932c, size=4
-hook_block:  address=0x40089334, size=12
-hook_code:   address=0x40089334, size=4
 hook_memory: address=0x400b6a53, size=1, mem_type=WRITE, value=0x0
-
-hook_code:   address=0x40089338, size=4
-hook_code:   address=0x4008933c, size=4
 hook_block:  address=0x40089328, size=8
-hook_code:   address=0x40089328, size=4
-hook_code:   address=0x4008932c, size=4
-hook_block:  address=0x40089334, size=12
-hook_code:   address=0x40089334, size=4
 hook_memory: address=0x400b6a54, size=1, mem_type=WRITE, value=0x0
+...
 ```
 
-Let's print the UART Output...
+But we don't see any UART Output. Let's print the UART Output...
 
 # Handle UART Output
 
