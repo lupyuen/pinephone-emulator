@@ -155,26 +155,28 @@ Let's talk about the Block...
 
 _What exactly is a Block of Arm64 Instructions?_
 
-Let's run this code from Apache NuttX RTOS (that handles UART Output)...
+When we this code from Apache NuttX RTOS (that handles UART Output)...
 
 ```text
 SECTION_FUNC(text, up_lowputc)
-    ldr   x15, =UART0_BASE_ADDRESS
-    400801f0:	580000cf 	ldr	x15, 40080208 <up_lowputc+0x18>
+  ldr   x15, =UART0_BASE_ADDRESS
+  400801f0:	580000cf 	ldr	x15, 40080208 <up_lowputc+0x18>
 nuttx/arch/arm64/src/chip/a64_lowputc.S:89
-    early_uart_ready x15, w2
-    400801f4:	794029e2 	ldrh	w2, [x15, #20]
-    400801f8:	721b005f 	tst	w2, #0x20
-    400801fc:	54ffffc0 	b.eq	400801f4 <up_lowputc+0x4>  // b.none
+  early_uart_ready x15, w2
+  400801f4:	794029e2 	ldrh	w2, [x15, #20]
+  400801f8:	721b005f 	tst	w2, #0x20
+  400801fc:	54ffffc0 	b.eq	400801f4 <up_lowputc+0x4>  // b.none
 nuttx/arch/arm64/src/chip/a64_lowputc.S:90
-    early_uart_transmit x15, w0
-    40080200:	390001e0 	strb	w0, [x15]
+  early_uart_transmit x15, w0
+  40080200:	390001e0 	strb	w0, [x15]
 nuttx/arch/arm64/src/chip/a64_lowputc.S:91
-    ret
-    40080204:	d65f03c0 	ret
+  ret
+  40080204:	d65f03c0 	ret
 ```
 
-[(Source)](nuttx/nuttx.S)
+[(Arm64 Disassembly)](https://github.com/lupyuen/pinephone-emulator/blob/a1fb82d829856d86d6845c477709c2be24373aca/nuttx/nuttx.S#L3398-L3411)
+
+[(Source Code)](https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/a64_lowputc.S#L61-L71)
 
 We observe that Unicorm Emulator treats `400801f0` to `400801fc` as a Block of Arm64 Instructins...
 
@@ -286,24 +288,39 @@ Let's check the NuttX Arm64 Code at address `0x4008` `01f4`...
 
 ```text
 SECTION_FUNC(text, up_lowputc)
-    ldr   x15, =UART0_BASE_ADDRESS
-    400801f0:	580000cf 	ldr	x15, 40080208 <up_lowputc+0x18>
+  ldr   x15, =UART0_BASE_ADDRESS
+  400801f0:	580000cf 	ldr	x15, 40080208 <up_lowputc+0x18>
 nuttx/arch/arm64/src/chip/a64_lowputc.S:89
-    early_uart_ready x15, w2
-    400801f4:	794029e2 	ldrh	w2, [x15, #20]
-    400801f8:	721b005f 	tst	w2, #0x20
-    400801fc:	54ffffc0 	b.eq	400801f4 <up_lowputc+0x4>  // b.none
+  early_uart_ready x15, w2
+  400801f4:	794029e2 	ldrh	w2, [x15, #20]
+  400801f8:	721b005f 	tst	w2, #0x20
+  400801fc:	54ffffc0 	b.eq	400801f4 <up_lowputc+0x4>  // b.none
 nuttx/arch/arm64/src/chip/a64_lowputc.S:90
-    early_uart_transmit x15, w0
-    40080200:	390001e0 	strb	w0, [x15]
+  early_uart_transmit x15, w0
+  40080200:	390001e0 	strb	w0, [x15]
 nuttx/arch/arm64/src/chip/a64_lowputc.S:91
-    ret
-    40080204:	d65f03c0 	ret
+  ret
+  40080204:	d65f03c0 	ret
 ```
 
 [(Arm64 Disassembly)](https://github.com/lupyuen/pinephone-emulator/blob/a1fb82d829856d86d6845c477709c2be24373aca/nuttx/nuttx.S#L3398-L3411)
 
-[(Source Code)](https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/a64_lowputc.S#L81-L91)
+Which comes from this NuttX Source Code...
+
+```text
+/* Wait for A64 UART to be ready to transmit
+ * xb: Register that contains the UART Base Address
+ * wt: Scratch register number
+ */
+.macro early_uart_ready xb, wt
+1:
+  ldrh  \wt, [\xb, #0x14]      /* UART_LSR (Line Status Register) */
+  tst   \wt, #0x20             /* Check THRE (TX Holding Register Empty) */
+  b.eq  1b                     /* Wait for the UART to be ready (THRE=1) */
+.endm
+```
+
+[(Source Code)](https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/a64_lowputc.S#L61-L71)
 
 This code waits for the UART Controller to be ready (before printing UART Output), by checking the value at `0x01c2` `8014`. The code is explained here...
 
