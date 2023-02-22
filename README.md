@@ -465,7 +465,13 @@ hook_code:   address=0x40089334, size=4
 hook_memory: address=0x400b6a54, size=1, mem_type=WRITE, value=0x0
 ```
 
-Then Unicorn Emulator halts...
+# Handle UART Output
+
+TODO: [UART Output](https://gist.github.com/lupyuen/587dbeb9329d9755e4d007dd8e1246cd)
+
+# Unicorn Emulator Halts in NuttX MMU
+
+TODO: Unicorn Emulator halts...
 
 ```text
 hook_block:  address=0x40080cec, size=16
@@ -505,8 +511,6 @@ hook_code:   address=0x40080ef4, size=4
 hook_code:   address=0x40080ef8, size=4
 thread 'main' panicked at 'halted emulation: EXCEPTION', src/main.rs:85:7
 ```
-
-# Unicorn Emulator Halts in NuttX MMU
 
 Unicorn Emulator halts at the NuttX MMU (EL1) code at `0x4008` `0ef8`...
 

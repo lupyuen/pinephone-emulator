@@ -117,6 +117,9 @@ fn hook_block(
     address: u64,  // Block Address
     size: u32      // Block Size
 ) {
+    // Ignore the memset() loop. TODO: Read the ELF Symbol Table to get address of memset().
+    if address >= 0x4008_9328 && address <= 0x4008_933c { return; }
+
     // Trace the flow of emulated code
     println!("hook_block:  address={:#010x}, size={:?}", address, size);
 }
