@@ -409,7 +409,7 @@ Yep NuttX RTOS is booting on Unicorn Emulator! But Unicorn Emulator halts while 
 
 # Unicorn Emulator Halts in NuttX MMU
 
-TODO: Unicorn Emulator halts...
+Unicorn Emulator halts with an __Arm64 Exception__ at address __`4008` `0EF8`__...
 
 ```text
 hook_block:  address=0x40080cec, size=16
@@ -450,6 +450,8 @@ hook_code:   address=0x40080ef8, size=4
 err=Err(EXCEPTION)
 ```
 
+[(See the Complete Log)](https://gist.github.com/lupyuen/778f15875edf632ccb5a093a656084cb)
+
 Unicorn Emulator halts at the NuttX MMU (EL1) code at `0x4008` `0ef8`...
 
 ```text
@@ -460,7 +462,7 @@ nuttx/arch/arm64/src/common/arm64_mmu.c:544
     40080ef8:	d5181000 	msr	sctlr_el1, x0
 ```
 
-TODO: Why did MSR fail with an Exception?
+_Why did MSR fail with an Exception?_
 
 Here's the context...
 
@@ -501,15 +503,27 @@ nuttx/arch/arm64/src/common/barriers.h:58
     40080efc:	d5033fdf 	isb
 ```
 
-[(NuttX MMU Source Code)](https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L526-L552)
+Which comes from this __NuttX Source Code__: [arm64_mmu.c](https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L541-L544)
+
+```c
+// Enable the MMU and data cache:
+// Read from System Control Register EL1
+value = read_sysreg(sctlr_el1);
+
+// Write to System Control Register EL1
+write_sysreg(  // Write to System Register...
+  value | SCTLR_M_BIT | SCTLR_C_BIT,  // Enable Address Translation and Caching
+  sctlr_el1    // System Control Register EL1
+);
+```
 
 Let's dump the Arm64 Exception...
 
 # Dump the Arm64 Exception
 
-TODO: Dump the Exception Registers ESR, FAR, ELR for EL1 [(Because of this)](https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_fatal.c#L381-L390)
+To find out the cause of the Arm64 Exception, let's dump the Exception Syndrome Register (ESR).
 
-This won't work...
+But this won't work...
 
 https://github.com/lupyuen/pinephone-emulator/blob/1cbfa48de10ef4735ebaf91ab85631cb48e37591/src/main.rs#L86-L91
 
@@ -630,7 +644,7 @@ _Can we use a debugger to step through Unicorn Emulator?_
 
 Yes but it gets messy.
 
-TODO: Trace the exception in the debugger. Look for...
+To trace the exception in the debugger. Look for...
 
 ```text
 $HOME/.cargo/registry/src/github.com-1ecc6299db9ec823/unicorn-engine-2.0.1/qemu/target/arm/translate-a64.c
@@ -644,13 +658,13 @@ Set a breakpoint in `aarch64_tr_translate_insn()`
 
 -   Which calls `handle_sys()` to handle system instructions
 
-TODO: Emulate the special Arm64 Instructions 
-
 To inspect the Emulator Settings, set a breakpoint at `cpu_aarch64_init()` in...
 
 ```text
 $HOME/.cargo/registry/src/github.com-1ecc6299db9ec823/unicorn-engine-2.0.1/qemu/target/arm/cpu64.c
 ```
+
+TODO: Check that the CPU Setting is correct for PinePhone. (CPU Model should be Cortex-A53)
 
 # Other Emulators
 
@@ -670,20 +684,18 @@ Check out QEMU...
 
 # TODO
 
-TODO: Use Unicorn Emulation Hooks to emulate PinePhone's Allwinner A64 UART Controller
+TODO: Emulate Input Interupts from UART Controller
 
-TODO: Emulate Apache NuttX NSH Shell on UART Controller
+TODO: Emulate Apache NuttX NSH Shell with UART Controller
 
-TODO: Emulate PinePhone's Allwinner A64 Display Engine. How to render the emulated graphics: Use Web Browser + WebAssembly + Unicorn.js? Will framebuffer emulation be slow?
-
-TODO: Emulate Interrupts
+TODO: Select Arm Cortex-A53 as CPU
 
 TODO: Emulate Multiple CPUs
 
-TODO: Emulate Memory Protection
+TODO: Emulate Arm64 Memory Protection
 
-TODO: Emulate GIC v2
+TODO: Emulate Arm64 Generic Interrupt Controller version 2
 
-TODO: Read the Symbol Table in ELF File to get the addresses
+TODO: Read the Symbol Table in NuttX ELF File to match the addresses received by Block Execution Hook
 
-TODO: Select Cortex-A53 as CPU
+TODO: Emulate PinePhone's Allwinner A64 Display Engine. How to render the emulated graphics: Use Web Browser + WebAssembly + Unicorn.js? Will framebuffer emulation be slow?
