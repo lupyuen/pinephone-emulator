@@ -9,11 +9,13 @@ fn main() {
     // Arm64 Machine Code for the above address
     let arm64_code = include_bytes!("../nuttx/nuttx.bin");
 
-    // Initialize emulator in Arm64 mode
+    // Init Emulator in Arm64 mode
     let mut unicorn = Unicorn::new(
         Arch::ARM64,
         Mode::LITTLE_ENDIAN
-    ).expect("failed to initialize Unicorn instance");
+    ).expect("failed to init Unicorn");
+
+    // Horse mutates to bird
     let emu = &mut unicorn;
 
     // Map 128 MB Executable Memory at 0x4000 0000 for Arm64 Machine Code
