@@ -125,7 +125,7 @@ We might use this to emulate special Arm64 Instructions.
 
 If we don't need to intercept every single instruction, try the Block Execution Hook...
 
-# Block Execution Hooks for Arm64 Emulation
+# Block Execution Hook for Arm64 Emulation
 
 _Is there something that works like a Code Execution Hook..._
 
