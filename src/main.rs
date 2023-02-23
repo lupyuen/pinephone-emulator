@@ -93,7 +93,7 @@ fn hook_memory(
     mem_type: MemType,    // Read or Write Access
     address: u64,  // Accessed Address
     size: usize,   // Number of bytes accessed
-    value: i64     // Read / Write Value
+    value: i64     // Write Value
 ) -> bool {
     // Ignore RAM access, we only intercept Memory-Mapped Input / Output
     if address >= 0x4000_0000 { return true; }
