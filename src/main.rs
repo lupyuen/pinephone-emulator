@@ -61,10 +61,10 @@ fn main() {
 
     // Add Hook for Arm64 Memory Access
     let _ = emu.add_mem_hook(
-        HookType::MEM_ALL, 
-        0,
-        u64::MAX,
-        hook_memory
+        HookType::MEM_ALL,  // Intercept Read and Write Accesses
+        0,           // Begin Address
+        u64::MAX,    // End Address
+        hook_memory  // Hook Function
     ).expect("failed to add memory hook");
 
     // Emulate Arm64 Machine Code
