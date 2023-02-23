@@ -513,7 +513,7 @@ This won't work...
 
 https://github.com/lupyuen/pinephone-emulator/blob/1cbfa48de10ef4735ebaf91ab85631cb48e37591/src/main.rs#L86-L91
 
-Because `ESR_EL` is no longer supported and `CP_REG` can't be read in Rust...
+Because `ESR_EL` is [no longer supported](https://github.com/unicorn-engine/unicorn/blob/master/bindings/rust/src/arm64.rs#L288-L307) and `CP_REG` can't be read in Rust...
 
 ```text
 err=Err(EXCEPTION)
@@ -526,7 +526,7 @@ ESR_EL3=Ok(0)
 
 [(See the Complete Log)](https://gist.github.com/lupyuen/778f15875edf632ccb5a093a656084cb)
 
-`CP_REG` can't be read in Rust because it needs a pointer to `uc_arm64_cp_reg` [(like this)](https://github.com/unicorn-engine/unicorn/blob/master/bindings/python/sample_arm64.py#L76-L82)...
+`CP_REG` can't be read in Rust because Unicorn needs a pointer to `uc_arm64_cp_reg`...
 
 ```c
 static uc_err reg_read(CPUARMState *env, unsigned int regid, void *value) {
@@ -538,7 +538,9 @@ static uc_err reg_read(CPUARMState *env, unsigned int regid, void *value) {
 
 [(Source)](https://github.com/unicorn-engine/unicorn/blob/master/qemu/target/arm/unicorn_aarch64.c#L225-L227)
 
-Which isn't supported by the Rust Bindings.
+Which isn't supported by the [Rust Bindings](https://github.com/unicorn-engine/unicorn/blob/master/bindings/rust/src/lib.rs#L528-L543).
+
+[(Works in Python though)](https://github.com/unicorn-engine/unicorn/blob/master/bindings/python/sample_arm64.py#L76-L82)
 
 So instead we set a breakpoint at `arm64_reg_read()` (pic below) in...
 
