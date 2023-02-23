@@ -72,7 +72,7 @@ fn main() {
         ADDRESS,  // Begin Address
         ADDRESS + arm64_code.len() as u64,  // End Address
         0,  // No Timeout
-        0   // No Limit for number of instructions
+        0   // Unlimited number of instructions
     );
 
     // Print the Emulator Error
