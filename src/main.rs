@@ -15,7 +15,7 @@ fn main() {
         Mode::LITTLE_ENDIAN
     ).expect("failed to init Unicorn");
 
-    // Horse mutates to bird
+    // Magical horse mutates to bird
     let emu = &mut unicorn;
 
     // Map 128 MB Executable Memory at 0x4000 0000 for Arm64 Machine Code
