@@ -257,6 +257,8 @@ When we run this, Unicorn Emulator loops forever. Let's find out why...
 
 # Unicorn Emulator Waits Forever for UART Controller Ready
 
+![Emulating the Allwinner A64 UART Controller](https://lupyuen.github.io/images/unicorn-code5.png)
+
 Here's the output when we run NuttX RTOS in Unicorn Emulator...
 
 ```text
@@ -357,6 +359,8 @@ hook_memory: address=0x400b6a54, size=1, mem_type=WRITE, value=0x0
 But we don't see any UART Output. Let's print the UART Output...
 
 # Emulate UART Output in Unicorn Emulator
+
+![Emulating UART Output in Unicorn Emulator](https://lupyuen.github.io/images/unicorn-code6.png)
 
 _How do we print the UART Output?_
 
