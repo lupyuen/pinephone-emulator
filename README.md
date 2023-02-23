@@ -1,5 +1,9 @@
 # Emulate PinePhone with Unicorn Emulator
 
+Read the article...
+
+-   ["(Possibly) Emulate PinePhone with Unicorn Emulator"](https://lupyuen.github.io/articles/unicorn)
+
 We're porting a new operating system ([Apache NuttX RTOS](https://lupyuen.github.io/articles/what)) to [Pine64 PinePhone](https://wiki.pine64.org/index.php/PinePhone). And I wondered...
 
 _To make PinePhone testing easier..._
