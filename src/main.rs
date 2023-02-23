@@ -100,7 +100,7 @@ fn hook_memory(
     println!("hook_memory: address={:#010x}, size={:?}, mem_type={:?}, value={:#x}", address, size, mem_type, value);
 
     // If writing to UART Transmit Holding Register (THR):
-    // Print the output
+    // Print the UART Output
     // https://lupyuen.github.io/articles/serial#transmit-uart
     if address == 0x01c2_8000 {
         println!("uart output: {:?}", value as u8 as char);
