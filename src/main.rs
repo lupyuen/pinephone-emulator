@@ -179,12 +179,15 @@ lazy_static! {
     static ref ELF_CONTEXT: ElfContext = {
         // Open the ELF File
         let path = std::path::PathBuf::from(ELF_FILENAME);
-        let file_data = std::fs::read(path).expect("failed to read ELF");
+        let file_data = std::fs::read(path)
+            .expect("failed to read ELF");
         let slice = file_data.as_slice();
 
         // Parse the ELF File
-        let obj = addr2line::object::read::File::parse(slice).expect("failed to parse ELF");
-        let context = addr2line::Context::new(&obj).expect("failed to parse debug info");
+        let obj = addr2line::object::read::File::parse(slice)
+            .expect("failed to parse ELF");
+        let context = addr2line::Context::new(&obj)
+            .expect("failed to parse debug info");
    
         // Set the ELF Context
         ElfContext {
