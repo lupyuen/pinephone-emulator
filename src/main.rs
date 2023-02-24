@@ -134,7 +134,8 @@ fn hook_block(
 
     // Print Function Name
     let context = ELF_CONTEXT.context.borrow();
-    let mut frames = context.find_frames(address).expect("failed to find frames");
+    let mut frames = context.find_frames(address)
+        .expect("failed to find frames");
     if let Some(frame) = frames.next().unwrap() {
         if let Some(func) = frame.function {
             if let Ok(name) = func.raw_name() {
@@ -144,12 +145,16 @@ fn hook_block(
     }
 
     // Print Filename
-    let loc = context.find_location(address).expect("failed to find location");
+    let loc = context.find_location(address)
+        .expect("failed to find location");
     if let Some(loc) = loc {
-        let file = loc.file.unwrap_or("")
+        let file = loc.file
+            .unwrap_or("")
             .replace("/private/tmp/nuttx/nuttx/", "");
-        let line = loc.line.unwrap_or(0);
-        let col = loc.column.unwrap_or(0);
+        let line = loc.line
+            .unwrap_or(0);
+        let col = loc.column
+            .unwrap_or(0);
         print!(", {}:{}:{}", file, line, col);
     }
     println!();
