@@ -163,7 +163,7 @@ fn load_symbol_table(filename: &str) {
     let mut frames = context.find_frames(0x40080eec).expect("failed to find frames");
     if let Some(frame) = frames.next().unwrap() {
         if let Some(func) = frame.function {
-            if let Some(name) = func.raw_name().ok().as_ref().map(AsRef::as_ref) {
+            if let Some(name) = func.raw_name().ok() {
                 println!("func={}", name);
             }
         }    
