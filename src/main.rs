@@ -159,21 +159,20 @@ fn load_symbol_table(filename: &str) {
     let common = file.find_common_data().expect("shdrs should parse");
     let symtab = common.symtab.unwrap();
     let strtab = common.symtab_strs.unwrap();
+
+    // Dump the Symbol Table
     println!("symtab.len={:?}", symtab.len());
-    for i in 0..20 {
-        println!("symtab.get({:?})={:?}", i, symtab.get(i));
+    for i in 0..symtab.len() {
+        // sym contains { st_name: 46, st_shndx: 1007, st_info: 0, st_other: 0, st_value: 1074442240, st_size: 0 }
+        // TODO: What is st_shndx?
+        let sym = symtab.get(i).unwrap();
+        let st_name = sym.st_name;
+
+        // Get the Symbol Name
+        if st_name != 0 {
+            let name = strtab.get(st_name as usize).unwrap();
+            let value = sym.st_value;
+            println!("{}={:#x}", name, value);    
+        }
     }
-    for i in 0..5 {
-        println!("strtab.get({:?})={:?}", i, strtab.get(i));
-    }
-    
-    // Use the hash table to find a given symbol in it.
-    // let name = b"memset";
-    // let (sym_idx, sym) = hash_table.find(name, &symtab, &strtab)
-    //     .expect("hash table and symbols should parse").unwrap();
-    
-    // Verify that we got the same symbol from the hash table we expected
-    // assert_eq!(sym_idx, 2);
-    // assert_eq!(strtab.get(sym.st_name as usize).unwrap(), "memset");
-    // assert_eq!(sym, symtab.get(sym_idx).unwrap());    
 }
