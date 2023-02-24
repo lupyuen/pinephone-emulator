@@ -1,8 +1,15 @@
+use std::process::exit;
+
 use unicorn_engine::{Unicorn, RegisterARM64};
 use unicorn_engine::unicorn_const::{Arch, HookType, MemType, Mode, Permission};
+use elf::ElfBytes;
+use elf::endian::AnyEndian;
 
 /// Emulate some Arm64 Machine Code
 fn main() {
+    // Load the Symbol Table from the ELF File
+    load_symbol_table("nuttx/nuttx");
+
     // Arm64 Memory Address where emulation starts
     const ADDRESS: u64 = 0x4008_0000;
 
@@ -88,8 +95,8 @@ fn main() {
     println!("ESR_EL3={:?}", emu.reg_read(RegisterARM64::ESR_EL3));
 }
 
-// Hook Function for Memory Access.
-// Called once for every Arm64 Memory Access.
+/// Hook Function for Memory Access.
+/// Called once for every Arm64 Memory Access.
 fn hook_memory(
     _: &mut Unicorn<()>,  // Emulator
     mem_type: MemType,    // Read or Write Access
@@ -113,8 +120,8 @@ fn hook_memory(
     true
 }
 
-// Hook Function for Block Emulation.
-// Called once for each Basic Block of Arm64 Instructions.
+/// Hook Function for Block Emulation.
+/// Called once for each Basic Block of Arm64 Instructions.
 fn hook_block(
     _: &mut Unicorn<()>,  // Emulator
     address: u64,  // Block Address
@@ -127,8 +134,8 @@ fn hook_block(
     println!("hook_block:  address={:#010x}, size={:?}", address, size);
 }
 
-// Hook Function for Code Emulation.
-// Called once for each Arm64 Instruction.
+/// Hook Function for Code Emulation.
+/// Called once for each Arm64 Instruction.
 fn hook_code(
     _: &mut Unicorn<()>,  // Emulator
     address: u64,  // Instruction Address
@@ -139,4 +146,34 @@ fn hook_code(
 
     // TODO: Handle special Arm64 Instructions
     // println!("hook_code:   address={:#010x}, size={:?}", address, size);
+}
+
+/// Load the Symbol Table from the ELF File
+fn load_symbol_table(filename: &str) {
+    let path = std::path::PathBuf::from(filename);
+    let file_data = std::fs::read(path).expect("Could not read file.");
+    let slice = file_data.as_slice();
+    let file = ElfBytes::<AnyEndian>::minimal_parse(slice).expect("Open test1");
+    
+    // Find lazy-parsing types for the common ELF sections (we want .dynsym, .dynstr, .hash)
+    let common = file.find_common_data().expect("shdrs should parse");
+    let symtab = common.symtab.unwrap();
+    let strtab = common.symtab_strs.unwrap();
+    println!("symtab.len={:?}", symtab.len());
+    for i in 0..5 {
+        println!("symtab.get({:?})={:?}", i, symtab.get(i));
+    }
+    for i in 0..5 {
+        println!("strtab.get({:?})={:?}", i, strtab.get(0));
+    }
+    
+    // Use the hash table to find a given symbol in it.
+    // let name = b"memset";
+    // let (sym_idx, sym) = hash_table.find(name, &symtab, &strtab)
+    //     .expect("hash table and symbols should parse").unwrap();
+    
+    // Verify that we got the same symbol from the hash table we expected
+    // assert_eq!(sym_idx, 2);
+    // assert_eq!(strtab.get(sym.st_name as usize).unwrap(), "memset");
+    // assert_eq!(sym, symtab.get(sym_idx).unwrap());    
 }
