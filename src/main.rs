@@ -163,12 +163,15 @@ fn load_symbol_table(filename: &str) {
     // Dump the Symbol Table
     println!("symtab.len={:?}", symtab.len());
     for i in 0..symtab.len() {
-        // sym contains { st_name: 46, st_shndx: 1007, st_info: 0, st_other: 0, st_value: 1074442240, st_size: 0 }
-        // TODO: What is st_shndx?
+        // `sym` contains { st_name: 46, st_shndx: 1007, st_info: 0, st_other: 0, st_value: 1074442240, st_size: 0 }
+        // TODO: What is `st_shndx`?
         let sym = symtab.get(i).unwrap();
-        let st_name = sym.st_name;
+        let st_name = sym.st_name;  // Index of Symbol Name in String Table
 
         // Get the Symbol Name
+        // "$x" means "Start of a sequence of A64 instructions"
+        // "$d" means "Start of a sequence of data items (for example, a literal pool)"
+        // https://github.com/ARM-software/abi-aa/blob/2020q4/aaelf64/aaelf64.rst#mapping-symbols
         if st_name != 0 {
             let name = strtab.get(st_name as usize).unwrap();
             let value = sym.st_value;
