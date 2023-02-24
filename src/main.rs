@@ -1,13 +1,20 @@
+#[macro_use]
+extern crate lazy_static;
+
 use unicorn_engine::{Unicorn, RegisterARM64};
 use unicorn_engine::unicorn_const::{Arch, HookType, MemType, Mode, Permission};
 use elf::ElfBytes;
 use elf::endian::AnyEndian;
 use std::path::Path;
+use std::rc::Rc;
+use std::cell::RefCell;
+
+const ELF_FILENAME: &str = "nuttx/nuttx";
 
 /// Emulate some Arm64 Machine Code
 fn main() {
     // Load the Symbol Table from the ELF File
-    load_symbol_table("nuttx/nuttx");
+    load_symbol_table(ELF_FILENAME);
 
     // Arm64 Memory Address where emulation starts
     const ADDRESS: u64 = 0x4008_0000;
@@ -131,6 +138,20 @@ fn hook_block(
 
     // Trace the flow of emulated code
     println!("hook_block:  address={:#010x}, size={:?}", address, size);
+
+    // Print Function Name and Location
+    let context = ELF_CONTEXT.context.borrow();
+    let loc = context.find_location(address).expect("failed to find location");
+    print!("loc=");
+    print_loc(loc.as_ref(), false, true);
+    let mut frames = context.find_frames(address).expect("failed to find frames");
+    if let Some(frame) = frames.next().unwrap() {
+        if let Some(func) = frame.function {
+            if let Some(name) = func.raw_name().ok() {
+                println!("func={}", name);
+            }
+        }    
+    }
 }
 
 /// Hook Function for Code Emulation.
@@ -146,6 +167,29 @@ fn hook_code(
     // TODO: Handle special Arm64 Instructions
     // println!("hook_code:   address={:#010x}, size={:?}", address, size);
 }
+
+lazy_static! {
+    static ref ELF_CONTEXT: ElfContext = {
+        // Open the ELF File
+        let path = std::path::PathBuf::from(ELF_FILENAME);
+        let file_data = std::fs::read(path).expect("failed to read ELF");
+        let slice = file_data.as_slice();
+
+        // Parse the ELF File
+        let obj = addr2line::object::read::File::parse(slice).expect("failed to parse ELF");
+        let context = addr2line::Context::new(&obj).expect("failed to parse debug info");
+   
+        ElfContext {
+            context: RefCell::new(context),
+        }
+    };
+}
+
+struct ElfContext {
+    context: RefCell<addr2line::Context<gimli::EndianReader<gimli::RunTimeEndian, Rc<[u8]>>>>,
+}
+unsafe impl Send for ElfContext {}
+unsafe impl Sync for ElfContext {}
 
 /// Load the Symbol Table from the ELF File
 fn load_symbol_table(filename: &str) {
