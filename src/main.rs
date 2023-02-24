@@ -1,10 +1,9 @@
-use std::process::exit;
-
 use unicorn_engine::{Unicorn, RegisterARM64};
 use unicorn_engine::unicorn_const::{Arch, HookType, MemType, Mode, Permission};
 use elf::ElfBytes;
 use elf::endian::AnyEndian;
 use std::path::Path;
+use std::borrow::Cow;
 
 /// Emulate some Arm64 Machine Code
 fn main() {
@@ -161,8 +160,19 @@ fn load_symbol_table(filename: &str) {
     let context = addr2line::Context::new(&obj).expect("failed to parse debug info");
     let loc = context.find_location(0x40080eec).expect("failed to find location");
     print_loc(loc.as_ref(), false, true);
-    let frames = context.find_frames(0x40080eec);
-    
+    let mut frames = context.find_frames(0x40080eec).expect("failed to find frames");
+    while let Some(frame) = frames.next().unwrap() {
+        if let Some(func) = frame.function {
+            print_function(
+                func.raw_name().ok().as_ref().map(AsRef::as_ref),
+                func.language,
+                true,
+            );        
+            print!(".");
+        }
+    }
+    println!("");
+
     // Find lazy-parsing types for the common ELF sections (we want .dynsym, .dynstr, .hash)
     let file = ElfBytes::<AnyEndian>::minimal_parse(slice).expect("failed to parse ELF");
     let common = file.find_common_data().expect("failed to parse shdrs");
@@ -216,14 +226,14 @@ fn print_loc(loc: Option<&addr2line::Location<'_>>, basenames: bool, llvm: bool)
     }
 }
 
-// fn print_function(name: Option<&str>, language: Option<gimli::DwLang>, demangle: bool) {
-//     if let Some(name) = name {
-//         if demangle {
-//             print!("{}", addr2line::demangle_auto(Cow::from(name), language));
-//         } else {
-//             print!("{}", name);
-//         }
-//     } else {
-//         print!("??");
-//     }
-// }
+fn print_function(name: Option<&str>, language: Option<gimli::DwLang>, demangle: bool) {
+    if let Some(name) = name {
+        if demangle {
+            print!("{}", addr2line::demangle_auto(Cow::from(name), language));
+        } else {
+            print!("{}", name);
+        }
+    } else {
+        print!("??");
+    }
+}
