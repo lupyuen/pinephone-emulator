@@ -3,10 +3,10 @@ extern crate lazy_static;
 
 use unicorn_engine::{Unicorn, RegisterARM64};
 use unicorn_engine::unicorn_const::{Arch, HookType, MemType, Mode, Permission};
-use std::path::Path;
 use std::rc::Rc;
 use std::cell::RefCell;
 
+/// ELF File for mapping Addresses to Function Names and Filenames
 const ELF_FILENAME: &str = "nuttx/nuttx";
 
 /// Emulate some Arm64 Machine Code
@@ -145,8 +145,14 @@ fn hook_block(
     }
 
     // Print Filename
-    print!(", ");
-    print_loc(loc.as_ref(), false, true);
+    if let Some(loc) = loc {
+        let file = loc.file.unwrap_or("")
+            .replace("/private/tmp/nuttx/nuttx/", "");
+        let line = loc.line.unwrap_or(0);
+        let col = loc.column.unwrap_or(0);
+        print!(", {}:{}:{}", file, line, col);
+    }
+    println!();
 }
 
 /// Hook Function for Code Emulation.
@@ -182,37 +188,18 @@ lazy_static! {
     };
 }
 
-/// Print Source Filename:Line:Column
-fn print_loc(loc: Option<&addr2line::Location<'_>>, basenames: bool, llvm: bool) {
-    if let Some(loc) = loc {
-        if let Some(ref file) = loc.file.as_ref() {
-            let path = if basenames {
-                Path::new(Path::new(file).file_name().unwrap())
-            } else {
-                Path::new(file)
-            };
-            print!("{}:", path.display());
-        } else {
-            print!("??:");
-        }
-        if llvm {
-            print!("{}:{}", loc.line.unwrap_or(0), loc.column.unwrap_or(0));
-        } else if let Some(line) = loc.line {
-            print!("{}", line);
-        } else {
-            print!("?");
-        }
-        println!();
-    } else if llvm {
-        println!("??:0:0");
-    } else {
-        println!("??:0");
-    }
-}
-
 /// Wrapper for ELF Context. Needed for `lazy_static`
 struct ElfContext {
-    context: RefCell<addr2line::Context<gimli::EndianReader<gimli::RunTimeEndian, Rc<[u8]>>>>,
+    context: RefCell<
+        addr2line::Context<
+            gimli::EndianReader<
+                gimli::RunTimeEndian, 
+                Rc<[u8]>  // Doesn't implement Send / Sync
+            >
+        >
+    >
 }
+
+/// Send and Sync for ELF Context. Needed for `lazy_static`
 unsafe impl Send for ElfContext {}
 unsafe impl Sync for ElfContext {}
