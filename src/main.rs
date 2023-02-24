@@ -4,6 +4,7 @@ use unicorn_engine::{Unicorn, RegisterARM64};
 use unicorn_engine::unicorn_const::{Arch, HookType, MemType, Mode, Permission};
 use elf::ElfBytes;
 use elf::endian::AnyEndian;
+use std::path::Path;
 
 /// Emulate some Arm64 Machine Code
 fn main() {
@@ -150,12 +151,20 @@ fn hook_code(
 
 /// Load the Symbol Table from the ELF File
 fn load_symbol_table(filename: &str) {
+    // Open the ELF File
     let path = std::path::PathBuf::from(filename);
     let file_data = std::fs::read(path).expect("failed to read ELF");
     let slice = file_data.as_slice();
-    let file = ElfBytes::<AnyEndian>::minimal_parse(slice).expect("failed to parse ELF");
+
+    // Print Function Name and Location
+    let obj = addr2line::object::read::File::parse(slice).expect("failed to parse ELF");
+    let context = addr2line::Context::new(&obj).expect("failed to parse debug info");
+    let loc = context.find_location(0x40080eec).expect("failed to find location");
+    print_loc(loc.as_ref(), false, true);
+    let frames = context.find_frames(0x40080eec);
     
     // Find lazy-parsing types for the common ELF sections (we want .dynsym, .dynstr, .hash)
+    let file = ElfBytes::<AnyEndian>::minimal_parse(slice).expect("failed to parse ELF");
     let common = file.find_common_data().expect("failed to parse shdrs");
     let symtab = common.symtab.unwrap();
     let strtab = common.symtab_strs.unwrap();
@@ -179,3 +188,42 @@ fn load_symbol_table(filename: &str) {
         }
     }
 }
+
+fn print_loc(loc: Option<&addr2line::Location<'_>>, basenames: bool, llvm: bool) {
+    if let Some(loc) = loc {
+        if let Some(ref file) = loc.file.as_ref() {
+            let path = if basenames {
+                Path::new(Path::new(file).file_name().unwrap())
+            } else {
+                Path::new(file)
+            };
+            print!("{}:", path.display());
+        } else {
+            print!("??:");
+        }
+        if llvm {
+            print!("{}:{}", loc.line.unwrap_or(0), loc.column.unwrap_or(0));
+        } else if let Some(line) = loc.line {
+            print!("{}", line);
+        } else {
+            print!("?");
+        }
+        println!();
+    } else if llvm {
+        println!("??:0:0");
+    } else {
+        println!("??:0");
+    }
+}
+
+// fn print_function(name: Option<&str>, language: Option<gimli::DwLang>, demangle: bool) {
+//     if let Some(name) = name {
+//         if demangle {
+//             print!("{}", addr2line::demangle_auto(Cow::from(name), language));
+//         } else {
+//             print!("{}", name);
+//         }
+//     } else {
+//         print!("??");
+//     }
+// }
