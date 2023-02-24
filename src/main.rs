@@ -134,17 +134,17 @@ fn hook_block(
 
     // Print Function Name
     let context = ELF_CONTEXT.context.borrow();
-    let loc = context.find_location(address).expect("failed to find location");
     let mut frames = context.find_frames(address).expect("failed to find frames");
     if let Some(frame) = frames.next().unwrap() {
         if let Some(func) = frame.function {
-            if let Some(name) = func.raw_name().ok() {
+            if let Ok(name) = func.raw_name() {
                 print!(", {}", name);
             }
         }    
     }
 
     // Print Filename
+    let loc = context.find_location(address).expect("failed to find location");
     if let Some(loc) = loc {
         let file = loc.file.unwrap_or("")
             .replace("/private/tmp/nuttx/nuttx/", "");
