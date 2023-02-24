@@ -130,7 +130,7 @@ fn hook_block(
 ) {
     // Ignore the memset() loop. TODO: Read the ELF Symbol Table to get address of memset().
     if address >= 0x4008_9328 && address <= 0x4008_933c { return; }
-    print!("hook_block:  address={:#010x}, size={:?}", address, size);
+    print!("hook_block:  address={:#010x}, size={:02}", address, size);
 
     // Print Function Name
     let context = ELF_CONTEXT.context.borrow();
