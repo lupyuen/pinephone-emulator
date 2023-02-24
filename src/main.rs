@@ -151,12 +151,12 @@ fn hook_code(
 /// Load the Symbol Table from the ELF File
 fn load_symbol_table(filename: &str) {
     let path = std::path::PathBuf::from(filename);
-    let file_data = std::fs::read(path).expect("Could not read file.");
+    let file_data = std::fs::read(path).expect("failed to read ELF");
     let slice = file_data.as_slice();
-    let file = ElfBytes::<AnyEndian>::minimal_parse(slice).expect("Open test1");
+    let file = ElfBytes::<AnyEndian>::minimal_parse(slice).expect("failed to parse ELF");
     
     // Find lazy-parsing types for the common ELF sections (we want .dynsym, .dynstr, .hash)
-    let common = file.find_common_data().expect("shdrs should parse");
+    let common = file.find_common_data().expect("failed to parse shdrs");
     let symtab = common.symtab.unwrap();
     let strtab = common.symtab_strs.unwrap();
 
