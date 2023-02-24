@@ -160,11 +160,11 @@ fn load_symbol_table(filename: &str) {
     let symtab = common.symtab.unwrap();
     let strtab = common.symtab_strs.unwrap();
     println!("symtab.len={:?}", symtab.len());
-    for i in 0..5 {
+    for i in 0..20 {
         println!("symtab.get({:?})={:?}", i, symtab.get(i));
     }
     for i in 0..5 {
-        println!("strtab.get({:?})={:?}", i, strtab.get(0));
+        println!("strtab.get({:?})={:?}", i, strtab.get(i));
     }
     
     // Use the hash table to find a given symbol in it.
