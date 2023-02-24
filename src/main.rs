@@ -160,13 +160,13 @@ fn hook_block(
 fn hook_code(
     _: &mut Unicorn<()>,  // Emulator
     address: u64,  // Instruction Address
-    size: u32      // Instruction Size
+    _size: u32      // Instruction Size
 ) {
     // Ignore the memset() loop. TODO: Read the ELF Symbol Table to get address of memset().
     if address >= 0x4008_9328 && address <= 0x4008_933c { return; }
 
     // TODO: Handle special Arm64 Instructions
-    // println!("hook_code:   address={:#010x}, size={:?}", address, size);
+    // println!("hook_code:   address={:#010x}, size={:?}", address, _size);
 }
 
 lazy_static! {
