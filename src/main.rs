@@ -3,8 +3,6 @@ extern crate lazy_static;
 
 use unicorn_engine::{Unicorn, RegisterARM64};
 use unicorn_engine::unicorn_const::{Arch, HookType, MemType, Mode, Permission};
-use elf::ElfBytes;
-use elf::endian::AnyEndian;
 use std::path::Path;
 use std::rc::Rc;
 use std::cell::RefCell;
@@ -13,9 +11,6 @@ const ELF_FILENAME: &str = "nuttx/nuttx";
 
 /// Emulate some Arm64 Machine Code
 fn main() {
-    // Load the Symbol Table from the ELF File
-    load_symbol_table(ELF_FILENAME);
-
     // Arm64 Memory Address where emulation starts
     const ADDRESS: u64 = 0x4008_0000;
 
@@ -135,23 +130,23 @@ fn hook_block(
 ) {
     // Ignore the memset() loop. TODO: Read the ELF Symbol Table to get address of memset().
     if address >= 0x4008_9328 && address <= 0x4008_933c { return; }
+    print!("hook_block:  address={:#010x}, size={:?}", address, size);
 
-    // Trace the flow of emulated code
-    println!("hook_block:  address={:#010x}, size={:?}", address, size);
-
-    // Print Function Name and Location
+    // Print Function Name
     let context = ELF_CONTEXT.context.borrow();
     let loc = context.find_location(address).expect("failed to find location");
-    print!("loc=");
-    print_loc(loc.as_ref(), false, true);
     let mut frames = context.find_frames(address).expect("failed to find frames");
     if let Some(frame) = frames.next().unwrap() {
         if let Some(func) = frame.function {
             if let Some(name) = func.raw_name().ok() {
-                println!("func={}", name);
+                print!(", {}", name);
             }
         }    
     }
+
+    // Print Filename
+    print!(", ");
+    print_loc(loc.as_ref(), false, true);
 }
 
 /// Hook Function for Code Emulation.
@@ -169,6 +164,7 @@ fn hook_code(
 }
 
 lazy_static! {
+    /// ELF Context for mapping Addresses to Function Names and Filenames
     static ref ELF_CONTEXT: ElfContext = {
         // Open the ELF File
         let path = std::path::PathBuf::from(ELF_FILENAME);
@@ -179,64 +175,11 @@ lazy_static! {
         let obj = addr2line::object::read::File::parse(slice).expect("failed to parse ELF");
         let context = addr2line::Context::new(&obj).expect("failed to parse debug info");
    
+        // Set the ELF Context
         ElfContext {
             context: RefCell::new(context),
         }
     };
-}
-
-struct ElfContext {
-    context: RefCell<addr2line::Context<gimli::EndianReader<gimli::RunTimeEndian, Rc<[u8]>>>>,
-}
-unsafe impl Send for ElfContext {}
-unsafe impl Sync for ElfContext {}
-
-/// Load the Symbol Table from the ELF File
-fn load_symbol_table(filename: &str) {
-    // Open the ELF File
-    let path = std::path::PathBuf::from(filename);
-    let file_data = std::fs::read(path).expect("failed to read ELF");
-    let slice = file_data.as_slice();
-
-    // Print Function Name and Location
-    let obj = addr2line::object::read::File::parse(slice).expect("failed to parse ELF");
-    let context = addr2line::Context::new(&obj).expect("failed to parse debug info");
-    let loc = context.find_location(0x40080eec).expect("failed to find location");
-    print!("loc=");
-    print_loc(loc.as_ref(), false, true);
-    let mut frames = context.find_frames(0x40080eec).expect("failed to find frames");
-    if let Some(frame) = frames.next().unwrap() {
-        if let Some(func) = frame.function {
-            if let Some(name) = func.raw_name().ok() {
-                println!("func={}", name);
-            }
-        }    
-    }
-
-    // Find lazy-parsing types for the common ELF sections (we want .dynsym, .dynstr, .hash)
-    let file = ElfBytes::<AnyEndian>::minimal_parse(slice).expect("failed to parse ELF");
-    let common = file.find_common_data().expect("failed to parse shdrs");
-    let symtab = common.symtab.unwrap();
-    let strtab = common.symtab_strs.unwrap();
-
-    // Dump the Symbol Table
-    println!("symtab.len={:?}", symtab.len());
-    for i in 0..symtab.len() {
-        // `sym` contains { st_name: 46, st_shndx: 1007, st_info: 0, st_other: 0, st_value: 1074442240, st_size: 0 }
-        // TODO: What is `st_shndx`?
-        let sym = symtab.get(i).unwrap();
-        let st_name = sym.st_name;  // Index of Symbol Name in String Table
-
-        // Get the Symbol Name
-        // "$x" means "Start of a sequence of A64 instructions"
-        // "$d" means "Start of a sequence of data items (for example, a literal pool)"
-        // https://github.com/ARM-software/abi-aa/blob/2020q4/aaelf64/aaelf64.rst#mapping-symbols
-        if st_name != 0 {
-            let name = strtab.get(st_name as usize).unwrap();
-            let value = sym.st_value;
-            println!("{}={:#x}", name, value);    
-        }
-    }
 }
 
 /// Print Source Filename:Line:Column
@@ -266,3 +209,10 @@ fn print_loc(loc: Option<&addr2line::Location<'_>>, basenames: bool, llvm: bool)
         println!("??:0");
     }
 }
+
+/// Wrapper for ELF Context. Needed for `lazy_static`
+struct ElfContext {
+    context: RefCell<addr2line::Context<gimli::EndianReader<gimli::RunTimeEndian, Rc<[u8]>>>>,
+}
+unsafe impl Send for ElfContext {}
+unsafe impl Sync for ElfContext {}
