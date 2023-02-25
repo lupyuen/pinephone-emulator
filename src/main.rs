@@ -305,7 +305,7 @@ static ELF_CONTEXT: Lazy<ElfContext> = Lazy::new(|| {
     }
 });
 
-/// Wrapper for ELF Context. Needed for `lazy_static`
+/// Wrapper for ELF Context. Needed for `Lazy`
 struct ElfContext {
     context: RefCell<
         addr2line::Context<
@@ -317,6 +317,6 @@ struct ElfContext {
     >
 }
 
-/// Send and Sync for ELF Context. Needed for `lazy_static`
+/// Send and Sync for ELF Context. Needed for `Lazy`
 unsafe impl Send for ElfContext {}
 unsafe impl Sync for ElfContext {}
