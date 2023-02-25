@@ -703,66 +703,117 @@ To troubleshoot the Apache NuttX MMU Fault on Unicorn Emulator, we auto-generate
 ```mermaid
   flowchart TD
   arm64_boot_el1_init --> arm64_isb
+  click arm64_boot_el1_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_boot.c#L137" "arch/arm64/src/common/arm64_boot.c "
   arm64_isb --> arm64_boot_el1_init
+  click arm64_isb href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/barriers.h#L57" "arch/arm64/src/common/barriers.h "
   arm64_boot_el1_init --> arm64_isb
+  click arm64_boot_el1_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_boot.c#L145" "arch/arm64/src/common/arm64_boot.c "
   arm64_isb --> arm64_boot_el1_init
+  click arm64_isb href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/barriers.h#L57" "arch/arm64/src/common/barriers.h "
   arm64_boot_el1_init --> arm64_boot_primary_c_routine
+  click arm64_boot_el1_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_boot.c#L161" "arch/arm64/src/common/arm64_boot.c "
   arm64_boot_primary_c_routine --> memset
+  click arm64_boot_primary_c_routine href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_boot.c#L180" "arch/arm64/src/common/arm64_boot.c "
   memset --> arm64_boot_primary_c_routine
+  click memset href "https://github.com/apache/nuttx/blob/master/libs/libc/string/lib_memset.c#L168" "libs/libc/string/lib_memset.c "
   arm64_boot_primary_c_routine --> arm64_chip_boot
+  click arm64_boot_primary_c_routine href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_boot.c#L181" "arch/arm64/src/common/arm64_boot.c "
   arm64_chip_boot --> arm64_mmu_init
+  click arm64_chip_boot href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/a64_boot.c#L81" "arch/arm64/src/a64/a64_boot.c "
   arm64_mmu_init --> setup_page_tables
+  click arm64_mmu_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L583" "arch/arm64/src/common/arm64_mmu.c "
   setup_page_tables --> init_xlat_tables
+  click setup_page_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L490" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> calculate_pte_index
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L417" "arch/arm64/src/common/arm64_mmu.c "
   calculate_pte_index --> init_xlat_tables
+  click calculate_pte_index href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L246" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> pte_desc_type
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L447" "arch/arm64/src/common/arm64_mmu.c "
   pte_desc_type --> new_prealloc_table
+  click pte_desc_type href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L234" "arch/arm64/src/common/arm64_mmu.c "
   new_prealloc_table --> init_xlat_tables
+  click new_prealloc_table href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L378" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> calculate_pte_index
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L437" "arch/arm64/src/common/arm64_mmu.c "
   calculate_pte_index --> pte_desc_type
+  click calculate_pte_index href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L246" "arch/arm64/src/common/arm64_mmu.c "
   pte_desc_type --> calculate_pte_index
+  click pte_desc_type href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L234" "arch/arm64/src/common/arm64_mmu.c "
   calculate_pte_index --> init_xlat_tables
+  click calculate_pte_index href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L247" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> set_pte_block_desc
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L447" "arch/arm64/src/common/arm64_mmu.c "
   set_pte_block_desc --> init_xlat_tables
+  click set_pte_block_desc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L293" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> calculate_pte_index
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L456" "arch/arm64/src/common/arm64_mmu.c "
   calculate_pte_index --> init_xlat_tables
+  click calculate_pte_index href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L246" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> pte_desc_type
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L447" "arch/arm64/src/common/arm64_mmu.c "
   pte_desc_type --> init_xlat_tables
+  click pte_desc_type href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L234" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> calculate_pte_index
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L472" "arch/arm64/src/common/arm64_mmu.c "
   calculate_pte_index --> pte_desc_type
+  click calculate_pte_index href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L246" "arch/arm64/src/common/arm64_mmu.c "
   pte_desc_type --> calculate_pte_index
+  click pte_desc_type href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L234" "arch/arm64/src/common/arm64_mmu.c "
   calculate_pte_index --> init_xlat_tables
+  click calculate_pte_index href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L247" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> set_pte_block_desc
-  set_pte_block_desc --> init_xlat_tables
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L447" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> calculate_pte_index
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L456" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> pte_desc_type
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L447" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> calculate_pte_index
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L472" "arch/arm64/src/common/arm64_mmu.c "
   calculate_pte_index --> pte_desc_type
-  pte_desc_type --> calculate_pte_index
+  click calculate_pte_index href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L246" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> set_pte_block_desc
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L447" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> pte_desc_type
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L447" "arch/arm64/src/common/arm64_mmu.c "
   calculate_pte_index --> pte_desc_type
+  click calculate_pte_index href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L246" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> set_pte_block_desc
-  init_xlat_tables --> pte_desc_type
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L447" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> set_pte_block_desc
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L447" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> set_pte_block_desc
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L447" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> set_pte_block_desc
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L447" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> set_pte_block_desc
-  init_xlat_tables --> set_pte_block_desc
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L447" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> setup_page_tables
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L456" "arch/arm64/src/common/arm64_mmu.c "
   pte_desc_type --> new_prealloc_table
+  click pte_desc_type href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L234" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> setup_page_tables
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L456" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> new_prealloc_table
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L472" "arch/arm64/src/common/arm64_mmu.c "
   new_prealloc_table --> split_pte_block_desc
+  click new_prealloc_table href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L378" "arch/arm64/src/common/arm64_mmu.c "
   split_pte_block_desc --> set_pte_table_desc
+  click split_pte_block_desc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L401" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> setup_page_tables
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L456" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> setup_page_tables
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L456" "arch/arm64/src/common/arm64_mmu.c "
   init_xlat_tables --> setup_page_tables
+  click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L456" "arch/arm64/src/common/arm64_mmu.c "
   setup_page_tables --> enable_mmu_el1
+  click setup_page_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L515" "arch/arm64/src/common/arm64_mmu.c "
   enable_mmu_el1 --> arm64_isb
+  click enable_mmu_el1 href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L532" "arch/arm64/src/common/arm64_mmu.c "
   arm64_isb --> enable_mmu_el1
+  click arm64_isb href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/barriers.h#L57" "arch/arm64/src/common/barriers.h "
   enable_mmu_el1 --> ***_HALT_***
-  click arm64_isb href "https://www.github.com" "This is a tooltip for a link"
+  click enable_mmu_el1 href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L542" "arch/arm64/src/common/arm64_mmu.c "
 ```
 
 We generated the Call Graph with this command...

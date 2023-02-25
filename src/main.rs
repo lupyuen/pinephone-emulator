@@ -210,7 +210,8 @@ fn map_address_to_location(
     if let Some(loc) = loc {
         if let Some(file) = loc.file {
             let s = String::from(file)
-                .replace("/private/tmp/nuttx/nuttx/", "");
+                .replace("/private/tmp/nuttx/nuttx/", "")
+                .replace("arch/arm64/src/chip", "arch/arm64/src/a64");  // TODO: Handle other chips
             Some((Some(s), loc.line, loc.column))
         } else {
             Some((None, loc.line, loc.column))
@@ -226,10 +227,10 @@ fn call_graph(
     _address: u64,  // Code Address
     _size: u32,     // Size of Code Block
     function: Option<String>,  // Function Name
-    _loc: Option<(        // Source Location
-        Option<String>,   // Filename
-        Option<u32>,      // Line
-        Option<u32>       // Column
+    loc: Option<(        // Source Location
+        Option<String>,  // Filename
+        Option<u32>,     // Line
+        Option<u32>      // Column
     )>
 ) {
     // Get the Function Name
@@ -238,8 +239,9 @@ fn call_graph(
 
     // Unsafe because `LAST_FNAME` is a Static Mutable
     unsafe {
-        // Skip we are still in the same Function
+        // Skip if we are still in the same Function
         static mut LAST_FNAME: String = String::new();
+        static mut LAST_LOC: Option<(Option<String>, Option<u32>, Option<u32>)> = None;
         if fname.eq(&LAST_FNAME) { return; }
 
         // If this function has not been shown too often...
@@ -248,10 +250,17 @@ fn call_graph(
             if LAST_FNAME.is_empty() {            
                 println!("call_graph:  flowchart TD");  // Top-Down Flowchart
             } else {
-                println!("call_graph:  {} --> {}", LAST_FNAME, fname);
+                // URL looks like https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L541
+                let (file, line, _) = LAST_LOC.clone().unwrap_or((Some("".to_string()), None, None));
+                let file = file.unwrap_or("".to_string());
+                let line = line.unwrap_or(1) - 1;
+                let url = format!("https://github.com/apache/nuttx/blob/master/{file}#L{line}");
+                println!("call_graph:  {LAST_FNAME} --> {fname}");
+                println!("call_graph:  click {LAST_FNAME} href \"{url}\" \"{file} \"");
             }
         }
-        LAST_FNAME = fname;    
+        LAST_FNAME = fname;
+        LAST_LOC = loc;
     }
 }
 
