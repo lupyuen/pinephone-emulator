@@ -132,21 +132,24 @@ fn hook_block(
     if address >= 0x4008_9328 && address <= 0x4008_933c { return; }
     print!("hook_block:  address={:#010x}, size={:02}", address, size);
 
-    // Print Function Name
+    // Print the Function Name
     let function = map_address_to_function(address);
-    if let Some(name) = function {
+    if let Some(ref name) = function {
         print!(", {}", name);
     }
 
-    // Print Source Filename
+    // Print the Source Filename
     let loc = map_address_to_location(address);
-    if let Some((file, line, col)) = loc {
-        let file = file.unwrap_or("".to_string());
+    if let Some((ref file, line, col)) = loc {
+        let file = file.clone().unwrap_or("".to_string());
         let line = line.unwrap_or(0);
         let col = col.unwrap_or(0);
         print!(", {}:{}:{}", file, line, col);
     }
     println!();
+
+    // Print the Call Graph
+    call_graph(address, size, function, loc);
 }
 
 /// Hook Function for Code Emulation.
@@ -208,6 +211,35 @@ fn map_address_to_location(
         }
     } else {
         None
+    }
+}
+
+/// Print the Mermaid.js Call Graph for this Function Call
+fn call_graph(
+    address: u64,  // Code Address
+    size: u32,     // Size of Code Block
+    function: Option<String>,  // Function Name
+    loc: Option<(        // Source Location
+        Option<String>,  // Filename
+        Option<u32>,     // Line
+        Option<u32>      // Column
+    )>
+) {
+    // Get the Function Name
+    let Some(fname) = function
+        else { return; };
+
+    // Unsafe because `LAST_FNAME` is a Static Mutable
+    unsafe {
+        // Skip we are still in the same Function
+        static mut LAST_FNAME: String = String::new();
+        if fname.eq(&LAST_FNAME) { return; }
+
+        // Print the Call Flow
+        if LAST_FNAME.len() > 0 {
+            println!("call_graph:  {} -> {}", LAST_FNAME, fname);
+        }
+        LAST_FNAME = fname;    
     }
 }
 
