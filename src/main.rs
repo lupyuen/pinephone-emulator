@@ -133,28 +133,17 @@ fn hook_block(
     print!("hook_block:  address={:#010x}, size={:02}", address, size);
 
     // Print Function Name
-    let context = ELF_CONTEXT.context.borrow();
-    let mut frames = context.find_frames(address)
-        .expect("failed to find frames");
-    if let Some(frame) = frames.next().unwrap() {
-        if let Some(func) = frame.function {
-            if let Ok(name) = func.raw_name() {
-                print!(", {}", name);
-            }
-        }    
+    let function = map_address_to_function(address);
+    if let Some(name) = function {
+        print!(", {}", name);
     }
 
-    // Print Filename
-    let loc = context.find_location(address)
-        .expect("failed to find location");
-    if let Some(loc) = loc {
-        let file = loc.file
-            .unwrap_or("")
-            .replace("/private/tmp/nuttx/nuttx/", "");
-        let line = loc.line
-            .unwrap_or(0);
-        let col = loc.column
-            .unwrap_or(0);
+    // Print Source Filename
+    let loc = map_address_to_location(address);
+    if let Some((file, line, col)) = loc {
+        let file = file.unwrap_or("".to_string());
+        let line = line.unwrap_or(0);
+        let col = col.unwrap_or(0);
         print!(", {}:{}:{}", file, line, col);
     }
     println!();
@@ -165,13 +154,61 @@ fn hook_block(
 fn hook_code(
     _: &mut Unicorn<()>,  // Emulator
     address: u64,  // Instruction Address
-    _size: u32      // Instruction Size
+    _size: u32     // Instruction Size
 ) {
     // Ignore the memset() loop. TODO: Read the ELF Symbol Table to get address of memset().
     if address >= 0x4008_9328 && address <= 0x4008_933c { return; }
 
     // TODO: Handle special Arm64 Instructions
     // println!("hook_code:   address={:#010x}, size={:?}", address, _size);
+}
+
+/// Map the Arm64 Code Address to the Function Name by looking up the ELF Context
+fn map_address_to_function(
+    address: u64       // Code Address
+) -> Option<String> {  // Function Name
+    // Lookup the Arm64 Code Address in the ELF Context
+    let context = ELF_CONTEXT.context.borrow();
+    let mut frames = context.find_frames(address)
+        .expect("failed to find frames");
+
+    // Return the Function Name
+    if let Some(frame) = frames.next().unwrap() {
+        if let Some(func) = frame.function {
+            if let Ok(name) = func.raw_name() {
+                let s = String::from(name);
+                return Some(s);
+            }
+        }    
+    }
+    None
+}
+
+/// Map the Arm64 Code Address to the Source Filename, Line and Column
+fn map_address_to_location(
+    address: u64     // Code Address
+) -> Option<(        // Returns...
+    Option<String>,  // Filename
+    Option<u32>,     // Line
+    Option<u32>      // Column
+)> {
+    // Lookup the Arm64 Code Address in the ELF Context
+    let context = ELF_CONTEXT.context.borrow();
+    let loc = context.find_location(address)
+        .expect("failed to find location");
+
+    // Return the Filename, Line and Column
+    if let Some(loc) = loc {
+        if let Some(file) = loc.file {
+            let s = String::from(file)
+                .replace("/private/tmp/nuttx/nuttx/", "");
+            Some((Some(s), loc.line, loc.column))
+        } else {
+            Some((None, loc.line, loc.column))
+        }
+    } else {
+        None
+    }
 }
 
 lazy_static! {
