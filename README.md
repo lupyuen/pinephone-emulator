@@ -666,9 +666,37 @@ $HOME/.cargo/registry/src/github.com-1ecc6299db9ec823/unicorn-engine-2.0.1/qemu/
 
 TODO: Check that the CPU Setting is correct for PinePhone. (CPU Model should be Cortex-A53)
 
+# Map Address to Function with ELF File
+
+Our __Block Execution Hook__ now prints the __Function Name__ and the __Filename__...
+
+```text
+hook_block:  
+  address=0x40080eb0, 
+  size=12, 
+  setup_page_tables, 
+  arch/arm64/src/common/arm64_mmu.c:516:25
+
+hook_block:  
+  address=0x40080eec, 
+  size=16, 
+  enable_mmu_el1, 
+  arch/arm64/src/common/arm64_mmu.c:543:11
+
+err=Err(EXCEPTION)
+```
+
+[(Source)](https://gist.github.com/lupyuen/f2e883b2b8054d75fbac7de661f0ee5a)
+
+Our Hook Function looks up the Address in the [__DWARF Debug Symbols__](https://crates.io/crates/gimli) of the [__NuttX ELF File__](https://github.com/lupyuen/pinephone-emulator/blob/main/nuttx/nuttx).
+
+This is explained here...
+
+-   ["Map Address to Function with ELF File"](https://lupyuen.github.io/articles/unicorn#appendix-map-address-to-function-with-elf-file)
+
 # Call Graph for Apache NuttX RTOS
 
-TODO
+TODO: To troubleshoot the Apache NuttX MMU Fault on Unicorn Emulator, we generated this Call Graph...
 
 ```mermaid
   flowchart TD
@@ -713,6 +741,42 @@ TODO
   arm64_isb --> enable_mmu_el1
   enable_mmu_el1 --> HALT
 ```
+
+TODO
+
+[Mermaid Flowchart](https://mermaid.js.org/syntax/flowchart.html)
+
+```text
+  flowchart TD
+  arm64_boot_el1_init --> arm64_isb
+  arm64_isb --> arm64_boot_el1_init
+  arm64_boot_el1_init --> arm64_isb
+  arm64_isb --> arm64_boot_el1_init
+  arm64_boot_el1_init --> arm64_boot_primary_c_routine
+  ...
+  setup_page_tables --> enable_mmu_el1
+  enable_mmu_el1 --> arm64_isb
+  arm64_isb --> enable_mmu_el1
+  enable_mmu_el1 --> HALT
+```
+
+[(Source)](https://gist.github.com/lupyuen/b0e4019801aaf9860bcb234c8a9c8584)
+
+TODO
+
+https://github.com/lupyuen/pinephone-emulator/blob/69ced2a2d234f37c626003be6b266c6c08741afa/src/main.rs#L127-L156
+
+TODO
+
+https://github.com/lupyuen/pinephone-emulator/blob/69ced2a2d234f37c626003be6b266c6c08741afa/src/main.rs#L220-L250
+
+TODO
+
+https://github.com/lupyuen/pinephone-emulator/blob/69ced2a2d234f37c626003be6b266c6c08741afa/src/main.rs#L172-L218
+
+`ELF_CONTEXT` is explained here...
+
+-   ["Map Address to Function with ELF File"](https://lupyuen.github.io/articles/unicorn#appendix-map-address-to-function-with-elf-file)
 
 # Other Emulators
 
