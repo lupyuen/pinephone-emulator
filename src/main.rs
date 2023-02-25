@@ -270,7 +270,7 @@ fn can_show_function(fname: &str) -> bool {
     map.insert(fname.to_string(), count + 1);
 
     // If the Function has appeared too often, don't show it
-    count <= 8
+    count < 8
 }
 
 /// Map Function Name to Number of Occurrences
