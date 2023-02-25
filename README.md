@@ -735,23 +735,15 @@ To troubleshoot the Apache NuttX MMU Fault on Unicorn Emulator, we auto-generate
   init_xlat_tables --> set_pte_block_desc
   set_pte_block_desc --> init_xlat_tables
   init_xlat_tables --> calculate_pte_index
-  calculate_pte_index --> init_xlat_tables
   init_xlat_tables --> pte_desc_type
-  pte_desc_type --> init_xlat_tables
   init_xlat_tables --> calculate_pte_index
   calculate_pte_index --> pte_desc_type
   pte_desc_type --> calculate_pte_index
   init_xlat_tables --> set_pte_block_desc
-  init_xlat_tables --> calculate_pte_index
-  init_xlat_tables --> pte_desc_type
-  init_xlat_tables --> calculate_pte_index
-  calculate_pte_index --> pte_desc_type
-  init_xlat_tables --> set_pte_block_desc
   init_xlat_tables --> pte_desc_type
   calculate_pte_index --> pte_desc_type
   init_xlat_tables --> set_pte_block_desc
   init_xlat_tables --> pte_desc_type
-  init_xlat_tables --> set_pte_block_desc
   init_xlat_tables --> set_pte_block_desc
   init_xlat_tables --> set_pte_block_desc
   init_xlat_tables --> set_pte_block_desc
