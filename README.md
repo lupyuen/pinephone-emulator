@@ -698,6 +698,8 @@ This is explained here...
 
 TODO: To troubleshoot the Apache NuttX MMU Fault on Unicorn Emulator, we generated this Call Graph...
 
+(To see the NuttX Source Code: Right-click the Node and select `Open`)
+
 ```mermaid
   flowchart TD
   arm64_boot_el1_init --> arm64_isb
@@ -743,9 +745,13 @@ TODO: To troubleshoot the Apache NuttX MMU Fault on Unicorn Emulator, we generat
   click arm64_isb href "https://www.github.com" "This is a tooltip for a link"
 ```
 
-TODO
+We generated the Call Graph with this command...
 
-[Mermaid Flowchart](https://mermaid.js.org/syntax/flowchart.html)
+```bash
+cargo run | grep call_graph | cut -c 12-
+```
+
+Which produces this [Mermaid Flowchart](https://mermaid.js.org/syntax/flowchart.html)...
 
 ```text
   flowchart TD
