@@ -822,20 +822,29 @@ We generated the Call Graph with this command...
 cargo run | grep call_graph | cut -c 12-
 ```
 
+(`cut` command removes columns 1 to 11)
+
 Which produces this [Mermaid Flowchart](https://mermaid.js.org/syntax/flowchart.html)...
 
 ```text
+→ cargo run | grep call_graph | cut -c 12- 
   flowchart TD
   arm64_boot_el1_init --> arm64_isb
+  click arm64_boot_el1_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_boot.c#L137" "arch/arm64/src/common/arm64_boot.c "
   arm64_isb --> arm64_boot_el1_init
+  click arm64_isb href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/barriers.h#L57" "arch/arm64/src/common/barriers.h "
   arm64_boot_el1_init --> arm64_isb
+  click arm64_boot_el1_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_boot.c#L145" "arch/arm64/src/common/arm64_boot.c "
   arm64_isb --> arm64_boot_el1_init
-  arm64_boot_el1_init --> arm64_boot_primary_c_routine
   ...
   setup_page_tables --> enable_mmu_el1
+  click setup_page_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L515" "arch/arm64/src/common/arm64_mmu.c "
   enable_mmu_el1 --> arm64_isb
+  click enable_mmu_el1 href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L532" "arch/arm64/src/common/arm64_mmu.c "
   arm64_isb --> enable_mmu_el1
-  enable_mmu_el1 --> HALT
+  click arm64_isb href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/barriers.h#L57" "arch/arm64/src/common/barriers.h "
+  enable_mmu_el1 --> ***_HALT_***
+  click enable_mmu_el1 href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L542" "arch/arm64/src/common/arm64_mmu.c "
 ```
 
 [(Source)](https://gist.github.com/lupyuen/b0e4019801aaf9860bcb234c8a9c8584)
