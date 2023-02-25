@@ -698,7 +698,7 @@ This is explained here...
 
 To troubleshoot the Apache NuttX MMU Fault on Unicorn Emulator, we generated this Call Graph...
 
-(To see the NuttX Source Code: Right-click the Node and select `Open`)
+(To see the NuttX Source Code: Right-click the Node and select "Open Link")
 
 ```mermaid
   flowchart TD
