@@ -769,7 +769,7 @@ To troubleshoot the Apache NuttX MMU Fault on Unicorn Emulator, we auto-generate
   setup_page_tables --> enable_mmu_el1
   enable_mmu_el1 --> arm64_isb
   arm64_isb --> enable_mmu_el1
-  enable_mmu_el1 --> *** HALT ***
+  enable_mmu_el1 --> ***_HALT_***
   click arm64_isb href "https://www.github.com" "This is a tooltip for a link"
 ```
 

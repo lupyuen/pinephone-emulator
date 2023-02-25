@@ -99,7 +99,7 @@ fn main() {
     println!("ESR_EL3={:?}", emu.reg_read(RegisterARM64::ESR_EL3));
 
     // Close the Call Graph
-    call_graph(0, 0, Some("*** HALT ***".to_string()), None);
+    call_graph(0, 0, Some("***_HALT_***".to_string()), None);
 }
 
 /// Hook Function for Memory Access.
