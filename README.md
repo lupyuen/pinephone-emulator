@@ -696,7 +696,7 @@ This is explained here...
 
 # Call Graph for Apache NuttX RTOS
 
-To troubleshoot the Apache NuttX MMU Fault on Unicorn Emulator, we generated this Call Graph...
+To troubleshoot the Apache NuttX MMU Fault on Unicorn Emulator, we auto-generated this Call Graph...
 
 (To see the NuttX Source Code: Right-click the Node and select "Open Link")
 
@@ -726,22 +726,50 @@ To troubleshoot the Apache NuttX MMU Fault on Unicorn Emulator, we generated thi
   set_pte_block_desc --> init_xlat_tables
   init_xlat_tables --> calculate_pte_index
   calculate_pte_index --> init_xlat_tables
+  init_xlat_tables --> pte_desc_type
+  pte_desc_type --> init_xlat_tables
+  init_xlat_tables --> calculate_pte_index
+  calculate_pte_index --> pte_desc_type
+  pte_desc_type --> calculate_pte_index
+  calculate_pte_index --> init_xlat_tables
+  init_xlat_tables --> set_pte_block_desc
+  set_pte_block_desc --> init_xlat_tables
+  init_xlat_tables --> calculate_pte_index
   calculate_pte_index --> init_xlat_tables
   init_xlat_tables --> pte_desc_type
   pte_desc_type --> init_xlat_tables
   init_xlat_tables --> calculate_pte_index
   calculate_pte_index --> pte_desc_type
   pte_desc_type --> calculate_pte_index
-  calculate_pte_index --> pte_desc_type
-  pte_desc_type --> calculate_pte_index
-  calculate_pte_index --> init_xlat_tables
   init_xlat_tables --> set_pte_block_desc
-  set_pte_block_desc --> init_xlat_tables
+  init_xlat_tables --> calculate_pte_index
+  init_xlat_tables --> pte_desc_type
+  init_xlat_tables --> calculate_pte_index
+  calculate_pte_index --> pte_desc_type
+  init_xlat_tables --> set_pte_block_desc
+  init_xlat_tables --> pte_desc_type
+  calculate_pte_index --> pte_desc_type
+  init_xlat_tables --> set_pte_block_desc
+  init_xlat_tables --> pte_desc_type
+  init_xlat_tables --> set_pte_block_desc
+  init_xlat_tables --> set_pte_block_desc
+  init_xlat_tables --> set_pte_block_desc
+  init_xlat_tables --> set_pte_block_desc
+  init_xlat_tables --> set_pte_block_desc
+  init_xlat_tables --> set_pte_block_desc
+  init_xlat_tables --> setup_page_tables
+  pte_desc_type --> new_prealloc_table
+  init_xlat_tables --> setup_page_tables
+  init_xlat_tables --> new_prealloc_table
+  new_prealloc_table --> split_pte_block_desc
+  split_pte_block_desc --> set_pte_table_desc
+  init_xlat_tables --> setup_page_tables
+  init_xlat_tables --> setup_page_tables
   init_xlat_tables --> setup_page_tables
   setup_page_tables --> enable_mmu_el1
   enable_mmu_el1 --> arm64_isb
   arm64_isb --> enable_mmu_el1
-  enable_mmu_el1 --> HALT
+  enable_mmu_el1 --> *** HALT ***
   click arm64_isb href "https://www.github.com" "This is a tooltip for a link"
 ```
 

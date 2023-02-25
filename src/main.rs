@@ -1,10 +1,13 @@
 #[macro_use]
 extern crate lazy_static;
 
+use std::cell::RefCell;
+use std::collections::HashMap;
+use std::rc::Rc;
+use std::sync::Mutex;
 use unicorn_engine::{Unicorn, RegisterARM64};
 use unicorn_engine::unicorn_const::{Arch, HookType, MemType, Mode, Permission};
-use std::rc::Rc;
-use std::cell::RefCell;
+use once_cell::sync::Lazy;
 
 /// ELF File for mapping Addresses to Function Names and Filenames
 const ELF_FILENAME: &str = "nuttx/nuttx";
@@ -239,15 +242,42 @@ fn call_graph(
         static mut LAST_FNAME: String = String::new();
         if fname.eq(&LAST_FNAME) { return; }
 
-        // Print the Call Flow
-        if LAST_FNAME.len() == 0 {            
-            println!("call_graph:  flowchart TD");  // Top-Down Flowchart
-        } else {
-            println!("call_graph:  {} --> {}", LAST_FNAME, fname);
+        // If this function has not been shown too often...
+        if can_show_function(&fname) {
+            // Print the Call Flow
+            if LAST_FNAME.is_empty() {            
+                println!("call_graph:  flowchart TD");  // Top-Down Flowchart
+            } else {
+                println!("call_graph:  {} --> {}", LAST_FNAME, fname);
+            }
         }
         LAST_FNAME = fname;    
     }
 }
+
+/// Return true if this Function has not been shown too often
+fn can_show_function(fname: &str) -> bool {
+    // Get the Occurrence Count for the Function Name
+    let count = {
+        let map = FUNC_COUNT.lock().unwrap();
+        let count = map.get(fname)
+            .unwrap_or(&0_usize);
+        *count
+    };
+
+    // Increment the Occurrence Count
+    let mut map = FUNC_COUNT.lock().unwrap();
+    map.insert(fname.to_string(), count + 1);
+
+    // If the Function has appeared too often, don't show it
+    count <= 10
+}
+
+/// Map Function Name to Number of Occurrences
+static FUNC_COUNT: Lazy<Mutex<HashMap<String, usize>>> = Lazy::new(|| {
+    let m = HashMap::new();
+    Mutex::new(m)
+});
 
 lazy_static! {
     /// ELF Context for mapping Addresses to Function Names and Filenames
