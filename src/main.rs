@@ -94,6 +94,9 @@ fn main() {
     println!("ESR_EL1={:?}", emu.reg_read(RegisterARM64::ESR_EL1));
     println!("ESR_EL2={:?}", emu.reg_read(RegisterARM64::ESR_EL2));
     println!("ESR_EL3={:?}", emu.reg_read(RegisterARM64::ESR_EL3));
+
+    // Close the Call Graph
+    call_graph(0, 0, Some("HALT".to_string()), None);
 }
 
 /// Hook Function for Memory Access.
@@ -214,15 +217,16 @@ fn map_address_to_location(
     }
 }
 
-/// Print the Mermaid.js Call Graph for this Function Call
+/// Print the Mermaid Call Graph for this Function Call:
+/// cargo run | grep call_graph | cut -c 12-
 fn call_graph(
-    address: u64,  // Code Address
-    size: u32,     // Size of Code Block
+    _address: u64,  // Code Address
+    _size: u32,     // Size of Code Block
     function: Option<String>,  // Function Name
-    loc: Option<(        // Source Location
-        Option<String>,  // Filename
-        Option<u32>,     // Line
-        Option<u32>      // Column
+    _loc: Option<(        // Source Location
+        Option<String>,   // Filename
+        Option<u32>,      // Line
+        Option<u32>       // Column
     )>
 ) {
     // Get the Function Name
@@ -236,8 +240,10 @@ fn call_graph(
         if fname.eq(&LAST_FNAME) { return; }
 
         // Print the Call Flow
-        if LAST_FNAME.len() > 0 {
-            println!("call_graph:  {} -> {}", LAST_FNAME, fname);
+        if LAST_FNAME.len() == 0 {            
+            println!("call_graph:  flowchart TD");  // Top-Down Flowchart
+        } else {
+            println!("call_graph:  {} --> {}", LAST_FNAME, fname);
         }
         LAST_FNAME = fname;    
     }
