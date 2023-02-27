@@ -248,6 +248,7 @@ fn call_graph(
             // Print the Call Flow
             if LAST_FNAME.is_empty() {            
                 println!("call_graph:  flowchart TD");  // Top-Down Flowchart
+                println!("call_graph:  START --> {fname}");
             } else {
                 // URL looks like https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L541
                 let (file, line, _) = LAST_LOC.clone().unwrap_or((Some("".to_string()), None, None));

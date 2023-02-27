@@ -702,6 +702,7 @@ To troubleshoot the Apache NuttX MMU Fault on Unicorn Emulator, we auto-generate
 
 ```mermaid
   flowchart TD
+  START --> arm64_head
   arm64_head --> a64_lowputc
   click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L104" "arch/arm64/src/common/arm64_head.S "
   a64_lowputc --> arm64_head
