@@ -231,8 +231,10 @@ fn call_graph(
     )>
 ) {
     // Get the Function Name
-    let Some(fname) = function
-        else { return; };
+    let fname = match function {
+        Some(fname) => fname,
+        None => map_location_to_function(loc.clone())
+    };
 
     // Unsafe because `LAST_FNAME` is a Static Mutable
     unsafe {
@@ -259,6 +261,21 @@ fn call_graph(
         LAST_FNAME = fname;
         LAST_LOC = loc;
     }
+}
+
+/// Map a Location to a Function Name.
+/// `arch/arm64/src/common/arm64_head.S` becomes `arm64_head`
+fn map_location_to_function(
+    loc: Option<(        // Source Location
+        Option<String>,  // Filename
+        Option<u32>,     // Line
+        Option<u32>      // Column
+    )>
+) -> String {
+    let s = loc.unwrap().0.unwrap_or("".to_string());
+    let s = s.split("/").last().unwrap();
+    let s = s.split(".").next().unwrap();
+    String::from(s)
 }
 
 /// Return true if this Function has not been shown too often

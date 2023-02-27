@@ -702,6 +702,38 @@ To troubleshoot the Apache NuttX MMU Fault on Unicorn Emulator, we auto-generate
 
 ```mermaid
   flowchart TD
+  arm64_head --> a64_lowputc
+  click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L104" "arch/arm64/src/common/arm64_head.S "
+  a64_lowputc --> arm64_head
+  click a64_lowputc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/a64_lowputc.S#L58" "arch/arm64/src/a64/a64_lowputc.S "
+  arm64_head --> a64_lowputc
+  click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L177" "arch/arm64/src/common/arm64_head.S "
+  a64_lowputc --> arm64_head
+  click a64_lowputc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/a64_lowputc.S#L87" "arch/arm64/src/a64/a64_lowputc.S "
+  arm64_head --> a64_lowputc
+  click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L298" "arch/arm64/src/common/arm64_head.S "
+  a64_lowputc --> arm64_head
+  click a64_lowputc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/a64_lowputc.S#L87" "arch/arm64/src/a64/a64_lowputc.S "
+  arm64_head --> a64_lowputc
+  click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L298" "arch/arm64/src/common/arm64_head.S "
+  a64_lowputc --> arm64_head
+  click a64_lowputc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/a64_lowputc.S#L87" "arch/arm64/src/a64/a64_lowputc.S "
+  arm64_head --> a64_lowputc
+  click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L298" "arch/arm64/src/common/arm64_head.S "
+  a64_lowputc --> arm64_head
+  click a64_lowputc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/a64_lowputc.S#L87" "arch/arm64/src/a64/a64_lowputc.S "
+  arm64_head --> a64_lowputc
+  click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L298" "arch/arm64/src/common/arm64_head.S "
+  a64_lowputc --> arm64_head
+  click a64_lowputc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/a64_lowputc.S#L87" "arch/arm64/src/a64/a64_lowputc.S "
+  arm64_head --> a64_lowputc
+  click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L298" "arch/arm64/src/common/arm64_head.S "
+  a64_lowputc --> arm64_head
+  click a64_lowputc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/a64_lowputc.S#L87" "arch/arm64/src/a64/a64_lowputc.S "
+  arm64_head --> a64_lowputc
+  click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L298" "arch/arm64/src/common/arm64_head.S "
+  arm64_head --> arm64_boot_el1_init
+  click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L298" "arch/arm64/src/common/arm64_head.S "
   arm64_boot_el1_init --> arm64_isb
   click arm64_boot_el1_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_boot.c#L137" "arch/arm64/src/common/arm64_boot.c "
   arm64_isb --> arm64_boot_el1_init
@@ -710,8 +742,8 @@ To troubleshoot the Apache NuttX MMU Fault on Unicorn Emulator, we auto-generate
   click arm64_boot_el1_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_boot.c#L145" "arch/arm64/src/common/arm64_boot.c "
   arm64_isb --> arm64_boot_el1_init
   click arm64_isb href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/barriers.h#L57" "arch/arm64/src/common/barriers.h "
-  arm64_boot_el1_init --> arm64_boot_primary_c_routine
-  click arm64_boot_el1_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_boot.c#L161" "arch/arm64/src/common/arm64_boot.c "
+  arm64_head --> arm64_boot_primary_c_routine
+  click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L298" "arch/arm64/src/common/arm64_head.S "
   arm64_boot_primary_c_routine --> memset
   click arm64_boot_primary_c_routine href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_boot.c#L180" "arch/arm64/src/common/arm64_boot.c "
   memset --> arm64_boot_primary_c_routine
