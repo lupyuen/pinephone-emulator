@@ -194,7 +194,7 @@ fn map_address_to_function(
 /// Map the Arm64 Code Address to the Source Filename, Line and Column
 fn map_address_to_location(
     address: u64     // Code Address
-) -> (        // Returns...
+) -> (               // Returns...
     Option<String>,  // Filename
     Option<u32>,     // Line
     Option<u32>      // Column
