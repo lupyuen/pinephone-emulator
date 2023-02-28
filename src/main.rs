@@ -96,7 +96,10 @@ fn main() {
     println!("ESR_EL3={:?}", emu.reg_read(RegisterARM64::ESR_EL3));
 
     // Close the Call Graph
-    call_graph(0, 0, Some("***_HALT_***".to_string()), None);
+    call_graph(0, 0,  // Address and Size
+        Some("***_HALT_***".to_string()), // Function Name
+        (None, None, None)  // Function Location
+    );
 }
 
 /// Hook Function for Memory Access.
@@ -143,12 +146,11 @@ fn hook_block(
 
     // Print the Source Filename
     let loc = map_address_to_location(address);
-    if let Some((ref file, line, col)) = loc {
-        let file = file.clone().unwrap_or("".to_string());
-        let line = line.unwrap_or(0);
-        let col = col.unwrap_or(0);
-        print!(", {file}:{line}:{col}");
-    }
+    let (ref file, line, col) = loc;
+    let file = file.clone().unwrap_or("".to_string());
+    let line = line.unwrap_or(0);
+    let col = col.unwrap_or(0);
+    print!(", {file}:{line}:{col}");
     println!();
 
     // Print the Call Graph
@@ -193,11 +195,11 @@ fn map_address_to_function(
 /// Map the Arm64 Code Address to the Source Filename, Line and Column
 fn map_address_to_location(
     address: u64     // Code Address
-) -> Option<(        // Returns...
+) -> (        // Returns...
     Option<String>,  // Filename
     Option<u32>,     // Line
     Option<u32>      // Column
-)> {
+) {
     // Lookup the Arm64 Code Address in the ELF Context
     let context = ELF_CONTEXT.context.borrow();
     let loc = context.find_location(address)
@@ -209,12 +211,12 @@ fn map_address_to_location(
             let s = String::from(file)
                 .replace("/private/tmp/nuttx/nuttx/", "")
                 .replace("arch/arm64/src/chip", "arch/arm64/src/a64");  // TODO: Handle other chips
-            Some((Some(s), loc.line, loc.column))
+            (Some(s), loc.line, loc.column)
         } else {
-            Some((None, loc.line, loc.column))
+            (None, loc.line, loc.column)
         }
     } else {
-        None
+        (None, None, None)
     }
 }
 
@@ -224,23 +226,23 @@ fn call_graph(
     _address: u64,  // Code Address
     _size: u32,     // Size of Code Block
     function: Option<String>,  // Function Name
-    loc: Option<(        // Source Location
+    loc: (               // Source Location
         Option<String>,  // Filename
         Option<u32>,     // Line
         Option<u32>      // Column
-    )>
+    )
 ) {
     // Get the Function Name
     let fname = match function {
         Some(fname) => fname,
-        None => map_location_to_function(loc.clone())
+        None => map_location_to_function(&loc)
     };
 
     // Unsafe because `LAST_FNAME` is a Static Mutable
     unsafe {
         // Skip if we are still in the same Function
         static mut LAST_FNAME: String = String::new();
-        static mut LAST_LOC: Option<(Option<String>, Option<u32>, Option<u32>)> = None;
+        static mut LAST_LOC: (Option<String>, Option<u32>, Option<u32>) = (None, None, None);
         if fname.eq(&LAST_FNAME) { return; }
 
         // If this function has not been shown too often...
@@ -251,7 +253,7 @@ fn call_graph(
                 println!("call_graph:  START --> {fname}");
             } else {
                 // URL looks like https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L541
-                let (file, line, _) = LAST_LOC.clone().unwrap_or((Some("".to_string()), None, None));
+                let (file, line, _) = LAST_LOC.clone();
                 let file = file.unwrap_or("".to_string());
                 let line = line.unwrap_or(1) - 1;
                 let url = format!("https://github.com/apache/nuttx/blob/master/{file}#L{line}");
@@ -267,13 +269,13 @@ fn call_graph(
 /// Map a Location to a Function Name.
 /// `arch/arm64/src/common/arm64_head.S` becomes `arm64_head`
 fn map_location_to_function(
-    loc: Option<(        // Source Location
+    loc: &(              // Source Location
         Option<String>,  // Filename
         Option<u32>,     // Line
         Option<u32>      // Column
-    )>
+    )
 ) -> String {
-    let s = loc.unwrap().0.unwrap_or("".to_string());
+    let s = loc.0.clone().unwrap_or("".to_string());
     let s = s.split('/').last().unwrap();
     let s = s.split('.').next().unwrap();
     String::from(s)
