@@ -110,7 +110,7 @@ fn hook_memory(
 ) -> bool {
     // Ignore RAM access, we only intercept Memory-Mapped Input / Output
     if address >= 0x4000_0000 { return true; }
-    println!("hook_memory: address={:#010x}, size={:?}, mem_type={:?}, value={:#x}", address, size, mem_type, value);
+    println!("hook_memory: address={address:#010x}, size={size:02}, mem_type={mem_type:?}, value={value:#x}");
 
     // If writing to UART Transmit Holding Register (THR):
     // Print the UART Output
@@ -133,12 +133,12 @@ fn hook_block(
 ) {
     // Ignore the memset() loop. TODO: Read the ELF Symbol Table to get address of memset().
     if address >= 0x4008_9328 && address <= 0x4008_933c { return; }
-    print!("hook_block:  address={:#010x}, size={:02}", address, size);
+    print!("hook_block:  address={address:#010x}, size={size:02}");
 
     // Print the Function Name
     let function = map_address_to_function(address);
     if let Some(ref name) = function {
-        print!(", {}", name);
+        print!(", {name}");
     }
 
     // Print the Source Filename
@@ -147,7 +147,7 @@ fn hook_block(
         let file = file.clone().unwrap_or("".to_string());
         let line = line.unwrap_or(0);
         let col = col.unwrap_or(0);
-        print!(", {}:{}:{}", file, line, col);
+        print!(", {file}:{line}:{col}");
     }
     println!();
 
@@ -166,7 +166,7 @@ fn hook_code(
     if address >= 0x4008_9328 && address <= 0x4008_933c { return; }
 
     // TODO: Handle special Arm64 Instructions
-    // println!("hook_code:   address={:#010x}, size={:?}", address, _size);
+    // println!("hook_code:   address={address:#010x}, size={_size:02}");
 }
 
 /// Map the Arm64 Code Address to the Function Name by looking up the ELF Context
@@ -274,8 +274,8 @@ fn map_location_to_function(
     )>
 ) -> String {
     let s = loc.unwrap().0.unwrap_or("".to_string());
-    let s = s.split("/").last().unwrap();
-    let s = s.split(".").next().unwrap();
+    let s = s.split('/').last().unwrap();
+    let s = s.split('.').next().unwrap();
     String::from(s)
 }
 
