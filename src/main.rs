@@ -150,8 +150,7 @@ fn hook_block(
     let file = file.clone().unwrap_or("".to_string());
     let line = line.unwrap_or(0);
     let col = col.unwrap_or(0);
-    print!(", {file}:{line}:{col}");
-    println!();
+    println!(", {file}:{line}:{col}");
 
     // Print the Call Graph
     call_graph(address, size, function, loc);
