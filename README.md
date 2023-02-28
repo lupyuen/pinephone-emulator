@@ -1,8 +1,10 @@
 # Emulate PinePhone with Unicorn Emulator
 
-Read the article...
+Read the articles...
 
 -   ["(Possibly) Emulate PinePhone with Unicorn Emulator"](https://lupyuen.github.io/articles/unicorn)
+
+-   ["(Clickable) Call Graph for Apache NuttX Real-Time Operating System"](https://lupyuen.github.io/articles/unicorn2)
 
 We're porting a new operating system ([Apache NuttX RTOS](https://lupyuen.github.io/articles/what)) to [Pine64 PinePhone](https://wiki.pine64.org/index.php/PinePhone). And I wondered...
 
@@ -668,6 +670,10 @@ TODO: Check that the CPU Setting is correct for PinePhone. (CPU Model should be 
 
 # Map Address to Function with ELF File
 
+Read the article...
+
+-   ["(Clickable) Call Graph for Apache NuttX Real-Time Operating System"](https://lupyuen.github.io/articles/unicorn2)
+
 Our __Block Execution Hook__ now prints the __Function Name__ and the __Filename__...
 
 ```text
@@ -896,7 +902,7 @@ https://github.com/lupyuen/pinephone-emulator/blob/b23c1d251a7fb244f2e396419d12a
 
 `ELF_CONTEXT` is explained here...
 
--   ["Map Address to Function with ELF File"](https://lupyuen.github.io/articles/unicorn#appendix-map-address-to-function-with-elf-file)
+-   ["(Clickable) Call Graph for Apache NuttX Real-Time Operating System"](https://lupyuen.github.io/articles/unicorn2)
 
 # Other Emulators
 
