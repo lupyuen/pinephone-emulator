@@ -297,21 +297,6 @@ fn can_show_function(fname: &str) -> bool {
     count < 8
 }
 
-/// Map Function Name to Number of Occurrences
-static FUNC_COUNT: Lazy<Mutex<HashMap<String, usize>>> = Lazy::new(||
-    HashMap::new().into()
-);
-
-/// Last Function Name
-static LAST_FNAME: Lazy<Mutex<String>> = Lazy::new(||
-    String::new().into()
-);
-
-/// Last Source Location
-static LAST_LOC: Lazy<Mutex<(Option<String>, Option<u32>, Option<u32>)>> = Lazy::new(||
-    (None, None, None).into()
-);
-
 /// ELF Context for mapping Addresses to Function Names and Source Location
 static ELF_CONTEXT: Lazy<ElfContext> = Lazy::new(|| {
     // Open the ELF File
@@ -347,3 +332,18 @@ struct ElfContext {
 /// Send and Sync for ELF Context. Needed for `Lazy`
 unsafe impl Send for ElfContext {}
 unsafe impl Sync for ElfContext {}
+
+/// Map Function Name to Number of Occurrences
+static FUNC_COUNT: Lazy<Mutex<HashMap<String, usize>>> = Lazy::new(||
+    HashMap::new().into()
+);
+
+/// Last Function Name
+static LAST_FNAME: Lazy<Mutex<String>> = Lazy::new(||
+    String::new().into()
+);
+
+/// Last Source Location
+static LAST_LOC: Lazy<Mutex<(Option<String>, Option<u32>, Option<u32>)>> = Lazy::new(||
+    (None, None, None).into()
+);
