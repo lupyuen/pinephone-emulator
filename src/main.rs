@@ -237,32 +237,31 @@ fn call_graph(
         None => map_location_to_function(&loc)
     };
 
-    // Unsafe because `LAST_FNAME` is a Static Mutable
-    unsafe {
-        // Skip if we are still in the same Function
-        static mut LAST_FNAME: String = String::new();
-        static mut LAST_LOC: (Option<String>, Option<u32>, Option<u32>) = (None, None, None);
-        if fname.eq(&LAST_FNAME) { return; }
+    // Skip if we are still in the same Function
+    let mut last_fname = LAST_FNAME.lock().unwrap();
+    let mut last_loc = LAST_LOC.lock().unwrap();
+    if fname.eq(last_fname.as_str()) { return; }
 
-        // If this function has not been shown too often...
-        if can_show_function(&fname) {
-            // Print the Call Flow
-            if LAST_FNAME.is_empty() {            
-                println!("call_graph:  flowchart TD");  // Top-Down Flowchart
-                println!("call_graph:  START --> {fname}");
-            } else {
-                // URL looks like https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L541
-                let (file, line, _) = LAST_LOC.clone();
-                let file = file.unwrap_or("".to_string());
-                let line = line.unwrap_or(1) - 1;
-                let url = format!("https://github.com/apache/nuttx/blob/master/{file}#L{line}");
-                println!("call_graph:  {LAST_FNAME} --> {fname}");
-                println!("call_graph:  click {LAST_FNAME} href \"{url}\" \"{file} \"");
-            }
+    // If this function has not been shown too often...
+    if can_show_function(&fname) {
+        // Print the Call Flow
+        if last_fname.is_empty() {            
+            println!("call_graph:  flowchart TD");  // Top-Down Flowchart
+            println!("call_graph:  START --> {fname}");
+        } else {
+            // URL looks like https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L541
+            let (file, line, _) = last_loc.clone();
+            let file = file.unwrap_or("".to_string());
+            let line = line.unwrap_or(1) - 1;
+            let url = format!("https://github.com/apache/nuttx/blob/master/{file}#L{line}");
+            println!("call_graph:  {last_fname} --> {fname}");
+            println!("call_graph:  click {last_fname} href \"{url}\" \"{file} \"");
         }
-        LAST_FNAME = fname;
-        LAST_LOC = loc;
     }
+
+    // Remember the Function Name and Source Location
+    *last_fname = fname;
+    *last_loc = loc;
 }
 
 /// Map a Location to a Function Name.
@@ -299,12 +298,21 @@ fn can_show_function(fname: &str) -> bool {
 }
 
 /// Map Function Name to Number of Occurrences
-static FUNC_COUNT: Lazy<Mutex<HashMap<String, usize>>> = Lazy::new(|| {
-    let m = HashMap::new();
-    Mutex::new(m)
-});
+static FUNC_COUNT: Lazy<Mutex<HashMap<String, usize>>> = Lazy::new(||
+    HashMap::new().into()
+);
 
-/// ELF Context for mapping Addresses to Function Names and Filenames
+/// Last Function Name
+static LAST_FNAME: Lazy<Mutex<String>> = Lazy::new(||
+    String::new().into()
+);
+
+/// Last Source Location
+static LAST_LOC: Lazy<Mutex<(Option<String>, Option<u32>, Option<u32>)>> = Lazy::new(||
+    (None, None, None).into()
+);
+
+/// ELF Context for mapping Addresses to Function Names and Source Location
 static ELF_CONTEXT: Lazy<ElfContext> = Lazy::new(|| {
     // Open the ELF File
     let path = std::path::PathBuf::from(ELF_FILENAME);
