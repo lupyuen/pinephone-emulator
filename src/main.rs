@@ -282,15 +282,12 @@ fn map_location_to_function(
 /// Return true if this Function has not been shown too often
 fn can_show_function(fname: &str) -> bool {
     // Get the Occurrence Count for the Function Name
-    let count = {
-        let map = FUNC_COUNT.lock().unwrap();
-        let count = map.get(fname)
-            .unwrap_or(&0_usize);
-        *count
-    };
+    let mut map = FUNC_COUNT.lock().unwrap();
+    let count = map.get(fname)
+        .unwrap_or(&0_usize)
+        .clone();
 
     // Increment the Occurrence Count
-    let mut map = FUNC_COUNT.lock().unwrap();
     map.insert(fname.to_string(), count + 1);
 
     // If the Function has appeared too often, don't show it
