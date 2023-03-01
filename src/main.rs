@@ -255,7 +255,7 @@ fn call_graph(
             let line = line.unwrap_or(1) - 1;
             let url = format!("https://github.com/apache/nuttx/blob/master/{file}#L{line}");
             println!("call_graph:  {last_fname} --> {fname}");
-            println!("call_graph:  click {last_fname} href \"{url}\" \"{file} \"");
+            println!("call_graph:  click {last_fname} href \"{url}\" \"{file} \" _blank");
         }
     }
 
