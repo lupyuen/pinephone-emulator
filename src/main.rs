@@ -30,8 +30,12 @@ fn main() {
 
     // uc_ctl_tlb_mode(uc, UC_TLB_CPU)
     // -> uc_ctl(uc, UC_CTL_WRITE(UC_CTL_TLB_TYPE, 1), (UC_TLB_CPU))
-    // emu.ctl_tlb_type(unicorn_engine::TlbType::CPU).unwrap();
-    emu.ctl_tlb_type(unicorn_engine::TlbType::VIRTUAL).unwrap();
+
+    // Enable MMU Translation
+    emu.ctl_tlb_type(unicorn_engine::TlbType::CPU).unwrap();
+
+    // Disable MMU Translation
+    // emu.ctl_tlb_type(unicorn_engine::TlbType::VIRTUAL).unwrap();
 
     // Map 128 MB Executable Memory at 0x4000 0000 for Arm64 Machine Code
     // https://github.com/apache/nuttx/blob/master/arch/arm64/include/a64/chip.h#L44-L52
