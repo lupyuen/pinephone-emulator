@@ -9,13 +9,15 @@ use once_cell::sync::Lazy;
 /// ELF File for mapping Addresses to Function Names and Filenames
 const ELF_FILENAME: &str = "nuttx/nuttx";
 
+const UART0_BASE_ADDRESS: u64 = 0x02500000;
+
 /// Emulate some Arm64 Machine Code
 fn main() {
     // Arm64 Memory Address where emulation starts
-    const ADDRESS: u64 = 0x4008_0000;
+    const ADDRESS: u64 = 0x4080_0000;
 
     // Arm64 Machine Code for the above address
-    let arm64_code = include_bytes!("../nuttx/nuttx.bin");
+    let arm64_code = include_bytes!("../nuttx/Image");
 
     // Init Emulator in Arm64 mode
     let mut unicorn = Unicorn::new(
@@ -26,6 +28,11 @@ fn main() {
     // Magical horse mutates to bird
     let emu = &mut unicorn;
 
+    // uc_ctl_tlb_mode(uc, UC_TLB_CPU)
+    // -> uc_ctl(uc, UC_CTL_WRITE(UC_CTL_TLB_TYPE, 1), (UC_TLB_CPU))
+    // emu.ctl_tlb_type(unicorn_engine::TlbType::CPU).unwrap();
+    emu.ctl_tlb_type(unicorn_engine::TlbType::VIRTUAL).unwrap();
+
     // Map 128 MB Executable Memory at 0x4000 0000 for Arm64 Machine Code
     // https://github.com/apache/nuttx/blob/master/arch/arm64/include/a64/chip.h#L44-L52
     emu.mem_map(
@@ -34,12 +41,12 @@ fn main() {
         Permission::ALL     // Read, Write and Execute Access
     ).expect("failed to map code page");
 
-    // Map 512 MB Read/Write Memory at 0x0000 0000 for
+    // Map 1024 MB Read/Write Memory at 0x0000 0000 for
     // Memory-Mapped I/O by Allwinner A64 Peripherals
     // https://github.com/apache/nuttx/blob/master/arch/arm64/include/a64/chip.h#L44-L52
     emu.mem_map(
-        0x0000_0000,        // Address
-        512 * 1024 * 1024,  // Size
+        0x0000_0000,         // Address
+        1024 * 1024 * 1024,  // Size
         Permission::READ | Permission::WRITE  // Read and Write Access
     ).expect("failed to map memory mapped I/O");
 
@@ -54,12 +61,12 @@ fn main() {
     // Set Bit 5 to 1.
     // https://lupyuen.github.io/articles/serial#wait-to-transmit
     emu.mem_write(
-        0x01c2_8014,  // UART Register Address
+        UART0_BASE_ADDRESS + 0x14,  // UART Register Address
         &[0b10_0000]  // UART Register Value
     ).expect("failed to set UART_LSR");
 
     // Add Hook for emulating each Basic Block of Arm64 Instructions
-    let _ = emu.add_block_hook(hook_block)
+    let _ = emu.add_block_hook(1, 0, hook_block)
         .expect("failed to add block hook");
 
     // Add Hook for emulating each Arm64 Instruction
@@ -89,6 +96,7 @@ fn main() {
     println!("err={:?}", err);
 
     // Doesn't work for printing the Exception Registers
+    println!("PC=0x{:x}",  emu.reg_read(RegisterARM64::PC).unwrap());
     println!("CP_REG={:?}",  emu.reg_read(RegisterARM64::CP_REG));
     println!("ESR_EL0={:?}", emu.reg_read(RegisterARM64::ESR_EL0));
     println!("ESR_EL1={:?}", emu.reg_read(RegisterARM64::ESR_EL1));
@@ -113,13 +121,14 @@ fn hook_memory(
 ) -> bool {
     // Ignore RAM access, we only intercept Memory-Mapped Input / Output
     if address >= 0x4000_0000 { return true; }
-    println!("hook_memory: address={address:#010x}, size={size:02}, mem_type={mem_type:?}, value={value:#x}");
+    // println!("hook_memory: address={address:#010x}, size={size:02}, mem_type={mem_type:?}, value={value:#x}");
 
     // If writing to UART Transmit Holding Register (THR):
     // Print the UART Output
     // https://lupyuen.github.io/articles/serial#transmit-uart
-    if address == 0x01c2_8000 {
-        println!("uart output: {:?}", value as u8 as char);
+    if address == UART0_BASE_ADDRESS {
+        // println!("uart output: {:?}", value as u8 as char);
+        print!("{}", value as u8 as char);
     }
 
     // Always return true, value is unused by caller
@@ -136,10 +145,17 @@ fn hook_block(
 ) {
     // Ignore the memset() loop. TODO: Read the ELF Symbol Table to get address of memset().
     if address >= 0x4008_9328 && address <= 0x4008_933c { return; }
-    print!("hook_block:  address={address:#010x}, size={size:02}");
 
     // Print the Function Name
     let function = map_address_to_function(address);
+    if function == Some("a527_copy_overlap".into())
+        || function == Some("a527_copy_ramdisk".into())
+        || function == Some("arm64_data_initialize".into())
+        || function == Some("memcmp".into())
+        || function == Some("strcmp".into())
+        { return; }
+
+    print!("hook_block:  address={address:#010x}, size={size:02}");
     if let Some(ref name) = function {
         print!(", {name}");
     }
@@ -208,7 +224,7 @@ fn map_address_to_location(
     if let Some(loc) = loc {
         if let Some(file) = loc.file {
             let s = String::from(file)
-                .replace("/private/tmp/nuttx/nuttx/", "")
+                .replace("/Users/luppy/avaota/nuttx/", "")
                 .replace("arch/arm64/src/chip", "arch/arm64/src/a64");  // TODO: Handle other chips
             (Some(s), loc.line, loc.column)
         } else {
