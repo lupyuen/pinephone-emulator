@@ -9,15 +9,15 @@ use once_cell::sync::Lazy;
 /// ELF File for mapping Addresses to Function Names and Filenames
 const ELF_FILENAME: &str = "nuttx/nuttx";
 
-const UART0_BASE_ADDRESS: u64 = 0x02500000;
+const UART0_BASE_ADDRESS: u64 = 0x900_0000;
 
 /// Emulate some Arm64 Machine Code
 fn main() {
     // Arm64 Memory Address where emulation starts
-    const ADDRESS: u64 = 0x4080_0000;
+    const ADDRESS: u64 = 0x4028_0000;
 
     // Arm64 Machine Code for the above address
-    let arm64_code = include_bytes!("../nuttx/Image");
+    let arm64_code = include_bytes!("../nuttx/nuttx.bin");
 
     // Init Emulator in Arm64 mode
     let mut unicorn = Unicorn::new(
@@ -60,13 +60,10 @@ fn main() {
         arm64_code
     ).expect("failed to write instructions");
 
-    // Allwinner A64 UART Line Status Register (UART_LSR) at Offset 0x14.
-    // To indicate that the UART Transmit FIFO is ready:
-    // Set Bit 5 to 1.
-    // https://lupyuen.github.io/articles/serial#wait-to-transmit
+    // Set QEMU UART to Ready
     emu.mem_write(
-        UART0_BASE_ADDRESS + 0x14,  // UART Register Address
-        &[0b10_0000]  // UART Register Value
+        UART0_BASE_ADDRESS + 0x18,  // UART Register Address
+        &[0]  // UART Register Value
     ).expect("failed to set UART_LSR");
 
     // Add Hook for emulating each Basic Block of Arm64 Instructions
