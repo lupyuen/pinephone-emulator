@@ -46,8 +46,7 @@ fn main() {
     ).expect("failed to map code page");
 
     // Map 1024 MB Read/Write Memory at 0x0000 0000 for
-    // Memory-Mapped I/O by Allwinner A64 Peripherals
-    // https://github.com/apache/nuttx/blob/master/arch/arm64/include/a64/chip.h#L44-L52
+    // Memory-Mapped I/O by QEMU Peripherals
     emu.mem_map(
         0x0000_0000,         // Address
         1024 * 1024 * 1024,  // Size
