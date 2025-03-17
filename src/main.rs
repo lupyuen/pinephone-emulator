@@ -225,6 +225,7 @@ fn map_address_to_location(
         if let Some(file) = loc.file {
             let s = String::from(file)
                 .replace("/Users/luppy/avaota/nuttx/", "")
+                .replace("/private/tmp/250313/nuttx/", "")
                 .replace("arch/arm64/src/chip", "arch/arm64/src/a64");  // TODO: Handle other chips
             (Some(s), loc.line, loc.column)
         } else {
