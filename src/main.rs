@@ -10,7 +10,7 @@ use once_cell::sync::Lazy;
 const ELF_FILENAME: &str = "nuttx/nuttx";
 
 /// Memory Space for NuttX Kernel
-const KERNEL_SIZE: usize = 16 * 1024 * 1024;
+const KERNEL_SIZE: usize = 0x1000_0000;
 static mut kernel_code: [u8; KERNEL_SIZE] = [0; KERNEL_SIZE];
 
 /// UART Base Address
