@@ -14,13 +14,16 @@ const UART0_BASE_ADDRESS: u64 = 0x900_0000;
 /// Emulate some Arm64 Machine Code
 fn main() {
     // Test Arm64 MMU
-    test_arm64_mmu(); return;
+    // test_arm64_mmu(); return;
 
     // Arm64 Memory Address where emulation starts
     const ADDRESS: u64 = 0x4028_0000;
 
-    // Arm64 Machine Code for the above address
-    let arm64_code = include_bytes!("../nuttx/nuttx.bin");
+    // Copy NuttX Kernel into the above address
+    let kernel = include_bytes!("../nuttx/nuttx.bin");
+    let mut arm64_code: [u8; 256 * 1024] = [0; 256 * 1024];
+    assert!(arm64_code.len() >= kernel.len());
+    arm64_code[0..kernel.len()].copy_from_slice(kernel);
 
     // Init Emulator in Arm64 mode
     let mut unicorn = Unicorn::new(
@@ -39,19 +42,22 @@ fn main() {
     // Disable MMU Translation
     // emu.ctl_tlb_type(unicorn_engine::TlbType::VIRTUAL).unwrap();
 
-    // Map 2 GB Read/Write/Execute Memory at 0x0000 0000 for
-    // Memory-Mapped I/O and Arm64 Machine Code
+    // Map 1 GB Read/Write Memory at 0x0000 0000 for Memory-Mapped I/O
     emu.mem_map(
         0x0000_0000,  // Address
-        0x8000_0000,  // Size
-        Permission::ALL  // Read/Write/Execute Access
+        0x4000_0000,  // Size
+        Permission::READ | Permission::WRITE  // Read/Write/Execute Access
     ).expect("failed to map memory");
 
-    // Write Arm64 Machine Code to emulated Executable Memory
-    emu.mem_write(
-        ADDRESS, 
-        arm64_code
-    ).expect("failed to write instructions");
+    // Map the NuttX Kernel to 0x4028_0000
+    unsafe {
+        emu.mem_map_ptr(
+            ADDRESS, 
+            arm64_code.len(), 
+            Permission::READ | Permission::EXEC,
+            arm64_code.as_mut_ptr() as _
+        ).expect("failed to map kernel");
+    }
 
     // Set QEMU UART to Ready
     emu.mem_write(
