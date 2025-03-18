@@ -28,30 +28,21 @@ fn main() {
     // Magical horse mutates to bird
     let emu = &mut unicorn;
 
+    // Enable MMU Translation
     // uc_ctl_tlb_mode(uc, UC_TLB_CPU)
     // -> uc_ctl(uc, UC_CTL_WRITE(UC_CTL_TLB_TYPE, 1), (UC_TLB_CPU))
-
-    // Enable MMU Translation
     emu.ctl_tlb_type(unicorn_engine::TlbType::CPU).unwrap();
 
     // Disable MMU Translation
     // emu.ctl_tlb_type(unicorn_engine::TlbType::VIRTUAL).unwrap();
 
-    // Map 128 MB Executable Memory at 0x4000 0000 for Arm64 Machine Code
-    // https://github.com/apache/nuttx/blob/master/arch/arm64/include/a64/chip.h#L44-L52
+    // Map 2 GB Read/Write/Execute Memory at 0x0000 0000 for
+    // Memory-Mapped I/O and Arm64 Machine Code
     emu.mem_map(
-        0x4000_0000,        // Address
-        128 * 1024 * 1024,  // Size
-        Permission::ALL     // Read, Write and Execute Access
-    ).expect("failed to map code page");
-
-    // Map 1024 MB Read/Write Memory at 0x0000 0000 for
-    // Memory-Mapped I/O by QEMU Peripherals
-    emu.mem_map(
-        0x0000_0000,         // Address
-        1024 * 1024 * 1024,  // Size
-        Permission::READ | Permission::WRITE  // Read and Write Access
-    ).expect("failed to map memory mapped I/O");
+        0x0000_0000,  // Address
+        0x8000_0000,  // Size
+        Permission::ALL  // Read/Write/Execute Access
+    ).expect("failed to map memory");
 
     // Write Arm64 Machine Code to emulated Executable Memory
     emu.mem_write(
