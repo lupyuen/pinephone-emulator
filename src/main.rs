@@ -9,6 +9,11 @@ use once_cell::sync::Lazy;
 /// ELF File for mapping Addresses to Function Names and Filenames
 const ELF_FILENAME: &str = "nuttx/nuttx";
 
+/// Memory Space for NuttX Kernel
+const KERNEL_SIZE: usize = 8 * 1024 * 1024;
+static mut kernel_code: [u8; KERNEL_SIZE] = [0; KERNEL_SIZE];
+
+/// UART Base Address
 const UART0_BASE_ADDRESS: u64 = 0x900_0000;
 
 /// Emulate some Arm64 Machine Code
@@ -16,14 +21,16 @@ fn main() {
     // Test Arm64 MMU
     // test_arm64_mmu(); return;
 
-    // Arm64 Memory Address where emulation starts
+    // Arm64 Memory Address where emulation starts.
+    // Memory Space for NuttX Kernel also begins here.
     const ADDRESS: u64 = 0x4028_0000;
 
     // Copy NuttX Kernel into the above address
     let kernel = include_bytes!("../nuttx/nuttx.bin");
-    let mut arm64_code: [u8; 256 * 1024] = [0; 256 * 1024];
-    assert!(arm64_code.len() >= kernel.len());
-    arm64_code[0..kernel.len()].copy_from_slice(kernel);
+    unsafe {
+        assert!(kernel_code.len() >= kernel.len());
+        kernel_code[0..kernel.len()].copy_from_slice(kernel);    
+    }
 
     // Init Emulator in Arm64 mode
     let mut unicorn = Unicorn::new(
@@ -53,9 +60,9 @@ fn main() {
     unsafe {
         emu.mem_map_ptr(
             ADDRESS, 
-            arm64_code.len(), 
+            kernel_code.len(), 
             Permission::READ | Permission::EXEC,
-            arm64_code.as_mut_ptr() as _
+            kernel_code.as_mut_ptr() as _
         ).expect("failed to map kernel");
     }
 
@@ -72,7 +79,7 @@ fn main() {
     // Add Hook for emulating each Arm64 Instruction
     let _ = emu.add_code_hook(
         ADDRESS,  // Begin Address
-        ADDRESS + arm64_code.len() as u64,  // End Address
+        ADDRESS + KERNEL_SIZE as u64,  // End Address
         hook_code  // Hook Function for Code Emulation
     ).expect("failed to add code hook");
 
@@ -87,7 +94,7 @@ fn main() {
     // Emulate Arm64 Machine Code
     let err = emu.emu_start(
         ADDRESS,  // Begin Address
-        ADDRESS + arm64_code.len() as u64,  // End Address
+        ADDRESS + KERNEL_SIZE as u64,  // End Address
         0,  // No Timeout
         0   // Unlimited number of instructions
     );
