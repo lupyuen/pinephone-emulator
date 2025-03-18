@@ -13,6 +13,9 @@ const UART0_BASE_ADDRESS: u64 = 0x900_0000;
 
 /// Emulate some Arm64 Machine Code
 fn main() {
+    // Test Arm64 MMU
+    test_arm64_mmu(); return;
+
     // Arm64 Memory Address where emulation starts
     const ADDRESS: u64 = 0x4028_0000;
 
@@ -352,3 +355,168 @@ static LAST_FNAME: Lazy<Mutex<String>> = Lazy::new(||
 static LAST_LOC: Lazy<Mutex<(Option<String>, Option<u32>, Option<u32>)>> = Lazy::new(||
     (None, None, None).into()
 );
+
+/// Unit Test for Arm64 MMU
+/// https://github.com/unicorn-engine/unicorn/blob/master/tests/unit/test_arm64.c#L378-L486
+fn test_arm64_mmu() {
+    /*
+     * Not exact the binary, but aarch64-linux-gnu-as generate this code and
+     reference sometimes data after ttb0_base.
+     * // Read data from physical address
+     * ldr X0, =0x40000000
+     * ldr X1, [X0]
+
+     * // Initialize translation table control registers
+     * ldr X0, =0x180803F20
+     * msr TCR_EL1, X0
+     * ldr X0, =0xFFFFFFFF
+     * msr MAIR_EL1, X0
+
+     * // Set translation table
+     * adr X0, ttb0_base
+     * msr TTBR0_EL1, X0
+
+     * // Enable caches and the MMU
+     * mrs X0, SCTLR_EL1
+     * orr X0, X0, #(0x1 << 2) // The C bit (data cache).
+     * orr X0, X0, #(0x1 << 12) // The I bit (instruction cache)
+     * orr X0, X0, #0x1 // The M bit (MMU).
+     * msr SCTLR_EL1, X0
+     * dsb SY
+     * isb
+
+     * // Read the same memory area through virtual address
+     * ldr X0, =0x80000000
+     * ldr X2, [X0]
+     *
+     * // Stop
+     * b .
+     */
+    let arm64_code = [
+        0x00, 0x81, 0x00, 0x58, 0x01, 0x00, 0x40, 0xf9, 0x00, 0x81, 0x00, 0x58, 0x40, 0x20, 0x18,
+        0xd5, 0x00, 0x81, 0x00, 0x58, 0x00, 0xa2, 0x18, 0xd5, 0x40, 0x7f, 0x00, 0x10, 0x00, 0x20,
+        0x18, 0xd5, 0x00, 0x10, 0x38, 0xd5, 0x00, 0x00, 0x7e, 0xb2, 0x00, 0x00, 0x74, 0xb2, 0x00,
+        0x00, 0x40, 0xb2, 0x00, 0x10, 0x18, 0xd5, 0x9f, 0x3f, 0x03, 0xd5, 0xdf, 0x3f, 0x03, 0xd5,
+        0xe0, 0x7f, 0x00, 0x58, 0x02, 0x00, 0x40, 0xf9, 0x00, 0x00, 0x00, 0x14, 0x1f, 0x20, 0x03,
+        0xd5, 0x1f, 0x20, 0x03, 0xd5, 0x1F, 0x20, 0x03, 0xD5, 0x1F, 0x20, 0x03, 0xD5,       
+    ];
+
+    // Init Emulator in Arm64 mode
+    // OK(uc_open(UC_ARCH_ARM64, UC_MODE_ARM, &uc));
+    let mut unicorn = Unicorn::new(
+        Arch::ARM64,
+        Mode::LITTLE_ENDIAN
+    ).expect("failed to init Unicorn");
+
+    // Magical horse mutates to bird
+    let emu = &mut unicorn;
+
+    // Enable MMU Translation
+    // OK(uc_ctl_tlb_mode(uc, UC_TLB_CPU));
+    emu.ctl_tlb_type(unicorn_engine::TlbType::CPU).unwrap();
+
+    // Map Read/Write/Execute Memory at 0x0000 0000
+    // OK(uc_mem_map(uc, 0, 0x2000, UC_PROT_ALL));
+    emu.mem_map(
+        0,       // Address
+        0x2000,  // Size
+        Permission::ALL  // Read/Write/Execute Access
+    ).expect("failed to map memory");
+
+    // Write Arm64 Machine Code to emulated Executable Memory
+    // OK(uc_mem_write(uc, 0, code, sizeof(code) - 1));
+    const ADDRESS: u64 = 0;
+    emu.mem_write(
+        ADDRESS, 
+        &arm64_code
+    ).expect("failed to write instructions");
+
+    // generate tlb entries
+    let mut tlbe: [u8; 8] = [0; 8];
+    tlbe[0] = 0x41;
+    tlbe[1] = 0x07;
+    tlbe[2] = 0;
+    tlbe[3] = 0;
+    tlbe[4] = 0;
+    tlbe[5] = 0;
+    tlbe[6] = 0;
+    tlbe[7] = 0;
+
+    // OK(uc_mem_write(uc, 0x1000, tlbe, sizeof(tlbe)));
+    emu.mem_write(0x1000, &tlbe).unwrap();
+
+    tlbe[3] = 0x40;
+    // OK(uc_mem_write(uc, 0x1008, tlbe, sizeof(tlbe)));
+    // OK(uc_mem_write(uc, 0x1010, tlbe, sizeof(tlbe)));
+    // OK(uc_mem_write(uc, 0x1018, tlbe, sizeof(tlbe)));
+    emu.mem_write(0x1008, &tlbe).unwrap();
+    emu.mem_write(0x1010, &tlbe).unwrap();
+    emu.mem_write(0x1018, &tlbe).unwrap();
+
+    // mentioned data referenced by the asm generated my aarch64-linux-gnu-as
+    tlbe[0] = 0;
+    tlbe[1] = 0;
+
+    // OK(uc_mem_write(uc, 0x1020, tlbe, sizeof(tlbe)));
+    emu.mem_write(0x1020, &tlbe).unwrap();
+
+    tlbe[0] = 0x20;
+    tlbe[1] = 0x3f;
+    tlbe[2] = 0x80;
+    tlbe[3] = 0x80;
+    tlbe[4] = 0x1;
+
+    // OK(uc_mem_write(uc, 0x1028, tlbe, sizeof(tlbe)));
+    emu.mem_write(0x1028, &tlbe).unwrap();
+
+    tlbe[0] = 0xff;
+    tlbe[1] = 0xff;
+    tlbe[2] = 0xff;
+    tlbe[3] = 0xff;
+    tlbe[4] = 0x00;
+
+    // OK(uc_mem_write(uc, 0x1030, tlbe, sizeof(tlbe)));
+    emu.mem_write(0x1030, &tlbe).unwrap();
+
+    tlbe[0] = 0x00;
+    tlbe[1] = 0x00;
+    tlbe[2] = 0x00;
+    tlbe[3] = 0x80;
+
+    // OK(uc_mem_write(uc, 0x1038, tlbe, sizeof(tlbe)));
+    emu.mem_write(0x1038, &tlbe).unwrap();
+
+    let mut data: [u8; 0x1000] = [0; 0x1000];
+    for i in 0..0x1000 {
+        data[i] = 0x44;
+    }
+
+    // OK(uc_mem_map_ptr(uc, 0x40000000, 0x1000, UC_PROT_READ, data));
+    unsafe {
+        emu.mem_map_ptr(0x40000000, 0x1000, Permission::READ, data.as_mut_ptr() as _)
+            .unwrap();
+    }
+
+    // OK(uc_emu_start(uc, 0, 0x44, 0, 0));
+    let err = emu.emu_start(0, 0x44, 0, 0);
+
+    // Print the Emulator Error
+    println!("err={:?}", err);
+
+    // OK(uc_reg_read(uc, UC_ARM64_REG_X0, &x0));
+    // OK(uc_reg_read(uc, UC_ARM64_REG_X1, &x1));
+    // OK(uc_reg_read(uc, UC_ARM64_REG_X2, &x2));
+    let x0 = emu.reg_read(RegisterARM64::X0).unwrap();
+    let x1 = emu.reg_read(RegisterARM64::X1).unwrap();
+    let x2 = emu.reg_read(RegisterARM64::X2).unwrap();
+    println!("x0=0x{x0:x}");
+    println!("x1=0x{x1:x}");
+    println!("x2=0x{x2:x}");
+
+    // TEST_CHECK(x0 == 0x80000000);
+    // TEST_CHECK(x1 == 0x4444444444444444);
+    // TEST_CHECK(x2 == 0x4444444444444444);
+    assert!(x0 == 0x80000000);
+    assert!(x1 == 0x4444444444444444);
+    assert!(x2 == 0x4444444444444444);
+}
