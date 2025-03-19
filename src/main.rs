@@ -454,25 +454,26 @@ fn test_arm64_mmu() {
     tlbe[5] = 0;
     tlbe[6] = 0;
     tlbe[7] = 0;
-
-    // OK(uc_mem_write(uc, 0x1000, tlbe, sizeof(tlbe)));
     emu.mem_write(0x1000, &tlbe).unwrap();
     log_tlbe(0x1000, &tlbe);
 
-    tlbe[3] = 0x40;
-    // OK(uc_mem_write(uc, 0x1008, tlbe, sizeof(tlbe)));
-    // OK(uc_mem_write(uc, 0x1010, tlbe, sizeof(tlbe)));
-    // OK(uc_mem_write(uc, 0x1018, tlbe, sizeof(tlbe)));
+    tlbe[3] = 0xa0;
     emu.mem_write(0x1008, &tlbe).unwrap();
-    emu.mem_write(0x1010, &tlbe).unwrap();
-    emu.mem_write(0x1018, &tlbe).unwrap();
     log_tlbe(0x1008, &tlbe);
+
+    tlbe[3] = 0x40;
+    emu.mem_write(0x1010, &tlbe).unwrap();
     log_tlbe(0x1010, &tlbe);
+
+    tlbe[3] = 0x80;
+    emu.mem_write(0x1018, &tlbe).unwrap();
     log_tlbe(0x1018, &tlbe);
 
     // mentioned data referenced by the asm generated my aarch64-linux-gnu-as
-    tlbe[0] = 0;
-    tlbe[1] = 0;
+    tlbe[0] = 0x00;
+    tlbe[1] = 0x00;
+    tlbe[2] = 0x00;
+    tlbe[3] = 0x40;
 
     // OK(uc_mem_write(uc, 0x1020, tlbe, sizeof(tlbe)));
     emu.mem_write(0x1020, &tlbe).unwrap();
@@ -527,9 +528,7 @@ fn test_arm64_mmu() {
     // Print the Emulator Error
     println!("\nerr={:?}", err);
 
-    // OK(uc_reg_read(uc, UC_ARM64_REG_X0, &x0));
-    // OK(uc_reg_read(uc, UC_ARM64_REG_X1, &x1));
-    // OK(uc_reg_read(uc, UC_ARM64_REG_X2, &x2));
+    // Read registers X0, X1, X2
     let x0 = emu.reg_read(RegisterARM64::X0).unwrap();
     let x1 = emu.reg_read(RegisterARM64::X1).unwrap();
     let x2 = emu.reg_read(RegisterARM64::X2).unwrap();
@@ -537,9 +536,6 @@ fn test_arm64_mmu() {
     println!("x1=0x{x1:x}");
     println!("x2=0x{x2:x}");
 
-    // TEST_CHECK(x0 == 0x80000000);
-    // TEST_CHECK(x1 == 0x4444444444444444);
-    // TEST_CHECK(x2 == 0x4444444444444444);
     assert!(x0 == 0x80000000);
     assert!(x1 == 0x4444444444444444);
     assert!(x2 == 0x4444444444444444);
