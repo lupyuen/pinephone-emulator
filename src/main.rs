@@ -552,6 +552,7 @@ fn log_tlbe(address: u64, tlbe: &[u8]) {
     tlbe.iter().rev()
         .for_each(|b| n = (n << 8) | *b as u64);
     println!("TLBE @ 0x{address:04x}: 0x{n:016x}");
+    println!("addr_pa=0x{:08x}", n & 0xfffff000);
     println!("Bit 00-01: PTE_BLOCK_DESC={}", n & 0b11);
     println!("Bit 06:    PTE_BLOCK_DESC_AP_USER={}", (n >> 6) & 0b1);
     println!("Bit 08-09: PTE_BLOCK_DESC_INNER_SHARE={}", (n >> 8) & 0b11);
