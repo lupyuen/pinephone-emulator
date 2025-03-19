@@ -548,10 +548,14 @@ fn test_arm64_mmu() {
 /// Bit 08-09: PTE_BLOCK_DESC_INNER_SHARE=3
 /// Bit 10: PTE_BLOCK_DESC_AF=1
 fn log_tlbe(address: u64, tlbe: &[u8]) {
-    print!("TLBE @ 0x{address:04x}: 0x");
+    let mut n: u64 = 0;
     tlbe.iter().rev()
-        .for_each(|b| print!("{b:02x}"));
-    println!("");
+        .for_each(|b| n = (n << 8) | *b as u64);
+    println!("TLBE @ 0x{address:04x}: 0x{n:016x}");
+    println!("Bit 00-01: PTE_BLOCK_DESC={}", n & 0b11);
+    println!("Bit 06:    PTE_BLOCK_DESC_AP_USER={}", (n >> 6) & 0b1);
+    println!("Bit 08-09: PTE_BLOCK_DESC_INNER_SHARE={}", (n >> 8) & 0b11);
+    println!("Bit 10:    PTE_BLOCK_DESC_AF={}\n", (n >> 10) & 0b1);
 }
 
 /* Disassembly the Arm64 Machine Code:
