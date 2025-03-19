@@ -1,7 +1,9 @@
+use core::time;
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::rc::Rc;
 use std::sync::Mutex;
+use std::thread::sleep;
 use unicorn_engine::{Unicorn, RegisterARM64};
 use unicorn_engine::unicorn_const::{Arch, HookType, MemType, Mode, Permission};
 use once_cell::sync::Lazy;
@@ -19,7 +21,7 @@ const UART0_BASE_ADDRESS: u64 = 0x900_0000;
 /// Emulate some Arm64 Machine Code
 fn main() {
     // Test Arm64 MMU
-    test_arm64_mmu(); return;
+    // test_arm64_mmu(); return;
 
     // Arm64 Memory Address where emulation starts.
     // Memory Space for NuttX Kernel also begins here.
@@ -161,6 +163,7 @@ fn hook_block(
         || function == Some("memcmp".into())
         || function == Some("strcmp".into())
         { return; }
+    if function == Some("uart_open".into()) { sleep(time::Duration::from_secs(10)); }
 
     print!("hook_block:  address={address:#010x}, size={size:02}");
     if let Some(ref name) = function {
@@ -233,7 +236,7 @@ fn map_address_to_location(
             let s = String::from(file)
                 .replace("/Users/luppy/avaota/nuttx/", "")
                 .replace("/private/tmp/250313/nuttx/", "")
-                .replace("arch/arm64/src/chip", "arch/arm64/src/a64");  // TODO: Handle other chips
+                .replace("arch/arm64/src/chip", "arch/arm64/src/qemu");  // TODO: Handle other chips
             (Some(s), loc.line, loc.column)
         } else {
             (None, loc.line, loc.column)
