@@ -19,7 +19,7 @@ const UART0_BASE_ADDRESS: u64 = 0x900_0000;
 /// Emulate some Arm64 Machine Code
 fn main() {
     // Test Arm64 MMU
-    // test_arm64_mmu(); return;
+    test_arm64_mmu(); return;
 
     // Arm64 Memory Address where emulation starts.
     // Memory Space for NuttX Kernel also begins here.
@@ -457,6 +457,7 @@ fn test_arm64_mmu() {
 
     // OK(uc_mem_write(uc, 0x1000, tlbe, sizeof(tlbe)));
     emu.mem_write(0x1000, &tlbe).unwrap();
+    log_tlbe(0x1000, &tlbe);
 
     tlbe[3] = 0x40;
     // OK(uc_mem_write(uc, 0x1008, tlbe, sizeof(tlbe)));
@@ -465,6 +466,9 @@ fn test_arm64_mmu() {
     emu.mem_write(0x1008, &tlbe).unwrap();
     emu.mem_write(0x1010, &tlbe).unwrap();
     emu.mem_write(0x1018, &tlbe).unwrap();
+    log_tlbe(0x1008, &tlbe);
+    log_tlbe(0x1010, &tlbe);
+    log_tlbe(0x1018, &tlbe);
 
     // mentioned data referenced by the asm generated my aarch64-linux-gnu-as
     tlbe[0] = 0;
@@ -472,6 +476,7 @@ fn test_arm64_mmu() {
 
     // OK(uc_mem_write(uc, 0x1020, tlbe, sizeof(tlbe)));
     emu.mem_write(0x1020, &tlbe).unwrap();
+    log_tlbe(0x1020, &tlbe);
 
     tlbe[0] = 0x20;
     tlbe[1] = 0x3f;
@@ -481,6 +486,7 @@ fn test_arm64_mmu() {
 
     // OK(uc_mem_write(uc, 0x1028, tlbe, sizeof(tlbe)));
     emu.mem_write(0x1028, &tlbe).unwrap();
+    log_tlbe(0x1028, &tlbe);
 
     tlbe[0] = 0xff;
     tlbe[1] = 0xff;
@@ -490,6 +496,7 @@ fn test_arm64_mmu() {
 
     // OK(uc_mem_write(uc, 0x1030, tlbe, sizeof(tlbe)));
     emu.mem_write(0x1030, &tlbe).unwrap();
+    log_tlbe(0x1030, &tlbe);
 
     tlbe[0] = 0x00;
     tlbe[1] = 0x00;
@@ -498,6 +505,7 @@ fn test_arm64_mmu() {
 
     // OK(uc_mem_write(uc, 0x1038, tlbe, sizeof(tlbe)));
     emu.mem_write(0x1038, &tlbe).unwrap();
+    log_tlbe(0x1038, &tlbe);
 
     let mut data: [u8; 0x1000] = [0; 0x1000];
     for i in 0..0x1000 {
@@ -514,7 +522,7 @@ fn test_arm64_mmu() {
     let err = emu.emu_start(0, 0x44, 0, 0);
 
     // Print the Emulator Error
-    println!("err={:?}", err);
+    println!("\nerr={:?}", err);
 
     // OK(uc_reg_read(uc, UC_ARM64_REG_X0, &x0));
     // OK(uc_reg_read(uc, UC_ARM64_REG_X1, &x1));
@@ -532,4 +540,12 @@ fn test_arm64_mmu() {
     assert!(x0 == 0x80000000);
     assert!(x1 == 0x4444444444444444);
     assert!(x2 == 0x4444444444444444);
+}
+
+/// Log the MMU TLB Entry
+fn log_tlbe(address: u64, tlbe: &[u8]) {
+    print!("TLBE @ 0x{address:04x}: 0x");
+    tlbe.iter().rev()
+        .for_each(|b| print!("{b:02x}"));
+    println!("");
 }
