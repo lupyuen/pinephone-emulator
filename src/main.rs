@@ -19,7 +19,7 @@ const UART0_BASE_ADDRESS: u64 = 0x900_0000;
 /// Emulate some Arm64 Machine Code
 fn main() {
     // Test Arm64 MMU
-    test_arm64_mmu(); return;
+    // test_arm64_mmu(); return;
 
     // Arm64 Memory Address where emulation starts.
     // Memory Space for NuttX Kernel also begins here.
