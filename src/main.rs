@@ -542,10 +542,42 @@ fn test_arm64_mmu() {
     assert!(x2 == 0x4444444444444444);
 }
 
-/// Log the MMU TLB Entry
+/// Log the MMU TLB Entry. 0x741 will print:
+/// Bit 00-01: PTE_BLOCK_DESC=1
+/// Bit 06: PTE_BLOCK_DESC_AP_USER=1
+/// Bit 08-09: PTE_BLOCK_DESC_INNER_SHARE=3
+/// Bit 10: PTE_BLOCK_DESC_AF=1
 fn log_tlbe(address: u64, tlbe: &[u8]) {
     print!("TLBE @ 0x{address:04x}: 0x");
     tlbe.iter().rev()
         .for_each(|b| print!("{b:02x}"));
     println!("");
 }
+
+/* Disassembly the Arm64 Machine Code:
+https://shell-storm.org/online/Online-Assembler-and-Disassembler/?opcodes=%22%5Cx00%5Cx81%5Cx00%5Cx58%5Cx01%5Cx00%5Cx40%5Cxf9%5Cx00%5Cx81%5Cx00%5Cx58%5Cx40%5Cx20%5Cx18%5Cxd5%5Cx00%5Cx81%5Cx00%5Cx58%5Cx00%5Cxa2%5Cx18%5Cxd5%5Cx40%5Cx7f%5Cx00%5Cx10%5Cx00%5Cx20%5Cx18%5Cxd5%5Cx00%5Cx10%5Cx38%5Cxd5%5Cx00%5Cx00%5Cx7e%5Cxb2%5Cx00%5Cx00%5Cx74%5Cxb2%5Cx00%5Cx00%5Cx40%5Cxb2%5Cx00%5Cx10%5Cx18%5Cxd5%5Cx9f%5Cx3f%5Cx03%5Cxd5%5Cxdf%5Cx3f%5Cx03%5Cxd5%5Cxe0%5Cx7f%5Cx00%5Cx58%5Cx02%5Cx00%5Cx40%5Cxf9%5Cx00%5Cx00%5Cx00%5Cx14%5Cx1f%5Cx20%5Cx03%5Cxd5%5Cx1f%5Cx20%5Cx03%5Cxd5%5Cx1F%5Cx20%5Cx03%5CxD5%5Cx1F%5Cx20%5Cx03%5CxD5%22&arch=arm64&endianness=little&baddr=0x00000000&dis_with_addr=True&dis_with_raw=True&dis_with_ins=True#disassembly
+"\x00\x81\x00\x58\x01\x00\x40\xf9\x00\x81\x00\x58\x40\x20\x18\xd5\x00\x81\x00\x58\x00\xa2\x18\xd5\x40\x7f\x00\x10\x00\x20\x18\xd5\x00\x10\x38\xd5\x00\x00\x7e\xb2\x00\x00\x74\xb2\x00\x00\x40\xb2\x00\x10\x18\xd5\x9f\x3f\x03\xd5\xdf\x3f\x03\xd5\xe0\x7f\x00\x58\x02\x00\x40\xf9\x00\x00\x00\x14\x1f\x20\x03\xd5\x1f\x20\x03\xd5\x1F\x20\x03\xD5\x1F\x20\x03\xD5"
+
+0x0000000000000000:  00 81 00 58    ldr x0, #0x1020
+0x0000000000000004:  01 00 40 F9    ldr x1, [x0]
+0x0000000000000008:  00 81 00 58    ldr x0, #0x1028
+0x000000000000000c:  40 20 18 D5    msr tcr_el1, x0
+0x0000000000000010:  00 81 00 58    ldr x0, #0x1030
+0x0000000000000014:  00 A2 18 D5    msr mair_el1, x0
+0x0000000000000018:  40 7F 00 10    adr x0, #0x1000
+0x000000000000001c:  00 20 18 D5    msr ttbr0_el1, x0
+0x0000000000000020:  00 10 38 D5    mrs x0, sctlr_el1
+0x0000000000000024:  00 00 7E B2    orr x0, x0, #4
+0x0000000000000028:  00 00 74 B2    orr x0, x0, #0x1000
+0x000000000000002c:  00 00 40 B2    orr x0, x0, #1
+0x0000000000000030:  00 10 18 D5    msr sctlr_el1, x0
+0x0000000000000034:  9F 3F 03 D5    dsb sy
+0x0000000000000038:  DF 3F 03 D5    isb 
+0x000000000000003c:  E0 7F 00 58    ldr x0, #0x1038
+0x0000000000000040:  02 00 40 F9    ldr x2, [x0]
+0x0000000000000044:  00 00 00 14    b   #0x44
+0x0000000000000048:  1F 20 03 D5    nop 
+0x000000000000004c:  1F 20 03 D5    nop 
+0x0000000000000050:  1F 20 03 D5    nop 
+0x0000000000000054:  1F 20 03 D5    nop 
+*/
