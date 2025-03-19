@@ -19,7 +19,7 @@ const UART0_BASE_ADDRESS: u64 = 0x900_0000;
 /// Emulate some Arm64 Machine Code
 fn main() {
     // Test Arm64 MMU
-    // test_arm64_mmu(); return;
+    test_arm64_mmu(); return;
 
     // Arm64 Memory Address where emulation starts.
     // Memory Space for NuttX Kernel also begins here.
@@ -507,14 +507,17 @@ fn test_arm64_mmu() {
     emu.mem_write(0x1038, &tlbe).unwrap();
     log_tlbe(0x1038, &tlbe);
 
-    let mut data: [u8; 0x1000] = [0; 0x1000];
-    for i in 0..0x1000 {
-        data[i] = 0x44;
-    }
+    let mut data: [u8; 0x1000] = [0x44; 0x1000];
+    let mut data2: [u8; 0x1000] = [0x88; 0x1000];
+    let mut data3: [u8; 0x1000] = [0xcc; 0x1000];
 
     // OK(uc_mem_map_ptr(uc, 0x40000000, 0x1000, UC_PROT_READ, data));
     unsafe {
         emu.mem_map_ptr(0x40000000, 0x1000, Permission::READ, data.as_mut_ptr() as _)
+            .unwrap();
+        emu.mem_map_ptr(0x80000000, 0x1000, Permission::READ, data2.as_mut_ptr() as _)
+            .unwrap();
+        emu.mem_map_ptr(0xa0000000, 0x1000, Permission::READ, data3.as_mut_ptr() as _)
             .unwrap();
     }
 
