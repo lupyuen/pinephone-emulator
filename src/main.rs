@@ -163,7 +163,9 @@ fn hook_block(
         || function == Some("memcmp".into())
         || function == Some("strcmp".into())
         { return; }
-    if function == Some("uart_open".into()) { sleep(time::Duration::from_secs(10)); }
+    if function == Some("uart_open".into())
+        || function == Some("pl011_receive".into())
+        { sleep(time::Duration::from_secs(10)); }
 
     print!("hook_block:  address={address:#010x}, size={size:02}");
     if let Some(ref name) = function {
