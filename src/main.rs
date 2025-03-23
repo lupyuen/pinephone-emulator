@@ -563,7 +563,7 @@ fn log_tlbe(address: u64, tlbe: &[u8]) {
     println!("Bit 10:    PTE_BLOCK_DESC_AF={}\n", (n >> 10) & 0b1);
 }
 
-/* Disassembly the Arm64 Machine Code:
+/* Disassembly for Arm64 Machine Code:
 https://shell-storm.org/online/Online-Assembler-and-Disassembler/?opcodes=%22%5Cx00%5Cx81%5Cx00%5Cx58%5Cx01%5Cx00%5Cx40%5Cxf9%5Cx00%5Cx81%5Cx00%5Cx58%5Cx40%5Cx20%5Cx18%5Cxd5%5Cx00%5Cx81%5Cx00%5Cx58%5Cx00%5Cxa2%5Cx18%5Cxd5%5Cx40%5Cx7f%5Cx00%5Cx10%5Cx00%5Cx20%5Cx18%5Cxd5%5Cx00%5Cx10%5Cx38%5Cxd5%5Cx00%5Cx00%5Cx7e%5Cxb2%5Cx00%5Cx00%5Cx74%5Cxb2%5Cx00%5Cx00%5Cx40%5Cxb2%5Cx00%5Cx10%5Cx18%5Cxd5%5Cx9f%5Cx3f%5Cx03%5Cxd5%5Cxdf%5Cx3f%5Cx03%5Cxd5%5Cxe0%5Cx7f%5Cx00%5Cx58%5Cx02%5Cx00%5Cx40%5Cxf9%5Cx00%5Cx00%5Cx00%5Cx14%5Cx1f%5Cx20%5Cx03%5Cxd5%5Cx1f%5Cx20%5Cx03%5Cxd5%5Cx1F%5Cx20%5Cx03%5CxD5%5Cx1F%5Cx20%5Cx03%5CxD5%22&arch=arm64&endianness=little&baddr=0x00000000&dis_with_addr=True&dis_with_raw=True&dis_with_ins=True#disassembly
 "\x00\x81\x00\x58\x01\x00\x40\xf9\x00\x81\x00\x58\x40\x20\x18\xd5\x00\x81\x00\x58\x00\xa2\x18\xd5\x40\x7f\x00\x10\x00\x20\x18\xd5\x00\x10\x38\xd5\x00\x00\x7e\xb2\x00\x00\x74\xb2\x00\x00\x40\xb2\x00\x10\x18\xd5\x9f\x3f\x03\xd5\xdf\x3f\x03\xd5\xe0\x7f\x00\x58\x02\x00\x40\xf9\x00\x00\x00\x14\x1f\x20\x03\xd5\x1f\x20\x03\xd5\x1F\x20\x03\xD5\x1F\x20\x03\xD5"
 
