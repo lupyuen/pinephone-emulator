@@ -449,16 +449,9 @@ fn test_arm64_mmu() {
         &arm64_code
     ).expect("failed to write instructions");
 
-    // generate tlb entries
+    // Generate the TLB Entries
     let mut tlbe: [u8; 8] = [0; 8];
-    tlbe[0] = 0x41;
-    tlbe[1] = 0x07;
-    tlbe[2] = 0;
-    tlbe[3] = 0;
-    tlbe[4] = 0;
-    tlbe[5] = 0;
-    tlbe[6] = 0;
-    tlbe[7] = 0;
+    tlbe[0..2].copy_from_slice(&[0x41, 0x07]);
     emu.mem_write(0x1000, &tlbe).unwrap();
     log_tlbe(0x1000, &tlbe);
 
@@ -474,42 +467,20 @@ fn test_arm64_mmu() {
     emu.mem_write(0x1018, &tlbe).unwrap();
     log_tlbe(0x1018, &tlbe);
 
-    // mentioned data referenced by the asm generated my aarch64-linux-gnu-as
-    tlbe[0] = 0x00;
-    tlbe[1] = 0x00;
-    tlbe[2] = 0x00;
-    tlbe[3] = 0x40;
-
-    // OK(uc_mem_write(uc, 0x1020, tlbe, sizeof(tlbe)));
+    // Data referenced by the Arm64 Code
+    tlbe[0..4].copy_from_slice(&[0x00, 0x00, 0x00, 0x40]);
     emu.mem_write(0x1020, &tlbe).unwrap();
     log_tlbe(0x1020, &tlbe);
 
-    tlbe[0] = 0x20;
-    tlbe[1] = 0x3f;
-    tlbe[2] = 0x80;
-    tlbe[3] = 0x80;
-    tlbe[4] = 0x1;
-
-    // OK(uc_mem_write(uc, 0x1028, tlbe, sizeof(tlbe)));
+    tlbe[0..5].copy_from_slice(&[0x20, 0x3f, 0x80, 0x80, 0x1]);
     emu.mem_write(0x1028, &tlbe).unwrap();
     log_tlbe(0x1028, &tlbe);
 
-    tlbe[0] = 0xff;
-    tlbe[1] = 0xff;
-    tlbe[2] = 0xff;
-    tlbe[3] = 0xff;
-    tlbe[4] = 0x00;
-
-    // OK(uc_mem_write(uc, 0x1030, tlbe, sizeof(tlbe)));
+    tlbe[0..5].copy_from_slice(&[0xff, 0xff, 0xff, 0xff, 0x00]);
     emu.mem_write(0x1030, &tlbe).unwrap();
     log_tlbe(0x1030, &tlbe);
 
-    tlbe[0] = 0x00;
-    tlbe[1] = 0x00;
-    tlbe[2] = 0x00;
-    tlbe[3] = 0x80;
-
-    // OK(uc_mem_write(uc, 0x1038, tlbe, sizeof(tlbe)));
+    tlbe[0..4].copy_from_slice(&[0x00, 0x00, 0x00, 0x80]);
     emu.mem_write(0x1038, &tlbe).unwrap();
     log_tlbe(0x1038, &tlbe);
 
