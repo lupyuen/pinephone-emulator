@@ -461,9 +461,9 @@ fn test_arm64_mmu() {
     emu.mem_write(0x1000, &tlbe).unwrap();
     log_tlbe(0x1000, &tlbe);
 
-    // Page Table Entry @ 0x1008: 0xA000_0741
-    // Physical Address: 0xA000_0000 (Same Bits as above)
-    tlbe[3] = 0xa0;
+    // Page Table Entry @ 0x1008: 0xC000_0741
+    // Physical Address: 0xC000_0000 (Same Bits as above)
+    tlbe[3] = 0xc0;
     emu.mem_write(0x1008, &tlbe).unwrap();
     log_tlbe(0x1008, &tlbe);
 
@@ -513,8 +513,8 @@ fn test_arm64_mmu() {
         // 0x8000_0000 becomes 0x88 88 88 88...
         emu.mem_map_ptr(0x80000000, 0x1000, Permission::READ, data2.as_mut_ptr() as _).unwrap();
 
-        // 0xA000_0000 becomes 0xCC CC CC CC...
-        emu.mem_map_ptr(0xa0000000, 0x1000, Permission::READ, data3.as_mut_ptr() as _).unwrap();
+        // 0xC000_0000 becomes 0xCC CC CC CC...
+        emu.mem_map_ptr(0xc0000000, 0x1000, Permission::READ, data3.as_mut_ptr() as _).unwrap();
     }
 
     // OK(uc_emu_start(uc, 0, 0x44, 0, 0));
