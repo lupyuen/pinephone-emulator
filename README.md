@@ -498,6 +498,8 @@ click nxsched_blocked_setpriority href "https://github.com/apache/nuttx/blob/mas
 exec_module --> nxsched_add_prioritized
 ```
 
+[Download PDF](nuttx-boot-flow.pdf) / [PNG](nuttx-boot-flow.png) / [SVG](nuttx-boot-flow.svg)
+
 # Emulate PinePhone with Unicorn Emulator
 
 Read the articles...
