@@ -406,7 +406,6 @@ mm_size2ndx --> STUB_utimens
 click mm_size2ndx href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L314" "mm/mm_heap/mm.h " _blank
 STUB_utimens --> STUB_writev
 click STUB_utimens href "https://github.com/apache/nuttx/blob/master/syscall/stubs/STUB_utimens.c#L7" "syscall/stubs/STUB_utimens.c " _blank
-STUB_writev --> 
 click STUB_writev href "https://github.com/apache/nuttx/blob/master/syscall/stubs/STUB_writev.c#L7" "syscall/stubs/STUB_writev.c " _blank
 mm_size2ndx --> mm_realloc
 click mm_size2ndx href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L314" "mm/mm_heap/mm.h " _blank
