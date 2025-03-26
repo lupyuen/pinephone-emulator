@@ -385,7 +385,6 @@ settimeofday --> sq_remfirst
 click settimeofday href "https://github.com/apache/nuttx/blob/master/libs/libc/time/lib_settimeofday.c#L75" "libs/libc/time/lib_settimeofday.c " _blank
 strncmp --> nxtask_argvstr
 click strncmp href "https://github.com/apache/nuttx/blob/master/libs/libc/machine/arm64/gnu/arch_strncmp.S#L145" "libs/libc/machine/arm64/gnu/arch_strncmp.S " _blank
-strncmp --> 
 click strncmp href "https://github.com/apache/nuttx/blob/master/libs/libc/machine/arm64/gnu/arch_strncmp.S#L148" "libs/libc/machine/arm64/gnu/arch_strncmp.S " _blank
 arch_strnlen --> nxsched_set_scheduler
 click arch_strnlen href "https://github.com/apache/nuttx/blob/master/libs/libc/machine/arm64/gnu/arch_strnlen.S#L81" "libs/libc/machine/arm64/gnu/arch_strnlen.S " _blank
