@@ -7,7 +7,7 @@
             "label": "Build",
             "type": "shell",
 
-            "command": "set -e ; set -x ; export NOTUSED_UC_IGNORE_REG_BREAK=1 ; cargo run ; sleep 10",
+            "command": "set -e ; set -x ; export RUST_BACKTRACE=1 ; export NOTUSED_UC_IGNORE_REG_BREAK=1 ; cargo run ; sleep 10",
 
             "problemMatcher": "$rustc",
             "group": {
