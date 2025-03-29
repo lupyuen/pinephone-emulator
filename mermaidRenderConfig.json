@@ -1,3 +1,4 @@
 {
+    "maxEdges" : 99999999,
     "maxTextSize" : 99999999
 }
