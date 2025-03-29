@@ -1,0 +1,1838 @@
+flowchart TD
+START --> arm64_head
+arm64_head --> a527_lowputc
+click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L105" "arch/arm64/src/common/arm64_head.S " _blank
+a527_lowputc --> arm64_head
+click a527_lowputc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a527/a527_lowputc.S#L47" "arch/arm64/src/a527/a527_lowputc.S " _blank
+arm64_head --> a527_lowputc
+click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L228" "arch/arm64/src/common/arm64_head.S " _blank
+a527_lowputc --> arm64_head
+click a527_lowputc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a527/a527_lowputc.S#L76" "arch/arm64/src/a527/a527_lowputc.S " _blank
+arm64_head --> a527_lowputc
+click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L374" "arch/arm64/src/common/arm64_head.S " _blank
+a527_lowputc --> arm64_head
+click a527_lowputc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a527/a527_lowputc.S#L76" "arch/arm64/src/a527/a527_lowputc.S " _blank
+arm64_head --> a527_lowputc
+click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L374" "arch/arm64/src/common/arm64_head.S " _blank
+a527_lowputc --> arm64_head
+click a527_lowputc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a527/a527_lowputc.S#L76" "arch/arm64/src/a527/a527_lowputc.S " _blank
+arm64_head --> a527_lowputc
+click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L374" "arch/arm64/src/common/arm64_head.S " _blank
+a527_lowputc --> arm64_head
+click a527_lowputc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a527/a527_lowputc.S#L76" "arch/arm64/src/a527/a527_lowputc.S " _blank
+arm64_head --> a527_lowputc
+click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L374" "arch/arm64/src/common/arm64_head.S " _blank
+a527_lowputc --> arm64_head
+click a527_lowputc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a527/a527_lowputc.S#L76" "arch/arm64/src/a527/a527_lowputc.S " _blank
+arm64_head --> a527_lowputc
+click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L374" "arch/arm64/src/common/arm64_head.S " _blank
+a527_lowputc --> arm64_head
+click a527_lowputc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a527/a527_lowputc.S#L76" "arch/arm64/src/a527/a527_lowputc.S " _blank
+arm64_head --> a527_lowputc
+click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L374" "arch/arm64/src/common/arm64_head.S " _blank
+arm64_head --> arm64_el_init
+click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L374" "arch/arm64/src/common/arm64_head.S " _blank
+arm64_head --> arm64_boot_el1_init
+click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L374" "arch/arm64/src/common/arm64_head.S " _blank
+arm64_head --> arm64_boot_primary_c_routine
+click arm64_head href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_head.S#L374" "arch/arm64/src/common/arm64_head.S " _blank
+arm64_boot_primary_c_routine --> arm64_chip_boot
+click arm64_boot_primary_c_routine href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_boot.c#L217" "arch/arm64/src/common/arm64_boot.c " _blank
+arm64_chip_boot --> arm64_mmu_init
+click arm64_chip_boot href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a527/a527_boot.c#L231" "arch/arm64/src/a527/a527_boot.c " _blank
+arm64_mmu_init --> setup_page_tables
+click arm64_mmu_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L661" "arch/arm64/src/common/arm64_mmu.c " _blank
+setup_page_tables --> init_xlat_tables
+click setup_page_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L530" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> set_pte_block_desc
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L462" "arch/arm64/src/common/arm64_mmu.c " _blank
+set_pte_block_desc --> init_xlat_tables
+click set_pte_block_desc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L333" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> setup_page_tables
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L477" "arch/arm64/src/common/arm64_mmu.c " _blank
+setup_page_tables --> init_xlat_tables
+click setup_page_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L544" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> pte_desc_type
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L462" "arch/arm64/src/common/arm64_mmu.c " _blank
+pte_desc_type --> new_prealloc_table
+click pte_desc_type href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L274" "arch/arm64/src/common/arm64_mmu.c " _blank
+new_prealloc_table --> calculate_pte_index
+click new_prealloc_table href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L418" "arch/arm64/src/common/arm64_mmu.c " _blank
+calculate_pte_index --> pte_desc_type
+click calculate_pte_index href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L286" "arch/arm64/src/common/arm64_mmu.c " _blank
+pte_desc_type --> calculate_pte_index
+click pte_desc_type href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L274" "arch/arm64/src/common/arm64_mmu.c " _blank
+calculate_pte_index --> init_xlat_tables
+click calculate_pte_index href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L287" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> set_pte_block_desc
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L487" "arch/arm64/src/common/arm64_mmu.c " _blank
+set_pte_block_desc --> init_xlat_tables
+click set_pte_block_desc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L333" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> pte_desc_type
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L457" "arch/arm64/src/common/arm64_mmu.c " _blank
+pte_desc_type --> init_xlat_tables
+click pte_desc_type href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L274" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> calculate_pte_index
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L512" "arch/arm64/src/common/arm64_mmu.c " _blank
+calculate_pte_index --> pte_desc_type
+click calculate_pte_index href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L286" "arch/arm64/src/common/arm64_mmu.c " _blank
+pte_desc_type --> calculate_pte_index
+click pte_desc_type href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L274" "arch/arm64/src/common/arm64_mmu.c " _blank
+calculate_pte_index --> init_xlat_tables
+click calculate_pte_index href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L287" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> set_pte_block_desc
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L487" "arch/arm64/src/common/arm64_mmu.c " _blank
+set_pte_block_desc --> init_xlat_tables
+click set_pte_block_desc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L333" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> pte_desc_type
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L457" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> calculate_pte_index
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L512" "arch/arm64/src/common/arm64_mmu.c " _blank
+calculate_pte_index --> pte_desc_type
+click calculate_pte_index href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L286" "arch/arm64/src/common/arm64_mmu.c " _blank
+pte_desc_type --> calculate_pte_index
+click pte_desc_type href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L274" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> set_pte_block_desc
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L487" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> pte_desc_type
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L457" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> calculate_pte_index
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L512" "arch/arm64/src/common/arm64_mmu.c " _blank
+calculate_pte_index --> pte_desc_type
+click calculate_pte_index href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L286" "arch/arm64/src/common/arm64_mmu.c " _blank
+pte_desc_type --> calculate_pte_index
+click pte_desc_type href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L274" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> set_pte_block_desc
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L487" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> set_pte_block_desc
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L487" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> set_pte_block_desc
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L487" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> set_pte_block_desc
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L487" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> setup_page_tables
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L477" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> new_prealloc_table
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L512" "arch/arm64/src/common/arm64_mmu.c " _blank
+new_prealloc_table --> split_pte_block_desc
+click new_prealloc_table href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L418" "arch/arm64/src/common/arm64_mmu.c " _blank
+split_pte_block_desc --> set_pte_table_desc
+click split_pte_block_desc href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L445" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> setup_page_tables
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L477" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> setup_page_tables
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L477" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> setup_page_tables
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L477" "arch/arm64/src/common/arm64_mmu.c " _blank
+init_xlat_tables --> setup_page_tables
+click init_xlat_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L477" "arch/arm64/src/common/arm64_mmu.c " _blank
+setup_page_tables --> enable_mmu_el1
+click setup_page_tables href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L555" "arch/arm64/src/common/arm64_mmu.c " _blank
+enable_mmu_el1 --> arm64_mmu_init
+click enable_mmu_el1 href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L605" "arch/arm64/src/common/arm64_mmu.c " _blank
+arm64_mmu_init --> arm64_chip_boot
+click arm64_mmu_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L712" "arch/arm64/src/common/arm64_mmu.c " _blank
+arm64_chip_boot --> a527_boardinit
+click arm64_chip_boot href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a527/a527_boot.c#L254" "arch/arm64/src/a527/a527_boot.c " _blank
+a527_boardinit --> arm64_chip_boot
+click a527_boardinit href "https://github.com/apache/nuttx/blob/master/boards/arm64/a527/avaota-a1/src/a527_boardinit.c#L86" "boards/arm64/a527/avaota-a1/src/a527_boardinit.c " _blank
+arm64_chip_boot --> arm64_earlyserialinit
+click arm64_chip_boot href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a527/a527_boot.c#L267" "arch/arm64/src/a527/a527_boot.c " _blank
+arm64_earlyserialinit --> u16550_earlyserialinit
+click arm64_earlyserialinit href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a527/a527_serial.c#L58" "arch/arm64/src/a527/a527_serial.c " _blank
+u16550_earlyserialinit --> u16550_setup
+click u16550_earlyserialinit href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1661" "drivers/serial/uart_16550.c " _blank
+u16550_setup --> u16550_serialout
+click u16550_setup href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L789" "drivers/serial/uart_16550.c " _blank
+u16550_serialout --> u16550_mmio_putreg
+click u16550_serialout href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L663" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_putreg --> u16550_setup
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+u16550_setup --> u16550_serialin
+click u16550_setup href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L813" "drivers/serial/uart_16550.c " _blank
+u16550_serialin --> u16550_mmio_getreg
+click u16550_serialin href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L650" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_getreg --> u16550_setup
+click u16550_mmio_getreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L623" "drivers/serial/uart_16550.c " _blank
+u16550_setup --> u16550_wait
+click u16550_setup href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L813" "drivers/serial/uart_16550.c " _blank
+u16550_wait --> u16550_serialin
+click u16550_wait href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L683" "drivers/serial/uart_16550.c " _blank
+u16550_serialin --> u16550_mmio_getreg
+click u16550_serialin href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L650" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_getreg --> u16550_wait
+click u16550_mmio_getreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L623" "drivers/serial/uart_16550.c " _blank
+u16550_wait --> u16550_setup
+click u16550_wait href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L690" "drivers/serial/uart_16550.c " _blank
+u16550_setup --> u16550_serialout
+click u16550_setup href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L855" "drivers/serial/uart_16550.c " _blank
+u16550_serialout --> u16550_mmio_putreg
+click u16550_serialout href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L663" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_putreg --> u16550_divisor
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+u16550_divisor --> u16550_serialout
+click u16550_divisor href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L765" "drivers/serial/uart_16550.c " _blank
+u16550_serialout --> u16550_mmio_putreg
+click u16550_serialout href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L663" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_putreg --> u16550_setup
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+u16550_setup --> u16550_serialout
+click u16550_setup href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L873" "drivers/serial/uart_16550.c " _blank
+u16550_serialout --> u16550_mmio_putreg
+click u16550_serialout href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L663" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_putreg --> u16550_setup
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+u16550_setup --> u16550_wait
+click u16550_setup href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L878" "drivers/serial/uart_16550.c " _blank
+u16550_wait --> u16550_serialin
+click u16550_wait href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L683" "drivers/serial/uart_16550.c " _blank
+u16550_serialin --> u16550_mmio_getreg
+click u16550_serialin href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L650" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_getreg --> u16550_wait
+click u16550_mmio_getreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L623" "drivers/serial/uart_16550.c " _blank
+u16550_wait --> u16550_setup
+click u16550_wait href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L690" "drivers/serial/uart_16550.c " _blank
+u16550_setup --> u16550_serialout
+click u16550_setup href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L878" "drivers/serial/uart_16550.c " _blank
+u16550_serialout --> u16550_mmio_putreg
+click u16550_serialout href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L663" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_putreg --> u16550_setup
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+u16550_setup --> u16550_serialout
+click u16550_setup href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L893" "drivers/serial/uart_16550.c " _blank
+u16550_serialout --> u16550_mmio_putreg
+click u16550_serialout href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L663" "drivers/serial/uart_16550.c " _blank
+u16550_setup --> arm64_boot_primary_c_routine
+click u16550_setup href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L928" "drivers/serial/uart_16550.c " _blank
+arm64_boot_primary_c_routine --> nx_start
+click arm64_boot_primary_c_routine href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_boot.c#L220" "arch/arm64/src/common/arm64_boot.c " _blank
+nx_start --> idle_task_initialize
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L524" "sched/init/nx_start.c " _blank
+idle_task_initialize --> nx_start
+click idle_task_initialize href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L362" "sched/init/nx_start.c " _blank
+nx_start --> drivers_early_initialize
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L543" "sched/init/nx_start.c " _blank
+drivers_early_initialize --> nx_start
+click drivers_early_initialize href "https://github.com/apache/nuttx/blob/master/drivers/drivers_initialize.c#L95" "drivers/drivers_initialize.c " _blank
+nx_start --> up_allocate_kheap
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L581" "sched/init/nx_start.c " _blank
+up_allocate_kheap --> nx_start
+click up_allocate_kheap href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_allocateheap.c#L129" "arch/arm64/src/common/arm64_allocateheap.c " _blank
+nx_start --> kmm_initialize
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L582" "sched/init/nx_start.c " _blank
+kmm_initialize --> mm_initialize
+click kmm_initialize href "https://github.com/apache/nuttx/blob/master/mm/kmm_heap/kmm_initialize.c#L61" "mm/kmm_heap/kmm_initialize.c " _blank
+mm_initialize --> nxmutex_init
+click mm_initialize href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_initialize.c#L234" "mm/mm_heap/mm_initialize.c " _blank
+nxmutex_init --> nxsem_init
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L114" "libs/libc/misc/lib_mutex.c " _blank
+nxsem_init --> nxmutex_init
+click nxsem_init href "https://github.com/apache/nuttx/blob/master/libs/libc/semaphore/sem_init.c#L68" "libs/libc/semaphore/sem_init.c " _blank
+nxmutex_init --> nxsem_set_protocol
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L115" "libs/libc/misc/lib_mutex.c " _blank
+nxsem_set_protocol --> nxmutex_init
+click nxsem_set_protocol href "https://github.com/apache/nuttx/blob/master/libs/libc/semaphore/sem_setprotocol.c#L79" "libs/libc/semaphore/sem_setprotocol.c " _blank
+nxmutex_init --> mm_initialize
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L129" "libs/libc/misc/lib_mutex.c " _blank
+mm_initialize --> mm_addregion
+click mm_initialize href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_initialize.c#L286" "mm/mm_heap/mm_initialize.c " _blank
+mm_addregion --> mm_lock
+click mm_addregion href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_initialize.c#L104" "mm/mm_heap/mm_initialize.c " _blank
+mm_lock --> nxsched_gettid
+click mm_lock href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L60" "mm/mm_heap/mm_lock.c " _blank
+nxsched_gettid --> mm_lock
+click nxsched_gettid href "https://github.com/apache/nuttx/blob/master/sched/task/task_gettid.c#L68" "sched/task/task_gettid.c " _blank
+mm_lock --> nxmutex_lock
+click mm_lock href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L90" "mm/mm_heap/mm_lock.c " _blank
+nxmutex_lock --> nxmutex_is_hold
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L248" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_is_hold --> nxsched_gettid
+click nxmutex_is_hold href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L178" "libs/libc/misc/lib_mutex.c " _blank
+nxsched_gettid --> nxmutex_is_hold
+click nxsched_gettid href "https://github.com/apache/nuttx/blob/master/sched/task/task_gettid.c#L68" "sched/task/task_gettid.c " _blank
+nxmutex_is_hold --> nxmutex_lock
+click nxmutex_is_hold href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L179" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_lock --> nxsem_wait
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L251" "libs/libc/misc/lib_mutex.c " _blank
+nxsem_wait --> nxmutex_lock
+click nxsem_wait href "https://github.com/apache/nuttx/blob/master/sched/semaphore/sem_wait.c#L257" "sched/semaphore/sem_wait.c " _blank
+nxmutex_lock --> nxsched_gettid
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L256" "libs/libc/misc/lib_mutex.c " _blank
+nxsched_gettid --> nxmutex_lock
+click nxsched_gettid href "https://github.com/apache/nuttx/blob/master/sched/task/task_gettid.c#L68" "sched/task/task_gettid.c " _blank
+nxmutex_lock --> mm_addregion
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L259" "libs/libc/misc/lib_mutex.c " _blank
+mm_addregion --> mm_addfreechunk
+click mm_addregion href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_initialize.c#L125" "mm/mm_heap/mm_initialize.c " _blank
+mm_addfreechunk --> mm_size2ndx
+click mm_addfreechunk href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L326" "mm/mm_heap/mm.h " _blank
+mm_size2ndx --> mm_addfreechunk
+click mm_size2ndx href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L314" "mm/mm_heap/mm.h " _blank
+mm_addfreechunk --> mm_addregion
+click mm_addfreechunk href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L335" "mm/mm_heap/mm.h " _blank
+mm_addregion --> mm_unlock
+click mm_addregion href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_initialize.c#L207" "mm/mm_heap/mm_initialize.c " _blank
+mm_unlock --> nxmutex_unlock
+click mm_unlock href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L111" "mm/mm_heap/mm_lock.c " _blank
+nxmutex_unlock --> nxmutex_is_hold
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L423" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_is_hold --> nxsched_gettid
+click nxmutex_is_hold href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L178" "libs/libc/misc/lib_mutex.c " _blank
+nxsched_gettid --> nxmutex_is_hold
+click nxsched_gettid href "https://github.com/apache/nuttx/blob/master/sched/task/task_gettid.c#L68" "sched/task/task_gettid.c " _blank
+nxmutex_is_hold --> nxmutex_unlock
+click nxmutex_is_hold href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L179" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_unlock --> nxsem_post
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L431" "libs/libc/misc/lib_mutex.c " _blank
+nxsem_post --> nxmutex_unlock
+click nxsem_post href "https://github.com/apache/nuttx/blob/master/sched/semaphore/sem_post.c#L254" "sched/semaphore/sem_post.c " _blank
+nxmutex_unlock --> mm_unlock
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L435" "libs/libc/misc/lib_mutex.c " _blank
+mm_unlock --> mm_initialize
+click mm_unlock href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L117" "mm/mm_heap/mm_lock.c " _blank
+mm_initialize --> procfs_register_meminfo
+click mm_initialize href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_initialize.c#L290" "mm/mm_heap/mm_initialize.c " _blank
+procfs_register_meminfo --> mm_initialize
+click procfs_register_meminfo href "https://github.com/apache/nuttx/blob/master/fs/procfs/fs_procfsmeminfo.c#L720" "fs/procfs/fs_procfsmeminfo.c " _blank
+mm_initialize --> kmm_initialize
+click mm_initialize href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_initialize.c#L295" "mm/mm_heap/mm_initialize.c " _blank
+kmm_initialize --> nx_start
+click kmm_initialize href "https://github.com/apache/nuttx/blob/master/mm/kmm_heap/kmm_initialize.c#L62" "mm/kmm_heap/kmm_initialize.c " _blank
+nx_start --> up_allocate_pgheap
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L591" "sched/init/nx_start.c " _blank
+up_allocate_pgheap --> nx_start
+click up_allocate_pgheap href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_pgalloc.c#L172" "arch/arm64/src/common/arm64_pgalloc.c " _blank
+nx_start --> mm_pginitialize
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L592" "sched/init/nx_start.c " _blank
+mm_pginitialize --> gran_initialize
+click mm_pginitialize href "https://github.com/apache/nuttx/blob/master/mm/mm_gran/mm_pgalloc.c#L99" "mm/mm_gran/mm_pgalloc.c " _blank
+gran_initialize --> kmm_zalloc
+click gran_initialize href "https://github.com/apache/nuttx/blob/master/mm/mm_gran/mm_graninit.c#L97" "mm/mm_gran/mm_graninit.c " _blank
+kmm_zalloc --> mm_zalloc
+click kmm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/kmm_heap/kmm_zalloc.c#L52" "mm/kmm_heap/kmm_zalloc.c " _blank
+mm_zalloc --> mm_malloc
+click mm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_zalloc.c#L45" "mm/mm_heap/mm_zalloc.c " _blank
+mm_malloc --> free_delaylist
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L170" "mm/mm_heap/mm_malloc.c " _blank
+free_delaylist --> up_irq_save
+click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L58" "mm/mm_heap/mm_malloc.c " _blank
+up_irq_save --> mm_lock_irq
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+mm_lock_irq --> free_delaylist
+click mm_lock_irq href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L132" "mm/mm_heap/mm_lock.c " _blank
+free_delaylist --> up_irq_restore
+click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L85" "mm/mm_heap/mm_malloc.c " _blank
+up_irq_restore --> mm_unlock_irq
+click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
+mm_unlock_irq --> free_delaylist
+click mm_unlock_irq href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L146" "mm/mm_heap/mm_lock.c " _blank
+free_delaylist --> mm_malloc
+click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L91" "mm/mm_heap/mm_malloc.c " _blank
+mm_malloc --> mm_lock
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L197" "mm/mm_heap/mm_malloc.c " _blank
+mm_lock --> nxsched_gettid
+click mm_lock href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L60" "mm/mm_heap/mm_lock.c " _blank
+nxsched_gettid --> mm_lock
+click nxsched_gettid href "https://github.com/apache/nuttx/blob/master/sched/task/task_gettid.c#L68" "sched/task/task_gettid.c " _blank
+mm_lock --> nxmutex_lock
+click mm_lock href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L90" "mm/mm_heap/mm_lock.c " _blank
+nxmutex_lock --> nxmutex_is_hold
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L248" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_is_hold --> nxsched_gettid
+click nxmutex_is_hold href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L178" "libs/libc/misc/lib_mutex.c " _blank
+nxsched_gettid --> nxmutex_is_hold
+click nxsched_gettid href "https://github.com/apache/nuttx/blob/master/sched/task/task_gettid.c#L68" "sched/task/task_gettid.c " _blank
+nxmutex_is_hold --> nxmutex_lock
+click nxmutex_is_hold href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L179" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_lock --> nxsem_wait
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L251" "libs/libc/misc/lib_mutex.c " _blank
+nxsem_wait --> nxmutex_lock
+click nxsem_wait href "https://github.com/apache/nuttx/blob/master/sched/semaphore/sem_wait.c#L257" "sched/semaphore/sem_wait.c " _blank
+nxmutex_lock --> nxsched_gettid
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L256" "libs/libc/misc/lib_mutex.c " _blank
+nxsched_gettid --> nxmutex_lock
+click nxsched_gettid href "https://github.com/apache/nuttx/blob/master/sched/task/task_gettid.c#L68" "sched/task/task_gettid.c " _blank
+nxmutex_lock --> mm_malloc
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L259" "libs/libc/misc/lib_mutex.c " _blank
+mm_malloc --> mm_size2ndx
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L214" "mm/mm_heap/mm_malloc.c " _blank
+mm_size2ndx --> mm_malloc
+click mm_size2ndx href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L314" "mm/mm_heap/mm.h " _blank
+mm_malloc --> mm_addfreechunk
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L227" "mm/mm_heap/mm_malloc.c " _blank
+mm_addfreechunk --> mm_size2ndx
+click mm_addfreechunk href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L326" "mm/mm_heap/mm.h " _blank
+mm_size2ndx --> mm_addfreechunk
+click mm_size2ndx href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L314" "mm/mm_heap/mm.h " _blank
+mm_addfreechunk --> mm_malloc
+click mm_addfreechunk href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L341" "mm/mm_heap/mm.h " _blank
+mm_malloc --> mm_heapmember
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L311" "mm/mm_heap/mm_malloc.c " _blank
+mm_heapmember --> mm_malloc
+click mm_heapmember href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_heapmember.c#L85" "mm/mm_heap/mm_heapmember.c " _blank
+mm_malloc --> mm_unlock
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L322" "mm/mm_heap/mm_malloc.c " _blank
+mm_unlock --> nxmutex_unlock
+click mm_unlock href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L111" "mm/mm_heap/mm_lock.c " _blank
+nxmutex_unlock --> nxmutex_is_hold
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L423" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_is_hold --> nxsched_gettid
+click nxmutex_is_hold href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L178" "libs/libc/misc/lib_mutex.c " _blank
+nxsched_gettid --> nxmutex_is_hold
+click nxsched_gettid href "https://github.com/apache/nuttx/blob/master/sched/task/task_gettid.c#L68" "sched/task/task_gettid.c " _blank
+nxmutex_is_hold --> nxmutex_unlock
+click nxmutex_is_hold href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L179" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_unlock --> nxsem_post
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L431" "libs/libc/misc/lib_mutex.c " _blank
+nxsem_post --> nxmutex_unlock
+click nxsem_post href "https://github.com/apache/nuttx/blob/master/sched/semaphore/sem_post.c#L254" "sched/semaphore/sem_post.c " _blank
+nxmutex_unlock --> mm_unlock
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L435" "libs/libc/misc/lib_mutex.c " _blank
+mm_unlock --> mm_malloc
+click mm_unlock href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L117" "mm/mm_heap/mm_lock.c " _blank
+mm_malloc --> mm_zalloc
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L410" "mm/mm_heap/mm_malloc.c " _blank
+mm_zalloc --> gran_initialize
+click mm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_zalloc.c#L46" "mm/mm_heap/mm_zalloc.c " _blank
+gran_initialize --> nxmutex_init
+click gran_initialize href "https://github.com/apache/nuttx/blob/master/mm/mm_gran/mm_graninit.c#L130" "mm/mm_gran/mm_graninit.c " _blank
+nxmutex_init --> nxsem_init
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L114" "libs/libc/misc/lib_mutex.c " _blank
+nxsem_init --> nxmutex_init
+click nxsem_init href "https://github.com/apache/nuttx/blob/master/libs/libc/semaphore/sem_init.c#L68" "libs/libc/semaphore/sem_init.c " _blank
+nxmutex_init --> nxsem_set_protocol
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L115" "libs/libc/misc/lib_mutex.c " _blank
+nxsem_set_protocol --> nxmutex_init
+click nxsem_set_protocol href "https://github.com/apache/nuttx/blob/master/libs/libc/semaphore/sem_setprotocol.c#L79" "libs/libc/semaphore/sem_setprotocol.c " _blank
+nxmutex_init --> gran_initialize
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L129" "libs/libc/misc/lib_mutex.c " _blank
+gran_initialize --> mm_pginitialize
+click gran_initialize href "https://github.com/apache/nuttx/blob/master/mm/mm_gran/mm_graninit.c#L148" "mm/mm_gran/mm_graninit.c " _blank
+mm_pginitialize --> nx_start
+click mm_pginitialize href "https://github.com/apache/nuttx/blob/master/mm/mm_gran/mm_pgalloc.c#L100" "mm/mm_gran/mm_pgalloc.c " _blank
+nx_start --> kmm_map_initialize
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L600" "sched/init/nx_start.c " _blank
+kmm_map_initialize --> up_addrenv_kmap_init
+click kmm_map_initialize href "https://github.com/apache/nuttx/blob/master/mm/kmap/kmm_map.c#L283" "mm/kmap/kmm_map.c " _blank
+up_addrenv_kmap_init --> mmu_get_base_pgt_level
+click up_addrenv_kmap_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_addrenv_pgmap.c#L192" "arch/arm64/src/common/arm64_addrenv_pgmap.c " _blank
+mmu_get_base_pgt_level --> up_addrenv_kmap_init
+click mmu_get_base_pgt_level href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L794" "arch/arm64/src/common/arm64_mmu.c " _blank
+up_addrenv_kmap_init --> arm64_pgvaddr
+click up_addrenv_kmap_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_addrenv_pgmap.c#L204" "arch/arm64/src/common/arm64_addrenv_pgmap.c " _blank
+arm64_pgvaddr --> up_addrenv_kmap_init
+click arm64_pgvaddr href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/pgalloc.h#L75" "arch/arm64/src/common/pgalloc.h " _blank
+up_addrenv_kmap_init --> mmu_ln_getentry
+click up_addrenv_kmap_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_addrenv_pgmap.c#L212" "arch/arm64/src/common/arm64_addrenv_pgmap.c " _blank
+mmu_ln_getentry --> up_invalidate_dcache
+click mmu_ln_getentry href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L743" "arch/arm64/src/common/arm64_mmu.c " _blank
+up_invalidate_dcache --> arm64_dcache_range
+click up_invalidate_dcache href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_cache.c#L509" "arch/arm64/src/common/arm64_cache.c " _blank
+arm64_dcache_range --> up_get_dcache_linesize
+click arm64_dcache_range href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_cache.c#L154" "arch/arm64/src/common/arm64_cache.c " _blank
+up_get_dcache_linesize --> arm64_cache_get_info
+click up_get_dcache_linesize href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_cache.c#L552" "arch/arm64/src/common/arm64_cache.c " _blank
+arm64_cache_get_info --> up_get_dcache_linesize
+click arm64_cache_get_info href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_cache.c#L115" "arch/arm64/src/common/arm64_cache.c " _blank
+up_get_dcache_linesize --> arm64_dcache_range
+click up_get_dcache_linesize href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_cache.c#L554" "arch/arm64/src/common/arm64_cache.c " _blank
+arm64_dcache_range --> mmu_ln_getentry
+click arm64_dcache_range href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_cache.c#L161" "arch/arm64/src/common/arm64_cache.c " _blank
+mmu_ln_getentry --> mmu_pte_to_paddr
+click mmu_ln_getentry href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L758" "arch/arm64/src/common/arm64_mmu.c " _blank
+mmu_pte_to_paddr --> up_addrenv_kmap_init
+click mmu_pte_to_paddr href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.h#L515" "arch/arm64/src/common/arm64_mmu.h " _blank
+up_addrenv_kmap_init --> arm64_pgvaddr
+click up_addrenv_kmap_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_addrenv_pgmap.c#L206" "arch/arm64/src/common/arm64_addrenv_pgmap.c " _blank
+arm64_pgvaddr --> up_addrenv_kmap_init
+click arm64_pgvaddr href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/pgalloc.h#L75" "arch/arm64/src/common/pgalloc.h " _blank
+up_addrenv_kmap_init --> mmu_ln_getentry
+click up_addrenv_kmap_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_addrenv_pgmap.c#L212" "arch/arm64/src/common/arm64_addrenv_pgmap.c " _blank
+mmu_ln_getentry --> up_invalidate_dcache
+click mmu_ln_getentry href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L743" "arch/arm64/src/common/arm64_mmu.c " _blank
+up_invalidate_dcache --> arm64_dcache_range
+click up_invalidate_dcache href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_cache.c#L509" "arch/arm64/src/common/arm64_cache.c " _blank
+arm64_dcache_range --> up_get_dcache_linesize
+click arm64_dcache_range href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_cache.c#L154" "arch/arm64/src/common/arm64_cache.c " _blank
+up_get_dcache_linesize --> arm64_dcache_range
+click up_get_dcache_linesize href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_cache.c#L552" "arch/arm64/src/common/arm64_cache.c " _blank
+arm64_dcache_range --> mmu_ln_getentry
+click arm64_dcache_range href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_cache.c#L161" "arch/arm64/src/common/arm64_cache.c " _blank
+mmu_ln_getentry --> mmu_pte_to_paddr
+click mmu_ln_getentry href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.c#L758" "arch/arm64/src/common/arm64_mmu.c " _blank
+mmu_pte_to_paddr --> up_addrenv_kmap_init
+click mmu_pte_to_paddr href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.h#L515" "arch/arm64/src/common/arm64_mmu.h " _blank
+up_addrenv_kmap_init --> mmu_ttbr_reg
+click up_addrenv_kmap_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_addrenv_pgmap.c#L206" "arch/arm64/src/common/arm64_addrenv_pgmap.c " _blank
+mmu_ttbr_reg --> kmm_map_initialize
+click mmu_ttbr_reg href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_mmu.h#L391" "arch/arm64/src/common/arm64_mmu.h " _blank
+kmm_map_initialize --> gran_initialize
+click kmm_map_initialize href "https://github.com/apache/nuttx/blob/master/mm/kmap/kmm_map.c#L286" "mm/kmap/kmm_map.c " _blank
+gran_initialize --> kmm_zalloc
+click gran_initialize href "https://github.com/apache/nuttx/blob/master/mm/mm_gran/mm_graninit.c#L97" "mm/mm_gran/mm_graninit.c " _blank
+kmm_zalloc --> mm_zalloc
+click kmm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/kmm_heap/kmm_zalloc.c#L52" "mm/kmm_heap/kmm_zalloc.c " _blank
+mm_zalloc --> mm_malloc
+click mm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_zalloc.c#L45" "mm/mm_heap/mm_zalloc.c " _blank
+mm_malloc --> free_delaylist
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L170" "mm/mm_heap/mm_malloc.c " _blank
+free_delaylist --> up_irq_save
+click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L58" "mm/mm_heap/mm_malloc.c " _blank
+up_irq_save --> mm_lock_irq
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+mm_lock_irq --> free_delaylist
+click mm_lock_irq href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L132" "mm/mm_heap/mm_lock.c " _blank
+free_delaylist --> up_irq_restore
+click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L85" "mm/mm_heap/mm_malloc.c " _blank
+up_irq_restore --> mm_unlock_irq
+click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
+mm_unlock_irq --> free_delaylist
+click mm_unlock_irq href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L146" "mm/mm_heap/mm_lock.c " _blank
+mm_malloc --> mm_lock
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L197" "mm/mm_heap/mm_malloc.c " _blank
+nxsched_gettid --> mm_lock
+click nxsched_gettid href "https://github.com/apache/nuttx/blob/master/sched/task/task_gettid.c#L68" "sched/task/task_gettid.c " _blank
+nxmutex_lock --> nxsem_wait
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L251" "libs/libc/misc/lib_mutex.c " _blank
+mm_malloc --> mm_size2ndx
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L214" "mm/mm_heap/mm_malloc.c " _blank
+mm_malloc --> mm_addfreechunk
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L227" "mm/mm_heap/mm_malloc.c " _blank
+mm_addfreechunk --> mm_size2ndx
+click mm_addfreechunk href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L326" "mm/mm_heap/mm.h " _blank
+mm_size2ndx --> mm_addfreechunk
+click mm_size2ndx href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L314" "mm/mm_heap/mm.h " _blank
+mm_malloc --> mm_heapmember
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L311" "mm/mm_heap/mm_malloc.c " _blank
+mm_malloc --> mm_unlock
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L322" "mm/mm_heap/mm_malloc.c " _blank
+mm_unlock --> nxmutex_unlock
+click mm_unlock href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L111" "mm/mm_heap/mm_lock.c " _blank
+nxmutex_is_hold --> nxmutex_unlock
+click nxmutex_is_hold href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L179" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_unlock --> nxsem_post
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L431" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_unlock --> mm_unlock
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L435" "libs/libc/misc/lib_mutex.c " _blank
+mm_malloc --> mm_zalloc
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L410" "mm/mm_heap/mm_malloc.c " _blank
+mm_zalloc --> gran_initialize
+click mm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_zalloc.c#L46" "mm/mm_heap/mm_zalloc.c " _blank
+gran_initialize --> nxmutex_init
+click gran_initialize href "https://github.com/apache/nuttx/blob/master/mm/mm_gran/mm_graninit.c#L130" "mm/mm_gran/mm_graninit.c " _blank
+nxmutex_init --> nxsem_init
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L114" "libs/libc/misc/lib_mutex.c " _blank
+nxsem_init --> nxmutex_init
+click nxsem_init href "https://github.com/apache/nuttx/blob/master/libs/libc/semaphore/sem_init.c#L68" "libs/libc/semaphore/sem_init.c " _blank
+nxmutex_init --> nxsem_set_protocol
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L115" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_init --> gran_initialize
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L129" "libs/libc/misc/lib_mutex.c " _blank
+gran_initialize --> kmm_map_initialize
+click gran_initialize href "https://github.com/apache/nuttx/blob/master/mm/mm_gran/mm_graninit.c#L148" "mm/mm_gran/mm_graninit.c " _blank
+kmm_map_initialize --> mm_map_initialize
+click kmm_map_initialize href "https://github.com/apache/nuttx/blob/master/mm/kmap/kmm_map.c#L290" "mm/kmap/kmm_map.c " _blank
+mm_map_initialize --> nxrmutex_init
+click mm_map_initialize href "https://github.com/apache/nuttx/blob/master/mm/map/mm_map.c#L112" "mm/map/mm_map.c " _blank
+nxmutex_init --> nxsem_init
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L114" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_init --> nxsem_set_protocol
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L115" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_init --> mm_map_initialize
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L129" "libs/libc/misc/lib_mutex.c " _blank
+mm_map_initialize --> nx_start
+click mm_map_initialize href "https://github.com/apache/nuttx/blob/master/mm/map/mm_map.c#L115" "mm/map/mm_map.c " _blank
+nx_start --> kmm_zalloc
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L623" "sched/init/nx_start.c " _blank
+kmm_zalloc --> mm_zalloc
+click kmm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/kmm_heap/kmm_zalloc.c#L52" "mm/kmm_heap/kmm_zalloc.c " _blank
+mm_malloc --> free_delaylist
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L170" "mm/mm_heap/mm_malloc.c " _blank
+free_delaylist --> up_irq_save
+click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L58" "mm/mm_heap/mm_malloc.c " _blank
+up_irq_save --> mm_lock_irq
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+mm_lock_irq --> free_delaylist
+click mm_lock_irq href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L132" "mm/mm_heap/mm_lock.c " _blank
+free_delaylist --> up_irq_restore
+click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L85" "mm/mm_heap/mm_malloc.c " _blank
+up_irq_restore --> mm_unlock_irq
+click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
+mm_malloc --> mm_lock
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L197" "mm/mm_heap/mm_malloc.c " _blank
+nxsched_gettid --> mm_lock
+click nxsched_gettid href "https://github.com/apache/nuttx/blob/master/sched/task/task_gettid.c#L68" "sched/task/task_gettid.c " _blank
+nxmutex_lock --> nxsem_wait
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L251" "libs/libc/misc/lib_mutex.c " _blank
+mm_malloc --> mm_size2ndx
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L214" "mm/mm_heap/mm_malloc.c " _blank
+mm_malloc --> mm_addfreechunk
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L227" "mm/mm_heap/mm_malloc.c " _blank
+mm_addfreechunk --> mm_size2ndx
+click mm_addfreechunk href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L326" "mm/mm_heap/mm.h " _blank
+mm_size2ndx --> mm_addfreechunk
+click mm_size2ndx href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L314" "mm/mm_heap/mm.h " _blank
+mm_malloc --> mm_heapmember
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L311" "mm/mm_heap/mm_malloc.c " _blank
+mm_malloc --> mm_unlock
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L322" "mm/mm_heap/mm_malloc.c " _blank
+nxmutex_unlock --> nxsem_post
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L431" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_unlock --> mm_unlock
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L435" "libs/libc/misc/lib_mutex.c " _blank
+mm_malloc --> mm_zalloc
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L410" "mm/mm_heap/mm_malloc.c " _blank
+nx_start --> group_initialize
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L623" "sched/init/nx_start.c " _blank
+group_initialize --> files_initlist
+click group_initialize href "https://github.com/apache/nuttx/blob/master/sched/group/group_create.c#L119" "sched/group/group_create.c " _blank
+files_initlist --> group_initialize
+click files_initlist href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L379" "fs/inode/fs_files.c " _blank
+group_initialize --> task_init_info
+click group_initialize href "https://github.com/apache/nuttx/blob/master/sched/group/group_create.c#L174" "sched/group/group_create.c " _blank
+task_init_info --> group_zalloc
+click task_init_info href "https://github.com/apache/nuttx/blob/master/sched/tls/task_initinfo.c#L117" "sched/tls/task_initinfo.c " _blank
+group_zalloc --> group_malloc
+click group_zalloc href "https://github.com/apache/nuttx/blob/master/sched/group/group_zalloc.c#L50" "sched/group/group_zalloc.c " _blank
+group_malloc --> kmm_malloc
+click group_malloc href "https://github.com/apache/nuttx/blob/master/sched/group/group_malloc.c#L55" "sched/group/group_malloc.c " _blank
+free_delaylist --> up_irq_save
+click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L58" "mm/mm_heap/mm_malloc.c " _blank
+up_irq_save --> mm_lock_irq
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+free_delaylist --> up_irq_restore
+click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L85" "mm/mm_heap/mm_malloc.c " _blank
+up_irq_restore --> mm_unlock_irq
+click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
+nxmutex_lock --> nxsem_wait
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L251" "libs/libc/misc/lib_mutex.c " _blank
+mm_malloc --> mm_size2ndx
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L214" "mm/mm_heap/mm_malloc.c " _blank
+mm_malloc --> mm_heapmember
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L311" "mm/mm_heap/mm_malloc.c " _blank
+nxmutex_unlock --> nxsem_post
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L431" "libs/libc/misc/lib_mutex.c " _blank
+mm_malloc --> group_zalloc
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L410" "mm/mm_heap/mm_malloc.c " _blank
+group_zalloc --> task_init_info
+click group_zalloc href "https://github.com/apache/nuttx/blob/master/sched/group/group_zalloc.c#L51" "sched/group/group_zalloc.c " _blank
+nxmutex_init --> nxsem_init
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L114" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_init --> nxsem_set_protocol
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L115" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_init --> task_init_info
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L129" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_init --> nxsem_init
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L114" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_init --> nxsem_set_protocol
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L115" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_init --> task_init_stream
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L129" "libs/libc/misc/lib_mutex.c " _blank
+task_init_stream --> nxrmutex_init
+click task_init_stream href "https://github.com/apache/nuttx/blob/master/sched/tls/task_initinfo.c#L76" "sched/tls/task_initinfo.c " _blank
+nxmutex_init --> nxsem_init
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L114" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_init --> nxsem_set_protocol
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L115" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_init --> task_init_stream
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L129" "libs/libc/misc/lib_mutex.c " _blank
+task_init_stream --> nxrmutex_init
+click task_init_stream href "https://github.com/apache/nuttx/blob/master/sched/tls/task_initinfo.c#L67" "sched/tls/task_initinfo.c " _blank
+nxmutex_init --> nxsem_init
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L114" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_init --> nxsem_set_protocol
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L115" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_init --> task_init_stream
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L129" "libs/libc/misc/lib_mutex.c " _blank
+task_init_stream --> nxrmutex_init
+click task_init_stream href "https://github.com/apache/nuttx/blob/master/sched/tls/task_initinfo.c#L67" "sched/tls/task_initinfo.c " _blank
+nxmutex_init --> task_init_stream
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L129" "libs/libc/misc/lib_mutex.c " _blank
+task_init_stream --> task_init_info
+click task_init_stream href "https://github.com/apache/nuttx/blob/master/sched/tls/task_initinfo.c#L67" "sched/tls/task_initinfo.c " _blank
+task_init_info --> group_initialize
+click task_init_info href "https://github.com/apache/nuttx/blob/master/sched/tls/task_initinfo.c#L147" "sched/tls/task_initinfo.c " _blank
+group_initialize --> nxrmutex_init
+click group_initialize href "https://github.com/apache/nuttx/blob/master/sched/group/group_create.c#L175" "sched/group/group_create.c " _blank
+nxmutex_init --> group_initialize
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L129" "libs/libc/misc/lib_mutex.c " _blank
+group_initialize --> idle_group_initialize
+click group_initialize href "https://github.com/apache/nuttx/blob/master/sched/group/group_create.c#L185" "sched/group/group_create.c " _blank
+idle_group_initialize --> nxtask_joininit
+click idle_group_initialize href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L464" "sched/init/nx_start.c " _blank
+nxsem_init --> idle_group_initialize
+click nxsem_init href "https://github.com/apache/nuttx/blob/master/libs/libc/semaphore/sem_init.c#L68" "libs/libc/semaphore/sem_init.c " _blank
+idle_group_initialize --> up_initial_state
+click idle_group_initialize href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L488" "sched/init/nx_start.c " _blank
+up_initial_state --> idle_group_initialize
+click up_initial_state href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_initialstate.c#L131" "arch/arm64/src/common/arm64_initialstate.c " _blank
+idle_group_initialize --> tls_init_info
+click idle_group_initialize href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L492" "sched/init/nx_start.c " _blank
+tls_init_info --> up_stack_frame
+click tls_init_info href "https://github.com/apache/nuttx/blob/master/sched/tls/tls_initinfo.c#L50" "sched/tls/tls_initinfo.c " _blank
+up_stack_frame --> tls_init_info
+click up_stack_frame href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_stackframe.c#L85" "arch/arm64/src/common/arm64_stackframe.c " _blank
+tls_init_info --> idle_group_initialize
+click tls_init_info href "https://github.com/apache/nuttx/blob/master/sched/tls/tls_initinfo.c#L56" "sched/tls/tls_initinfo.c " _blank
+idle_group_initialize --> group_postinitialize
+click idle_group_initialize href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L498" "sched/init/nx_start.c " _blank
+group_postinitialize --> mm_map_initialize
+click group_postinitialize href "https://github.com/apache/nuttx/blob/master/sched/group/group_create.c#L220" "sched/group/group_create.c " _blank
+mm_map_initialize --> nxrmutex_init
+click mm_map_initialize href "https://github.com/apache/nuttx/blob/master/mm/map/mm_map.c#L112" "mm/map/mm_map.c " _blank
+nxmutex_init --> mm_map_initialize
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L129" "libs/libc/misc/lib_mutex.c " _blank
+mm_map_initialize --> group_postinitialize
+click mm_map_initialize href "https://github.com/apache/nuttx/blob/master/mm/map/mm_map.c#L115" "mm/map/mm_map.c " _blank
+group_postinitialize --> idle_group_initialize
+click group_postinitialize href "https://github.com/apache/nuttx/blob/master/sched/group/group_create.c#L235" "sched/group/group_create.c " _blank
+idle_group_initialize --> instrument_initialize
+click idle_group_initialize href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L499" "sched/init/nx_start.c " _blank
+nx_start --> fs_initialize
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L648" "sched/init/nx_start.c " _blank
+fs_initialize --> inode_initialize
+click fs_initialize href "https://github.com/apache/nuttx/blob/master/fs/fs_initialize.c#L83" "fs/fs_initialize.c " _blank
+inode_initialize --> inode_root_reserve
+click inode_initialize href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inode.c#L62" "fs/inode/fs_inode.c " _blank
+inode_root_reserve --> inode_alloc
+click inode_root_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L146" "fs/inode/fs_inodereserve.c " _blank
+inode_alloc --> inode_namelen
+click inode_alloc href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L80" "fs/inode/fs_inodereserve.c " _blank
+inode_namelen --> kmm_zalloc
+click inode_namelen href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L59" "fs/inode/fs_inodereserve.c " _blank
+kmm_zalloc --> mm_zalloc
+click kmm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/kmm_heap/kmm_zalloc.c#L52" "mm/kmm_heap/kmm_zalloc.c " _blank
+free_delaylist --> up_irq_save
+click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L58" "mm/mm_heap/mm_malloc.c " _blank
+up_irq_save --> mm_lock_irq
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+free_delaylist --> up_irq_restore
+click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L85" "mm/mm_heap/mm_malloc.c " _blank
+up_irq_restore --> mm_unlock_irq
+click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
+nxmutex_lock --> nxsem_wait
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L251" "libs/libc/misc/lib_mutex.c " _blank
+mm_malloc --> mm_heapmember
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L311" "mm/mm_heap/mm_malloc.c " _blank
+nxmutex_unlock --> nxsem_post
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L431" "libs/libc/misc/lib_mutex.c " _blank
+mm_malloc --> mm_zalloc
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L410" "mm/mm_heap/mm_malloc.c " _blank
+mm_zalloc --> inode_alloc
+click mm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_zalloc.c#L46" "mm/mm_heap/mm_zalloc.c " _blank
+inode_alloc --> inode_namecpy
+click inode_alloc href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L87" "fs/inode/fs_inodereserve.c " _blank
+inode_namecpy --> inode_root_reserve
+click inode_namecpy href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L73" "fs/inode/fs_inodereserve.c " _blank
+inode_root_reserve --> fs_initialize
+click inode_root_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L147" "fs/inode/fs_inodereserve.c " _blank
+fs_initialize --> up_irq_save
+click fs_initialize href "https://github.com/apache/nuttx/blob/master/fs/fs_initialize.c#L111" "fs/fs_initialize.c " _blank
+up_irq_save --> register_reboot_notifier
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+nx_start --> irq_initialize
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L652" "sched/init/nx_start.c " _blank
+irq_initialize --> up_irqinitialize
+click irq_initialize href "https://github.com/apache/nuttx/blob/master/sched/irq/irq_initialize.c#L79" "sched/irq/irq_initialize.c " _blank
+up_irqinitialize --> getreg32
+click up_irqinitialize href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_doirq.c#L136" "arch/arm64/src/common/arm64_doirq.c " _blank
+getreg32 --> gic_validate_dist_version
+click getreg32 href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch.h#L353" "arch/arm64/src/common/arm64_arch.h " _blank
+gic_validate_dist_version --> up_irq_enable
+click gic_validate_dist_version href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_gicv3.c#L883" "arch/arm64/src/common/arm64_gicv3.c " _blank
+up_irq_enable --> up_irqinitialize
+click up_irq_enable href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L367" "arch/arm64/include/irq.h " _blank
+nx_start --> clock_initialize
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L656" "sched/init/nx_start.c " _blank
+clock_initialize --> up_timer_initialize
+click clock_initialize href "https://github.com/apache/nuttx/blob/master/sched/clock/clock_initialize.c#L207" "sched/clock/clock_initialize.c " _blank
+up_timer_initialize --> arm64_oneshot_initialize
+click up_timer_initialize href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a527/a527_timer.c#L34" "arch/arm64/src/a527/a527_timer.c " _blank
+arm64_oneshot_initialize --> kmm_zalloc
+click arm64_oneshot_initialize href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch_timer.c#L422" "arch/arm64/src/common/arm64_arch_timer.c " _blank
+free_delaylist --> up_irq_save
+click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L58" "mm/mm_heap/mm_malloc.c " _blank
+up_irq_save --> mm_lock_irq
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+free_delaylist --> up_irq_restore
+click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L85" "mm/mm_heap/mm_malloc.c " _blank
+up_irq_restore --> mm_unlock_irq
+click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
+nxmutex_lock --> nxsem_wait
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L251" "libs/libc/misc/lib_mutex.c " _blank
+mm_malloc --> mm_heapmember
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L311" "mm/mm_heap/mm_malloc.c " _blank
+nxmutex_unlock --> nxsem_post
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L431" "libs/libc/misc/lib_mutex.c " _blank
+mm_zalloc --> arm64_oneshot_initialize
+click mm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_zalloc.c#L46" "mm/mm_heap/mm_zalloc.c " _blank
+arm64_oneshot_initialize --> irq_attach
+click arm64_oneshot_initialize href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch_timer.c#L430" "arch/arm64/src/common/arm64_arch_timer.c " _blank
+irq_attach --> up_testset
+click irq_attach href "https://github.com/apache/nuttx/blob/master/sched/irq/irq_attach.c#L95" "sched/irq/irq_attach.c " _blank
+up_testset --> spin_lock_notrace
+click up_testset href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/spinlock.h#L94" "arch/arm64/include/spinlock.h " _blank
+spin_lock_notrace --> irq_attach
+click spin_lock_notrace href "https://github.com/apache/nuttx/blob/master/include/nuttx/spinlock.h#L198" "include/nuttx/spinlock.h " _blank
+irq_attach --> arm64_oneshot_initialize
+click irq_attach href "https://github.com/apache/nuttx/blob/master/sched/irq/irq_attach.c#L151" "sched/irq/irq_attach.c " _blank
+arm64_oneshot_initialize --> arm64_oneshot_secondary_init
+click arm64_oneshot_initialize href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch_timer.c#L450" "arch/arm64/src/common/arm64_arch_timer.c " _blank
+arm64_oneshot_secondary_init --> up_enable_irq
+click arm64_oneshot_secondary_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch_timer.c#L469" "arch/arm64/src/common/arm64_arch_timer.c " _blank
+up_enable_irq --> arm64_gic_irq_enable
+click up_enable_irq href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_gicv3.c#L682" "arch/arm64/src/common/arm64_gicv3.c " _blank
+arm64_gic_irq_enable --> gic_get_rdist
+click arm64_gic_irq_enable href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_gicv3.c#L251" "arch/arm64/src/common/arm64_gicv3.c " _blank
+gic_get_rdist --> putreg32
+click gic_get_rdist href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_gicv3.c#L117" "arch/arm64/src/common/arm64_gicv3.c " _blank
+putreg32 --> arm64_arch_timer_enable
+click putreg32 href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch.h#L361" "arch/arm64/src/common/arm64_arch.h " _blank
+arm64_arch_timer_enable --> arm64_oneshot_secondary_init
+click arm64_arch_timer_enable href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch_timer.c#L103" "arch/arm64/src/common/arm64_arch_timer.c " _blank
+arm64_oneshot_secondary_init --> arm64_oneshot_initialize
+click arm64_oneshot_secondary_init href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch_timer.c#L477" "arch/arm64/src/common/arm64_arch_timer.c " _blank
+arm64_oneshot_initialize --> up_timer_initialize
+click arm64_oneshot_initialize href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch_timer.c#L455" "arch/arm64/src/common/arm64_arch_timer.c " _blank
+up_timer_initialize --> up_alarm_set_lowerhalf
+click up_timer_initialize href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a527/a527_timer.c#L36" "arch/arm64/src/a527/a527_timer.c " _blank
+up_alarm_set_lowerhalf --> arm64_tick_current
+click up_alarm_set_lowerhalf href "https://github.com/apache/nuttx/blob/master/drivers/timers/arch_alarm.c#L140" "drivers/timers/arch_alarm.c " _blank
+arm64_tick_current --> arm64_arch_timer_count
+click arm64_tick_current href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch_timer.c#L383" "arch/arm64/src/common/arm64_arch_timer.c " _blank
+arm64_arch_timer_count --> arm64_arch_cnt2tick
+click arm64_arch_timer_count href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch_timer.c#L137" "arch/arm64/src/common/arm64_arch_timer.c " _blank
+arm64_arch_cnt2tick --> up_alarm_set_lowerhalf
+click arm64_arch_cnt2tick href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch_timer.c#L148" "arch/arm64/src/common/arm64_arch_timer.c " _blank
+up_alarm_set_lowerhalf --> arm64_tick_start
+click up_alarm_set_lowerhalf href "https://github.com/apache/nuttx/blob/master/drivers/timers/arch_alarm.c#L152" "drivers/timers/arch_alarm.c " _blank
+arm64_tick_start --> arm64_arch_cnt2tick
+click arm64_tick_start href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch_timer.c#L335" "arch/arm64/src/common/arm64_arch_timer.c " _blank
+arm64_arch_cnt2tick --> arm64_arch_tick2cnt
+click arm64_arch_cnt2tick href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch_timer.c#L148" "arch/arm64/src/common/arm64_arch_timer.c " _blank
+arm64_arch_tick2cnt --> arm64_arch_timer_set_irq_mask
+click arm64_arch_tick2cnt href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch_timer.c#L184" "arch/arm64/src/common/arm64_arch_timer.c " _blank
+arm64_arch_timer_set_irq_mask --> arm64_tick_start
+click arm64_arch_timer_set_irq_mask href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch_timer.c#L121" "arch/arm64/src/common/arm64_arch_timer.c " _blank
+arm64_tick_start --> clock_initialize
+click arm64_tick_start href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch_timer.c#L356" "arch/arm64/src/common/arm64_arch_timer.c " _blank
+clock_initialize --> perf_init
+click clock_initialize href "https://github.com/apache/nuttx/blob/master/sched/clock/clock_initialize.c#L240" "sched/clock/clock_initialize.c " _blank
+nx_start --> timer_initialize
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L659" "sched/init/nx_start.c " _blank
+nx_start --> nxsig_initialize
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L664" "sched/init/nx_start.c " _blank
+nxsig_initialize --> nxsig_init_block
+click nxsig_initialize href "https://github.com/apache/nuttx/blob/master/sched/signal/sig_initialize.c#L164" "sched/signal/sig_initialize.c " _blank
+nxsig_init_block --> nxsig_init_pendingsignalblock
+click nxsig_init_block href "https://github.com/apache/nuttx/blob/master/sched/signal/sig_initialize.c#L113" "sched/signal/sig_initialize.c " _blank
+nxsig_init_pendingsignalblock --> nxsig_initialize
+click nxsig_init_pendingsignalblock href "https://github.com/apache/nuttx/blob/master/sched/signal/sig_initialize.c#L138" "sched/signal/sig_initialize.c " _blank
+nx_start --> nxmq_initialize
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L669" "sched/init/nx_start.c " _blank
+nxmq_initialize --> mq_msgblockinit
+click nxmq_initialize href "https://github.com/apache/nuttx/blob/master/sched/mqueue/mq_initialize.c#L176" "sched/mqueue/mq_initialize.c " _blank
+mq_msgblockinit --> sysv_msgblockinit
+click mq_msgblockinit href "https://github.com/apache/nuttx/blob/master/sched/mqueue/mq_initialize.c#L198" "sched/mqueue/mq_initialize.c " _blank
+nx_start --> binfmt_initialize
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L681" "sched/init/nx_start.c " _blank
+binfmt_initialize --> elf_initialize
+click binfmt_initialize href "https://github.com/apache/nuttx/blob/master/binfmt/binfmt_initialize.c#L61" "binfmt/binfmt_initialize.c " _blank
+elf_initialize --> register_binfmt
+click elf_initialize href "https://github.com/apache/nuttx/blob/master/binfmt/elf.c#L281" "binfmt/elf.c " _blank
+nx_start --> up_color_intstack
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L692" "sched/init/nx_start.c " _blank
+up_color_intstack --> up_initialize
+click up_color_intstack href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_initialize.c#L121" "arch/arm64/src/common/arm64_initialize.c " _blank
+up_initialize --> arm64_serialinit
+click up_initialize href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_initialize.c#L191" "arch/arm64/src/common/arm64_initialize.c " _blank
+arm64_serialinit --> u16550_serialinit
+click arm64_serialinit href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a527/a527_serial.c#L71" "arch/arm64/src/a527/a527_serial.c " _blank
+u16550_serialinit --> uart_register
+click u16550_serialinit href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1678" "drivers/serial/uart_16550.c " _blank
+nxmutex_init --> uart_register
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L129" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_init --> uart_register
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L129" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_init --> uart_register
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L129" "libs/libc/misc/lib_mutex.c " _blank
+nxsem_init --> uart_register
+click nxsem_init href "https://github.com/apache/nuttx/blob/master/libs/libc/semaphore/sem_init.c#L68" "libs/libc/semaphore/sem_init.c " _blank
+nxsem_init --> uart_register
+click nxsem_init href "https://github.com/apache/nuttx/blob/master/libs/libc/semaphore/sem_init.c#L68" "libs/libc/semaphore/sem_init.c " _blank
+uart_register --> register_driver
+click uart_register href "https://github.com/apache/nuttx/blob/master/drivers/serial/serial.c#L2122" "drivers/serial/serial.c " _blank
+register_driver --> inode_lock
+click register_driver href "https://github.com/apache/nuttx/blob/master/fs/driver/fs_registerdriver.c#L67" "fs/driver/fs_registerdriver.c " _blank
+inode_lock --> down_write
+click inode_lock href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inode.c#L75" "fs/inode/fs_inode.c " _blank
+nxsched_gettid --> down_write
+click nxsched_gettid href "https://github.com/apache/nuttx/blob/master/sched/task/task_gettid.c#L68" "sched/task/task_gettid.c " _blank
+nxmutex_lock --> nxsem_wait
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L251" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_lock --> down_write
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L259" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_unlock --> nxsem_post
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L431" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_unlock --> register_driver
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L435" "libs/libc/misc/lib_mutex.c " _blank
+register_driver --> inode_reserve
+click register_driver href "https://github.com/apache/nuttx/blob/master/fs/driver/fs_registerdriver.c#L78" "fs/driver/fs_registerdriver.c " _blank
+inode_reserve --> inode_search
+click inode_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L177" "fs/inode/fs_inodereserve.c " _blank
+inode_search --> _inode_search
+click inode_search href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L469" "fs/inode/fs_inodesearch.c " _blank
+_inode_search --> _inode_compare
+click _inode_search href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L219" "fs/inode/fs_inodesearch.c " _blank
+_inode_compare --> _inode_search
+click _inode_compare href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L83" "fs/inode/fs_inodesearch.c " _blank
+_inode_search --> inode_nextname
+click _inode_search href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L263" "fs/inode/fs_inodesearch.c " _blank
+inode_nextname --> _inode_search
+click inode_nextname href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L546" "fs/inode/fs_inodesearch.c " _blank
+_inode_search --> inode_reserve
+click _inode_search href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L283" "fs/inode/fs_inodesearch.c " _blank
+inode_reserve --> inode_nextname
+click inode_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L199" "fs/inode/fs_inodereserve.c " _blank
+inode_nextname --> inode_reserve
+click inode_nextname href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L546" "fs/inode/fs_inodesearch.c " _blank
+inode_reserve --> inode_alloc
+click inode_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L224" "fs/inode/fs_inodereserve.c " _blank
+inode_alloc --> inode_namelen
+click inode_alloc href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L80" "fs/inode/fs_inodereserve.c " _blank
+inode_namelen --> kmm_zalloc
+click inode_namelen href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L56" "fs/inode/fs_inodereserve.c " _blank
+free_delaylist --> up_irq_save
+click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L58" "mm/mm_heap/mm_malloc.c " _blank
+up_irq_save --> mm_lock_irq
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+free_delaylist --> up_irq_restore
+click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L85" "mm/mm_heap/mm_malloc.c " _blank
+up_irq_restore --> mm_unlock_irq
+click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
+mm_malloc --> mm_heapmember
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L311" "mm/mm_heap/mm_malloc.c " _blank
+mm_zalloc --> inode_alloc
+click mm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_zalloc.c#L46" "mm/mm_heap/mm_zalloc.c " _blank
+inode_alloc --> inode_namecpy
+click inode_alloc href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L87" "fs/inode/fs_inodereserve.c " _blank
+inode_namecpy --> inode_reserve
+click inode_namecpy href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L70" "fs/inode/fs_inodereserve.c " _blank
+inode_reserve --> inode_insert
+click inode_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L230" "fs/inode/fs_inodereserve.c " _blank
+inode_insert --> inode_reserve
+click inode_insert href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L115" "fs/inode/fs_inodereserve.c " _blank
+inode_reserve --> inode_nextname
+click inode_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L177" "fs/inode/fs_inodereserve.c " _blank
+inode_nextname --> inode_reserve
+click inode_nextname href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L546" "fs/inode/fs_inodesearch.c " _blank
+inode_reserve --> inode_alloc
+click inode_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L224" "fs/inode/fs_inodereserve.c " _blank
+inode_alloc --> inode_namelen
+click inode_alloc href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L80" "fs/inode/fs_inodereserve.c " _blank
+inode_namelen --> kmm_zalloc
+click inode_namelen href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L56" "fs/inode/fs_inodereserve.c " _blank
+up_irq_save --> mm_lock_irq
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+free_delaylist --> up_irq_restore
+click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L85" "mm/mm_heap/mm_malloc.c " _blank
+up_irq_restore --> mm_unlock_irq
+click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
+mm_malloc --> mm_heapmember
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L311" "mm/mm_heap/mm_malloc.c " _blank
+mm_zalloc --> inode_alloc
+click mm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_zalloc.c#L46" "mm/mm_heap/mm_zalloc.c " _blank
+inode_alloc --> inode_namecpy
+click inode_alloc href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L87" "fs/inode/fs_inodereserve.c " _blank
+inode_namecpy --> inode_reserve
+click inode_namecpy href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L70" "fs/inode/fs_inodereserve.c " _blank
+inode_reserve --> inode_insert
+click inode_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L245" "fs/inode/fs_inodereserve.c " _blank
+inode_insert --> inode_reserve
+click inode_insert href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L115" "fs/inode/fs_inodereserve.c " _blank
+inode_reserve --> register_driver
+click inode_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L249" "fs/inode/fs_inodereserve.c " _blank
+register_driver --> inode_unlock
+click register_driver href "https://github.com/apache/nuttx/blob/master/fs/driver/fs_registerdriver.c#L79" "fs/driver/fs_registerdriver.c " _blank
+inode_unlock --> up_write
+click inode_unlock href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inode.c#L101" "fs/inode/fs_inode.c " _blank
+nxmutex_lock --> up_write
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L259" "libs/libc/misc/lib_mutex.c " _blank
+nxsched_gettid --> up_write
+click nxsched_gettid href "https://github.com/apache/nuttx/blob/master/sched/task/task_gettid.c#L68" "sched/task/task_gettid.c " _blank
+nxmutex_unlock --> register_driver
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L435" "libs/libc/misc/lib_mutex.c " _blank
+register_driver --> u16550_serialinit
+click register_driver href "https://github.com/apache/nuttx/blob/master/fs/driver/fs_registerdriver.c#L98" "fs/driver/fs_registerdriver.c " _blank
+u16550_serialinit --> uart_register
+click u16550_serialinit href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1683" "drivers/serial/uart_16550.c " _blank
+nxmutex_init --> uart_register
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L129" "libs/libc/misc/lib_mutex.c " _blank
+uart_register --> register_driver
+click uart_register href "https://github.com/apache/nuttx/blob/master/drivers/serial/serial.c#L2122" "drivers/serial/serial.c " _blank
+register_driver --> inode_lock
+click register_driver href "https://github.com/apache/nuttx/blob/master/fs/driver/fs_registerdriver.c#L67" "fs/driver/fs_registerdriver.c " _blank
+inode_lock --> down_write
+click inode_lock href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inode.c#L75" "fs/inode/fs_inode.c " _blank
+nxsched_gettid --> down_write
+click nxsched_gettid href "https://github.com/apache/nuttx/blob/master/sched/task/task_gettid.c#L68" "sched/task/task_gettid.c " _blank
+nxmutex_lock --> down_write
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L259" "libs/libc/misc/lib_mutex.c " _blank
+nxmutex_unlock --> register_driver
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L435" "libs/libc/misc/lib_mutex.c " _blank
+inode_reserve --> inode_search
+click inode_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L177" "fs/inode/fs_inodereserve.c " _blank
+inode_search --> _inode_search
+click inode_search href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L469" "fs/inode/fs_inodesearch.c " _blank
+_inode_search --> _inode_compare
+click _inode_search href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L219" "fs/inode/fs_inodesearch.c " _blank
+_inode_compare --> _inode_search
+click _inode_compare href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L83" "fs/inode/fs_inodesearch.c " _blank
+_inode_search --> inode_nextname
+click _inode_search href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L263" "fs/inode/fs_inodesearch.c " _blank
+inode_nextname --> _inode_search
+click inode_nextname href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L546" "fs/inode/fs_inodesearch.c " _blank
+_inode_search --> _inode_compare
+click _inode_search href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L283" "fs/inode/fs_inodesearch.c " _blank
+_inode_compare --> _inode_search
+click _inode_compare href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L83" "fs/inode/fs_inodesearch.c " _blank
+_inode_search --> inode_nextname
+click _inode_search href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L263" "fs/inode/fs_inodesearch.c " _blank
+inode_nextname --> _inode_search
+click inode_nextname href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L546" "fs/inode/fs_inodesearch.c " _blank
+_inode_search --> _inode_compare
+click _inode_search href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L283" "fs/inode/fs_inodesearch.c " _blank
+inode_reserve --> inode_nextname
+click inode_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L199" "fs/inode/fs_inodereserve.c " _blank
+inode_reserve --> inode_alloc
+click inode_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L224" "fs/inode/fs_inodereserve.c " _blank
+inode_alloc --> inode_namelen
+click inode_alloc href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L80" "fs/inode/fs_inodereserve.c " _blank
+inode_namelen --> kmm_zalloc
+click inode_namelen href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L56" "fs/inode/fs_inodereserve.c " _blank
+mm_zalloc --> inode_alloc
+click mm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_zalloc.c#L46" "mm/mm_heap/mm_zalloc.c " _blank
+inode_alloc --> inode_namecpy
+click inode_alloc href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L87" "fs/inode/fs_inodereserve.c " _blank
+inode_reserve --> inode_insert
+click inode_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L245" "fs/inode/fs_inodereserve.c " _blank
+inode_reserve --> register_driver
+click inode_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L261" "fs/inode/fs_inodereserve.c " _blank
+register_driver --> inode_unlock
+click register_driver href "https://github.com/apache/nuttx/blob/master/fs/driver/fs_registerdriver.c#L79" "fs/driver/fs_registerdriver.c " _blank
+inode_unlock --> up_write
+click inode_unlock href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inode.c#L101" "fs/inode/fs_inode.c " _blank
+nxmutex_lock --> up_write
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L259" "libs/libc/misc/lib_mutex.c " _blank
+nxsched_gettid --> up_write
+click nxsched_gettid href "https://github.com/apache/nuttx/blob/master/sched/task/task_gettid.c#L68" "sched/task/task_gettid.c " _blank
+nxmutex_unlock --> register_driver
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L435" "libs/libc/misc/lib_mutex.c " _blank
+register_driver --> up_initialize
+click register_driver href "https://github.com/apache/nuttx/blob/master/fs/driver/fs_registerdriver.c#L98" "fs/driver/fs_registerdriver.c " _blank
+up_irq_save --> panic_notifier_chain_register
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+panic_notifier_chain_register --> up_initialize
+click panic_notifier_chain_register href "https://github.com/apache/nuttx/blob/master/sched/misc/panic_notifier.c#L56" "sched/misc/panic_notifier.c " _blank
+up_initialize --> arm64_fpu_procfs_register
+click up_initialize href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_initialize.c#L220" "arch/arm64/src/common/arm64_initialize.c " _blank
+arm64_fpu_procfs_register --> procfs_register
+click arm64_fpu_procfs_register href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_fpu.c#L323" "arch/arm64/src/common/arm64_fpu.c " _blank
+procfs_register --> procfs_initialize
+click procfs_register href "https://github.com/apache/nuttx/blob/master/fs/procfs/fs_procfs.c#L1242" "fs/procfs/fs_procfs.c " _blank
+procfs_initialize --> kmm_malloc
+click procfs_initialize href "https://github.com/apache/nuttx/blob/master/fs/procfs/fs_procfs.c#L1193" "fs/procfs/fs_procfs.c " _blank
+mm_malloc --> procfs_initialize
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L410" "mm/mm_heap/mm_malloc.c " _blank
+procfs_initialize --> procfs_register
+click procfs_initialize href "https://github.com/apache/nuttx/blob/master/fs/procfs/fs_procfs.c#L1201" "fs/procfs/fs_procfs.c " _blank
+procfs_register --> kmm_realloc
+click procfs_register href "https://github.com/apache/nuttx/blob/master/fs/procfs/fs_procfs.c#L1264" "fs/procfs/fs_procfs.c " _blank
+kmm_realloc --> mm_realloc
+click kmm_realloc href "https://github.com/apache/nuttx/blob/master/mm/kmm_heap/kmm_realloc.c#L53" "mm/kmm_heap/kmm_realloc.c " _blank
+mm_heapmember --> mm_realloc
+click mm_heapmember href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_heapmember.c#L85" "mm/mm_heap/mm_heapmember.c " _blank
+nxmutex_lock --> mm_realloc
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L259" "libs/libc/misc/lib_mutex.c " _blank
+mm_addfreechunk --> mm_realloc
+click mm_addfreechunk href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L341" "mm/mm_heap/mm.h " _blank
+mm_unlock --> mm_realloc
+click mm_unlock href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L117" "mm/mm_heap/mm_lock.c " _blank
+mm_realloc --> procfs_register
+click mm_realloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_realloc.c#L394" "mm/mm_heap/mm_realloc.c " _blank
+nx_start --> drivers_initialize
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L696" "sched/init/nx_start.c " _blank
+drivers_initialize --> syslog_initialize
+click drivers_initialize href "https://github.com/apache/nuttx/blob/master/drivers/drivers_initialize.c#L111" "drivers/drivers_initialize.c " _blank
+syslog_initialize --> drivers_initialize
+click syslog_initialize href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_initialize.c#L100" "drivers/syslog/syslog_initialize.c " _blank
+drivers_initialize --> devnull_register
+click drivers_initialize href "https://github.com/apache/nuttx/blob/master/drivers/drivers_initialize.c#L123" "drivers/drivers_initialize.c " _blank
+register_driver --> inode_lock
+click register_driver href "https://github.com/apache/nuttx/blob/master/fs/driver/fs_registerdriver.c#L67" "fs/driver/fs_registerdriver.c " _blank
+inode_lock --> down_write
+click inode_lock href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inode.c#L75" "fs/inode/fs_inode.c " _blank
+nxsched_gettid --> down_write
+click nxsched_gettid href "https://github.com/apache/nuttx/blob/master/sched/task/task_gettid.c#L68" "sched/task/task_gettid.c " _blank
+inode_reserve --> inode_search
+click inode_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L177" "fs/inode/fs_inodereserve.c " _blank
+_inode_search --> _inode_compare
+click _inode_search href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L219" "fs/inode/fs_inodesearch.c " _blank
+_inode_search --> inode_nextname
+click _inode_search href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L263" "fs/inode/fs_inodesearch.c " _blank
+_inode_search --> _inode_compare
+click _inode_search href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L283" "fs/inode/fs_inodesearch.c " _blank
+_inode_search --> inode_nextname
+click _inode_search href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L263" "fs/inode/fs_inodesearch.c " _blank
+_inode_search --> _inode_compare
+click _inode_search href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L283" "fs/inode/fs_inodesearch.c " _blank
+_inode_search --> _inode_compare
+click _inode_search href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L268" "fs/inode/fs_inodesearch.c " _blank
+inode_alloc --> inode_namelen
+click inode_alloc href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L80" "fs/inode/fs_inodereserve.c " _blank
+inode_alloc --> inode_namecpy
+click inode_alloc href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L87" "fs/inode/fs_inodereserve.c " _blank
+inode_reserve --> inode_insert
+click inode_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L245" "fs/inode/fs_inodereserve.c " _blank
+register_driver --> inode_unlock
+click register_driver href "https://github.com/apache/nuttx/blob/master/fs/driver/fs_registerdriver.c#L79" "fs/driver/fs_registerdriver.c " _blank
+inode_unlock --> up_write
+click inode_unlock href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inode.c#L101" "fs/inode/fs_inode.c " _blank
+nxmutex_lock --> up_write
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L259" "libs/libc/misc/lib_mutex.c " _blank
+register_driver --> drivers_initialize
+click register_driver href "https://github.com/apache/nuttx/blob/master/fs/driver/fs_registerdriver.c#L98" "fs/driver/fs_registerdriver.c " _blank
+drivers_initialize --> devzero_register
+click drivers_initialize href "https://github.com/apache/nuttx/blob/master/drivers/drivers_initialize.c#L291" "drivers/drivers_initialize.c " _blank
+register_driver --> inode_lock
+click register_driver href "https://github.com/apache/nuttx/blob/master/fs/driver/fs_registerdriver.c#L67" "fs/driver/fs_registerdriver.c " _blank
+inode_reserve --> inode_search
+click inode_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L177" "fs/inode/fs_inodereserve.c " _blank
+inode_alloc --> inode_namelen
+click inode_alloc href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L80" "fs/inode/fs_inodereserve.c " _blank
+inode_alloc --> inode_namecpy
+click inode_alloc href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L87" "fs/inode/fs_inodereserve.c " _blank
+inode_reserve --> inode_insert
+click inode_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L245" "fs/inode/fs_inodereserve.c " _blank
+register_driver --> inode_unlock
+click register_driver href "https://github.com/apache/nuttx/blob/master/fs/driver/fs_registerdriver.c#L79" "fs/driver/fs_registerdriver.c " _blank
+nx_start --> group_setupidlefiles
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L709" "sched/init/nx_start.c " _blank
+group_setupidlefiles --> nx_open
+click group_setupidlefiles href "https://github.com/apache/nuttx/blob/master/sched/group/group_setupidlefiles.c#L62" "sched/group/group_setupidlefiles.c " _blank
+nx_open --> nx_vopen
+click nx_open href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_open.c#L440" "fs/vfs/fs_open.c " _blank
+nx_vopen --> getumask
+click nx_vopen href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_open.c#L312" "fs/vfs/fs_open.c " _blank
+getumask --> nx_vopen
+click getumask href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_umask.c#L86" "libs/libc/misc/lib_umask.c " _blank
+nx_vopen --> file_vopen
+click nx_vopen href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_open.c#L319" "fs/vfs/fs_open.c " _blank
+file_vopen --> inode_find
+click file_vopen href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_open.c#L123" "fs/vfs/fs_open.c " _blank
+inode_find --> inode_rlock
+click inode_find href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodefind.c#L52" "fs/inode/fs_inodefind.c " _blank
+inode_rlock --> down_read
+click inode_rlock href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inode.c#L88" "fs/inode/fs_inode.c " _blank
+nxmutex_lock --> down_read
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L259" "libs/libc/misc/lib_mutex.c " _blank
+nxsched_gettid --> down_read
+click nxsched_gettid href "https://github.com/apache/nuttx/blob/master/sched/task/task_gettid.c#L68" "sched/task/task_gettid.c " _blank
+nxmutex_unlock --> inode_find
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L435" "libs/libc/misc/lib_mutex.c " _blank
+inode_find --> inode_search
+click inode_find href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodefind.c#L60" "fs/inode/fs_inodefind.c " _blank
+_inode_search --> inode_find
+click _inode_search href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodesearch.c#L283" "fs/inode/fs_inodesearch.c " _blank
+inode_find --> inode_runlock
+click inode_find href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodefind.c#L60" "fs/inode/fs_inodefind.c " _blank
+inode_runlock --> up_read
+click inode_runlock href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inode.c#L114" "fs/inode/fs_inode.c " _blank
+nxmutex_lock --> up_read
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L259" "libs/libc/misc/lib_mutex.c " _blank
+nxsched_gettid --> up_read
+click nxsched_gettid href "https://github.com/apache/nuttx/blob/master/sched/task/task_gettid.c#L68" "sched/task/task_gettid.c " _blank
+nxmutex_unlock --> inode_find
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L435" "libs/libc/misc/lib_mutex.c " _blank
+inode_find --> file_vopen
+click inode_find href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodefind.c#L75" "fs/inode/fs_inodefind.c " _blank
+file_vopen --> inode_checkflags
+click file_vopen href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_open.c#L152" "fs/vfs/fs_open.c " _blank
+inode_checkflags --> file_vopen
+click inode_checkflags href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_open.c#L73" "fs/vfs/fs_open.c " _blank
+file_vopen --> uart_open
+click file_vopen href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_open.c#L229" "fs/vfs/fs_open.c " _blank
+nxmutex_lock --> uart_open
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L259" "libs/libc/misc/lib_mutex.c " _blank
+up_irq_save --> uart_open
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+uart_open --> u16550_attach
+click uart_open href "https://github.com/apache/nuttx/blob/master/drivers/serial/serial.c#L751" "drivers/serial/serial.c " _blank
+u16550_attach --> irq_attach
+click u16550_attach href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L963" "drivers/serial/uart_16550.c " _blank
+irq_attach --> up_testset
+click irq_attach href "https://github.com/apache/nuttx/blob/master/sched/irq/irq_attach.c#L95" "sched/irq/irq_attach.c " _blank
+up_testset --> spin_lock_notrace
+click up_testset href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/spinlock.h#L94" "arch/arm64/include/spinlock.h " _blank
+spin_lock_notrace --> irq_attach
+click spin_lock_notrace href "https://github.com/apache/nuttx/blob/master/include/nuttx/spinlock.h#L198" "include/nuttx/spinlock.h " _blank
+irq_attach --> u16550_attach
+click irq_attach href "https://github.com/apache/nuttx/blob/master/sched/irq/irq_attach.c#L151" "sched/irq/irq_attach.c " _blank
+u16550_attach --> up_enable_irq
+click u16550_attach href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L980" "drivers/serial/uart_16550.c " _blank
+up_enable_irq --> arm64_gic_irq_enable
+click up_enable_irq href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_gicv3.c#L682" "arch/arm64/src/common/arm64_gicv3.c " _blank
+arm64_gic_irq_enable --> u16550_attach
+click arm64_gic_irq_enable href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_gicv3.c#L251" "arch/arm64/src/common/arm64_gicv3.c " _blank
+u16550_attach --> uart_open
+click u16550_attach href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1000" "drivers/serial/uart_16550.c " _blank
+uart_open --> u16550_rxint
+click uart_open href "https://github.com/apache/nuttx/blob/master/drivers/serial/serial.c#L769" "drivers/serial/serial.c " _blank
+u16550_rxint --> u16550_serialout
+click u16550_rxint href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1246" "drivers/serial/uart_16550.c " _blank
+u16550_serialout --> u16550_mmio_putreg
+click u16550_serialout href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L663" "drivers/serial/uart_16550.c " _blank
+up_irq_restore --> uart_open
+click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
+nxmutex_unlock --> uart_open
+click nxmutex_unlock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L435" "libs/libc/misc/lib_mutex.c " _blank
+uart_open --> file_vopen
+click uart_open href "https://github.com/apache/nuttx/blob/master/drivers/serial/serial.c#L800" "drivers/serial/serial.c " _blank
+file_vopen --> nx_vopen
+click file_vopen href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_open.c#L255" "fs/vfs/fs_open.c " _blank
+nx_vopen --> file_allocate_from_tcb
+click nx_vopen href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_open.c#L319" "fs/vfs/fs_open.c " _blank
+file_allocate_from_tcb --> nxsched_get_files_from_tcb
+click file_allocate_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L553" "fs/inode/fs_files.c " _blank
+nxsched_get_files_from_tcb --> file_allocate_from_tcb
+click nxsched_get_files_from_tcb href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_getfiles.c#L52" "sched/sched/sched_getfiles.c " _blank
+file_allocate_from_tcb --> up_testset
+click file_allocate_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L563" "fs/inode/fs_files.c " _blank
+up_testset --> spin_lock_notrace
+click up_testset href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/spinlock.h#L94" "arch/arm64/include/spinlock.h " _blank
+spin_lock_notrace --> file_allocate_from_tcb
+click spin_lock_notrace href "https://github.com/apache/nuttx/blob/master/include/nuttx/spinlock.h#L198" "include/nuttx/spinlock.h " _blank
+file_allocate_from_tcb --> nx_vopen
+click file_allocate_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L586" "fs/inode/fs_files.c " _blank
+nx_vopen --> nx_open
+click nx_vopen href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_open.c#L327" "fs/vfs/fs_open.c " _blank
+nx_open --> group_setupidlefiles
+click nx_open href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_open.c#L451" "fs/vfs/fs_open.c " _blank
+group_setupidlefiles --> nx_dup2
+click group_setupidlefiles href "https://github.com/apache/nuttx/blob/master/sched/group/group_setupidlefiles.c#L80" "sched/group/group_setupidlefiles.c " _blank
+nx_dup2 --> nx_dup2_from_tcb
+click nx_dup2 href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L904" "fs/inode/fs_files.c " _blank
+nx_dup2_from_tcb --> nx_dup3_from_tcb
+click nx_dup2_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L882" "fs/inode/fs_files.c " _blank
+nx_dup3_from_tcb --> nxsched_get_files_from_tcb
+click nx_dup3_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L270" "fs/inode/fs_files.c " _blank
+nxsched_get_files_from_tcb --> files_countlist
+click nxsched_get_files_from_tcb href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_getfiles.c#L52" "sched/sched/sched_getfiles.c " _blank
+files_countlist --> nx_dup3_from_tcb
+click files_countlist href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L513" "fs/inode/fs_files.c " _blank
+nx_dup3_from_tcb --> files_fget
+click nx_dup3_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L299" "fs/inode/fs_files.c " _blank
+files_fget --> files_fget_by_index
+click files_fget href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L533" "fs/inode/fs_files.c " _blank
+files_fget_by_index --> up_testset
+click files_fget_by_index href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L70" "fs/inode/fs_files.c " _blank
+up_testset --> spin_lock_notrace
+click up_testset href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/spinlock.h#L94" "arch/arm64/include/spinlock.h " _blank
+spin_lock_notrace --> files_fget_by_index
+click spin_lock_notrace href "https://github.com/apache/nuttx/blob/master/include/nuttx/spinlock.h#L198" "include/nuttx/spinlock.h " _blank
+files_fget_by_index --> nx_dup3_from_tcb
+click files_fget_by_index href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L79" "fs/inode/fs_files.c " _blank
+nx_dup3_from_tcb --> files_fget_by_index
+click nx_dup3_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L313" "fs/inode/fs_files.c " _blank
+files_fget_by_index --> up_testset
+click files_fget_by_index href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L70" "fs/inode/fs_files.c " _blank
+up_testset --> spin_lock_notrace
+click up_testset href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/spinlock.h#L94" "arch/arm64/include/spinlock.h " _blank
+spin_lock_notrace --> files_fget_by_index
+click spin_lock_notrace href "https://github.com/apache/nuttx/blob/master/include/nuttx/spinlock.h#L198" "include/nuttx/spinlock.h " _blank
+files_fget_by_index --> nx_dup3_from_tcb
+click files_fget_by_index href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L79" "fs/inode/fs_files.c " _blank
+nx_dup3_from_tcb --> file_dup3
+click nx_dup3_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L334" "fs/inode/fs_files.c " _blank
+file_dup3 --> inode_addref
+click file_dup3 href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_dup2.c#L60" "fs/vfs/fs_dup2.c " _blank
+inode_addref --> file_dup3
+click inode_addref href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodeaddref.c#L47" "fs/inode/fs_inodeaddref.c " _blank
+file_dup3 --> file_close_without_clear
+click file_dup3 href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_dup2.c#L89" "fs/vfs/fs_dup2.c " _blank
+file_close_without_clear --> file_dup3
+click file_close_without_clear href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_close.c#L89" "fs/vfs/fs_close.c " _blank
+file_dup3 --> uart_open
+click file_dup3 href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_dup2.c#L89" "fs/vfs/fs_dup2.c " _blank
+nxmutex_lock --> uart_open
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L259" "libs/libc/misc/lib_mutex.c " _blank
+uart_open --> file_dup3
+click uart_open href "https://github.com/apache/nuttx/blob/master/drivers/serial/serial.c#L800" "drivers/serial/serial.c " _blank
+file_dup3 --> file_ioctl
+click file_dup3 href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_dup2.c#L142" "fs/vfs/fs_dup2.c " _blank
+file_ioctl --> file_vioctl
+click file_ioctl href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_ioctl.c#L219" "fs/vfs/fs_ioctl.c " _blank
+file_vioctl --> uart_ioctl
+click file_vioctl href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_ioctl.c#L46" "fs/vfs/fs_ioctl.c " _blank
+uart_ioctl --> u16550_ioctl
+click uart_ioctl href "https://github.com/apache/nuttx/blob/master/drivers/serial/serial.c#L1560" "drivers/serial/serial.c " _blank
+u16550_ioctl --> uart_ioctl
+click u16550_ioctl href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1045" "drivers/serial/uart_16550.c " _blank
+uart_ioctl --> file_vioctl
+click uart_ioctl href "https://github.com/apache/nuttx/blob/master/drivers/serial/serial.c#L1582" "drivers/serial/serial.c " _blank
+file_vioctl --> file_ioctl
+click file_vioctl href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_ioctl.c#L72" "fs/vfs/fs_ioctl.c " _blank
+file_ioctl --> file_dup3
+click file_ioctl href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_ioctl.c#L230" "fs/vfs/fs_ioctl.c " _blank
+file_dup3 --> nx_dup3_from_tcb
+click file_dup3 href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_dup2.c#L147" "fs/vfs/fs_dup2.c " _blank
+nx_dup3_from_tcb --> fs_putfilep
+click nx_dup3_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L334" "fs/inode/fs_files.c " _blank
+fs_putfilep --> nx_dup3_from_tcb
+click fs_putfilep href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L841" "fs/inode/fs_files.c " _blank
+nx_dup3_from_tcb --> fs_putfilep
+click nx_dup3_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L336" "fs/inode/fs_files.c " _blank
+fs_putfilep --> nx_dup3_from_tcb
+click fs_putfilep href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L841" "fs/inode/fs_files.c " _blank
+nx_dup3_from_tcb --> group_setupidlefiles
+click nx_dup3_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L337" "fs/inode/fs_files.c " _blank
+group_setupidlefiles --> nx_dup2
+click group_setupidlefiles href "https://github.com/apache/nuttx/blob/master/sched/group/group_setupidlefiles.c#L85" "sched/group/group_setupidlefiles.c " _blank
+nx_dup2 --> nx_dup2_from_tcb
+click nx_dup2 href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L904" "fs/inode/fs_files.c " _blank
+nx_dup2_from_tcb --> nx_dup3_from_tcb
+click nx_dup2_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L882" "fs/inode/fs_files.c " _blank
+nx_dup3_from_tcb --> nxsched_get_files_from_tcb
+click nx_dup3_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L270" "fs/inode/fs_files.c " _blank
+nxsched_get_files_from_tcb --> files_countlist
+click nxsched_get_files_from_tcb href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_getfiles.c#L52" "sched/sched/sched_getfiles.c " _blank
+nx_dup3_from_tcb --> files_fget
+click nx_dup3_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L299" "fs/inode/fs_files.c " _blank
+files_fget --> files_fget_by_index
+click files_fget href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L533" "fs/inode/fs_files.c " _blank
+files_fget_by_index --> up_testset
+click files_fget_by_index href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L70" "fs/inode/fs_files.c " _blank
+up_testset --> spin_lock_notrace
+click up_testset href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/spinlock.h#L94" "arch/arm64/include/spinlock.h " _blank
+spin_lock_notrace --> files_fget_by_index
+click spin_lock_notrace href "https://github.com/apache/nuttx/blob/master/include/nuttx/spinlock.h#L198" "include/nuttx/spinlock.h " _blank
+nx_dup3_from_tcb --> files_fget_by_index
+click nx_dup3_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L313" "fs/inode/fs_files.c " _blank
+files_fget_by_index --> up_testset
+click files_fget_by_index href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L70" "fs/inode/fs_files.c " _blank
+up_testset --> spin_lock_notrace
+click up_testset href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/spinlock.h#L94" "arch/arm64/include/spinlock.h " _blank
+spin_lock_notrace --> files_fget_by_index
+click spin_lock_notrace href "https://github.com/apache/nuttx/blob/master/include/nuttx/spinlock.h#L198" "include/nuttx/spinlock.h " _blank
+nx_dup3_from_tcb --> file_dup3
+click nx_dup3_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L334" "fs/inode/fs_files.c " _blank
+file_dup3 --> inode_addref
+click file_dup3 href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_dup2.c#L60" "fs/vfs/fs_dup2.c " _blank
+inode_addref --> file_dup3
+click inode_addref href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodeaddref.c#L47" "fs/inode/fs_inodeaddref.c " _blank
+file_dup3 --> file_close_without_clear
+click file_dup3 href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_dup2.c#L89" "fs/vfs/fs_dup2.c " _blank
+file_close_without_clear --> file_dup3
+click file_close_without_clear href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_close.c#L89" "fs/vfs/fs_close.c " _blank
+file_dup3 --> file_ioctl
+click file_dup3 href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_dup2.c#L142" "fs/vfs/fs_dup2.c " _blank
+file_ioctl --> file_vioctl
+click file_ioctl href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_ioctl.c#L219" "fs/vfs/fs_ioctl.c " _blank
+file_vioctl --> uart_ioctl
+click file_vioctl href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_ioctl.c#L46" "fs/vfs/fs_ioctl.c " _blank
+uart_ioctl --> u16550_ioctl
+click uart_ioctl href "https://github.com/apache/nuttx/blob/master/drivers/serial/serial.c#L1560" "drivers/serial/serial.c " _blank
+u16550_ioctl --> uart_ioctl
+click u16550_ioctl href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1045" "drivers/serial/uart_16550.c " _blank
+uart_ioctl --> file_vioctl
+click uart_ioctl href "https://github.com/apache/nuttx/blob/master/drivers/serial/serial.c#L1582" "drivers/serial/serial.c " _blank
+file_vioctl --> file_ioctl
+click file_vioctl href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_ioctl.c#L72" "fs/vfs/fs_ioctl.c " _blank
+nx_dup3_from_tcb --> fs_putfilep
+click nx_dup3_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L334" "fs/inode/fs_files.c " _blank
+nx_dup3_from_tcb --> fs_putfilep
+click nx_dup3_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L336" "fs/inode/fs_files.c " _blank
+nx_dup3_from_tcb --> group_setupidlefiles
+click nx_dup3_from_tcb href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L337" "fs/inode/fs_files.c " _blank
+nx_start --> nx_bringup
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L735" "sched/init/nx_start.c " _blank
+nx_bringup --> setenv
+click nx_bringup href "https://github.com/apache/nuttx/blob/master/sched/init/nx_bringup.c#L486" "sched/init/nx_bringup.c " _blank
+up_irq_save --> setenv
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+setenv --> group_malloc
+click setenv href "https://github.com/apache/nuttx/blob/master/sched/environ/env_setenv.c#L114" "sched/environ/env_setenv.c " _blank
+group_malloc --> kmm_malloc
+click group_malloc href "https://github.com/apache/nuttx/blob/master/sched/group/group_malloc.c#L55" "sched/group/group_malloc.c " _blank
+mm_malloc --> setenv
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L410" "mm/mm_heap/mm_malloc.c " _blank
+setenv --> group_malloc
+click setenv href "https://github.com/apache/nuttx/blob/master/sched/environ/env_setenv.c#L152" "sched/environ/env_setenv.c " _blank
+group_malloc --> kmm_malloc
+click group_malloc href "https://github.com/apache/nuttx/blob/master/sched/group/group_malloc.c#L55" "sched/group/group_malloc.c " _blank
+mm_malloc --> setenv
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L410" "mm/mm_heap/mm_malloc.c " _blank
+setenv --> snprintf
+click setenv href "https://github.com/apache/nuttx/blob/master/sched/environ/env_setenv.c#L165" "sched/environ/env_setenv.c " _blank
+snprintf --> lib_memoutstream
+click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L37" "libs/libc/stdio/lib_snprintf.c " _blank
+lib_memoutstream --> snprintf
+click lib_memoutstream href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L98" "libs/libc/stream/lib_memoutstream.c " _blank
+snprintf --> streams
+click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L71" "libs/libc/stdio/lib_snprintf.c " _blank
+streams --> lib_vsprintf_internal
+click streams href "https://github.com/apache/nuttx/blob/master/include/nuttx/streams.h#L774" "include/nuttx/streams.h " _blank
+lib_vsprintf_internal --> strnlen
+click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1423" "libs/libc/stdio/lib_libvsprintf.c " _blank
+strnlen --> memoutstream_puts
+click strnlen href "https://github.com/apache/nuttx/blob/master/libs/libc/machine/arm64/gnu/arch_strnlen.S#L89" "libs/libc/machine/arm64/gnu/arch_strnlen.S " _blank
+memoutstream_puts --> memoutstream_putc
+click memoutstream_puts href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L40" "libs/libc/stream/lib_memoutstream.c " _blank
+memoutstream_putc --> memoutstream_puts
+click memoutstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L69" "libs/libc/stream/lib_memoutstream.c " _blank
+memoutstream_puts --> memoutstream_putc
+click memoutstream_puts href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L40" "libs/libc/stream/lib_memoutstream.c " _blank
+memoutstream_putc --> strnlen
+click memoutstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L72" "libs/libc/stream/lib_memoutstream.c " _blank
+strnlen --> memoutstream_puts
+click strnlen href "https://github.com/apache/nuttx/blob/master/libs/libc/machine/arm64/gnu/arch_strnlen.S#L89" "libs/libc/machine/arm64/gnu/arch_strnlen.S " _blank
+memoutstream_puts --> lib_vsprintf_internal
+click memoutstream_puts href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L40" "libs/libc/stream/lib_memoutstream.c " _blank
+lib_vsprintf_internal --> snprintf
+click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1425" "libs/libc/stdio/lib_libvsprintf.c " _blank
+up_irq_restore --> setenv
+click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
+setenv --> nx_bringup
+click setenv href "https://github.com/apache/nuttx/blob/master/sched/environ/env_setenv.c#L107" "sched/environ/env_setenv.c " _blank
+nx_bringup --> setenv
+click nx_bringup href "https://github.com/apache/nuttx/blob/master/sched/init/nx_bringup.c#L502" "sched/init/nx_bringup.c " _blank
+up_irq_save --> setenv
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+setenv --> env_findvar
+click setenv href "https://github.com/apache/nuttx/blob/master/sched/environ/env_setenv.c#L114" "sched/environ/env_setenv.c " _blank
+env_findvar --> env_cmpname
+click env_findvar href "https://github.com/apache/nuttx/blob/master/sched/environ/env_findvar.c#L93" "sched/environ/env_findvar.c " _blank
+env_cmpname --> env_findvar
+click env_cmpname href "https://github.com/apache/nuttx/blob/master/sched/environ/env_findvar.c#L49" "sched/environ/env_findvar.c " _blank
+env_findvar --> setenv
+click env_findvar href "https://github.com/apache/nuttx/blob/master/sched/environ/env_findvar.c#L102" "sched/environ/env_findvar.c " _blank
+setenv --> group_malloc
+click setenv href "https://github.com/apache/nuttx/blob/master/sched/environ/env_setenv.c#L120" "sched/environ/env_setenv.c " _blank
+group_malloc --> kmm_malloc
+click group_malloc href "https://github.com/apache/nuttx/blob/master/sched/group/group_malloc.c#L55" "sched/group/group_malloc.c " _blank
+setenv --> snprintf
+click setenv href "https://github.com/apache/nuttx/blob/master/sched/environ/env_setenv.c#L152" "sched/environ/env_setenv.c " _blank
+snprintf --> lib_memoutstream
+click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L37" "libs/libc/stdio/lib_snprintf.c " _blank
+lib_memoutstream --> snprintf
+click lib_memoutstream href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L98" "libs/libc/stream/lib_memoutstream.c " _blank
+snprintf --> streams
+click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L71" "libs/libc/stdio/lib_snprintf.c " _blank
+streams --> lib_vsprintf_internal
+click streams href "https://github.com/apache/nuttx/blob/master/include/nuttx/streams.h#L774" "include/nuttx/streams.h " _blank
+lib_vsprintf_internal --> strnlen
+click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1423" "libs/libc/stdio/lib_libvsprintf.c " _blank
+strnlen --> memoutstream_puts
+click strnlen href "https://github.com/apache/nuttx/blob/master/libs/libc/machine/arm64/gnu/arch_strnlen.S#L89" "libs/libc/machine/arm64/gnu/arch_strnlen.S " _blank
+memoutstream_puts --> memoutstream_putc
+click memoutstream_puts href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L40" "libs/libc/stream/lib_memoutstream.c " _blank
+memoutstream_putc --> memoutstream_puts
+click memoutstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L69" "libs/libc/stream/lib_memoutstream.c " _blank
+memoutstream_puts --> memoutstream_putc
+click memoutstream_puts href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L40" "libs/libc/stream/lib_memoutstream.c " _blank
+memoutstream_putc --> strnlen
+click memoutstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L72" "libs/libc/stream/lib_memoutstream.c " _blank
+strnlen --> memoutstream_puts
+click strnlen href "https://github.com/apache/nuttx/blob/master/libs/libc/machine/arm64/gnu/arch_strnlen.S#L89" "libs/libc/machine/arm64/gnu/arch_strnlen.S " _blank
+memoutstream_puts --> lib_vsprintf_internal
+click memoutstream_puts href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L40" "libs/libc/stream/lib_memoutstream.c " _blank
+lib_vsprintf_internal --> snprintf
+click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1425" "libs/libc/stdio/lib_libvsprintf.c " _blank
+setenv --> nx_workqueues
+click setenv href "https://github.com/apache/nuttx/blob/master/sched/environ/env_setenv.c#L107" "sched/environ/env_setenv.c " _blank
+nx_workqueues --> work_start_highpri
+click nx_workqueues href "https://github.com/apache/nuttx/blob/master/sched/init/nx_bringup.c#L202" "sched/init/nx_bringup.c " _blank
+work_start_highpri --> work_thread_create
+click work_start_highpri href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L470" "sched/wqueue/kwork_thread.c " _blank
+work_thread_create --> sched_lock
+click work_thread_create href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L253" "sched/wqueue/kwork_thread.c " _blank
+sched_lock --> work_thread_create
+click sched_lock href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_lock.c#L70" "sched/sched/sched_lock.c " _blank
+nxsem_init --> work_thread_create
+click nxsem_init href "https://github.com/apache/nuttx/blob/master/libs/libc/semaphore/sem_init.c#L68" "libs/libc/semaphore/sem_init.c " _blank
+work_thread_create --> snprintf
+click work_thread_create href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L273" "sched/wqueue/kwork_thread.c " _blank
+snprintf --> lib_memoutstream
+click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L37" "libs/libc/stdio/lib_snprintf.c " _blank
+lib_memoutstream --> snprintf
+click lib_memoutstream href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L98" "libs/libc/stream/lib_memoutstream.c " _blank
+snprintf --> streams
+click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L71" "libs/libc/stdio/lib_snprintf.c " _blank
+streams --> lib_vsprintf_internal
+click streams href "https://github.com/apache/nuttx/blob/master/include/nuttx/streams.h#L774" "include/nuttx/streams.h " _blank
+lib_vsprintf_internal --> __ultoa_invert
+click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1423" "libs/libc/stdio/lib_libvsprintf.c " _blank
+__ultoa_invert --> memoutstream_putc
+click __ultoa_invert href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_ultoa_invert.c#L50" "libs/libc/stdio/lib_ultoa_invert.c " _blank
+memoutstream_putc --> memoutstream_puts
+click memoutstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L69" "libs/libc/stream/lib_memoutstream.c " _blank
+memoutstream_puts --> memoutstream_putc
+click memoutstream_puts href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L40" "libs/libc/stream/lib_memoutstream.c " _blank
+memoutstream_putc --> memoutstream_puts
+click memoutstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L72" "libs/libc/stream/lib_memoutstream.c " _blank
+memoutstream_puts --> memoutstream_putc
+click memoutstream_puts href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L40" "libs/libc/stream/lib_memoutstream.c " _blank
+memoutstream_puts --> memoutstream_putc
+click memoutstream_puts href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L40" "libs/libc/stream/lib_memoutstream.c " _blank
+memoutstream_putc --> lib_vsprintf_internal
+click memoutstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L72" "libs/libc/stream/lib_memoutstream.c " _blank
+snprintf --> work_thread_create
+click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L75" "libs/libc/stdio/lib_snprintf.c " _blank
+snprintf --> lib_memoutstream
+click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L37" "libs/libc/stdio/lib_snprintf.c " _blank
+snprintf --> streams
+click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L71" "libs/libc/stdio/lib_snprintf.c " _blank
+streams --> lib_vsprintf_internal
+click streams href "https://github.com/apache/nuttx/blob/master/include/nuttx/streams.h#L774" "include/nuttx/streams.h " _blank
+lib_vsprintf_internal --> __ultoa_invert
+click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1423" "libs/libc/stdio/lib_libvsprintf.c " _blank
+memoutstream_putc --> lib_vsprintf_internal
+click memoutstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L72" "libs/libc/stream/lib_memoutstream.c " _blank
+snprintf --> work_thread_create
+click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L75" "libs/libc/stdio/lib_snprintf.c " _blank
+work_thread_create --> kthread_create_with_stack
+click work_thread_create href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L275" "sched/wqueue/kwork_thread.c " _blank
+kthread_create_with_stack --> nxthread_create
+click kthread_create_with_stack href "https://github.com/apache/nuttx/blob/master/sched/task/task_create.c#L253" "sched/task/task_create.c " _blank
+mm_zalloc --> nxthread_create
+click mm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_zalloc.c#L46" "mm/mm_heap/mm_zalloc.c " _blank
+nxthread_create --> nxtask_init
+click nxthread_create href "https://github.com/apache/nuttx/blob/master/sched/task/task_create.c#L88" "sched/task/task_create.c " _blank
+nxtask_init --> group_initialize
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L92" "sched/task/task_init.c " _blank
+group_initialize --> nxtask_init
+click group_initialize href "https://github.com/apache/nuttx/blob/master/sched/group/group_create.c#L119" "sched/group/group_create.c " _blank
+nxtask_init --> nxtask_joininit
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L115" "sched/task/task_init.c " _blank
+nxsem_init --> nxtask_init
+click nxsem_init href "https://github.com/apache/nuttx/blob/master/libs/libc/semaphore/sem_init.c#L68" "libs/libc/semaphore/sem_init.c " _blank
+nxtask_init --> env_dup
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L134" "sched/task/task_init.c " _blank
+env_dup --> nxtask_init
+click env_dup href "https://github.com/apache/nuttx/blob/master/sched/environ/env_dup.c#L66" "sched/environ/env_dup.c " _blank
+nxtask_init --> group_setuptaskfiles
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L134" "sched/task/task_init.c " _blank
+group_setuptaskfiles --> nxtask_init
+click group_setuptaskfiles href "https://github.com/apache/nuttx/blob/master/sched/group/group_setuptaskfiles.c#L64" "sched/group/group_setuptaskfiles.c " _blank
+nxtask_init --> nxtask_setup_name
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L142" "sched/task/task_init.c " _blank
+nxtask_setup_name --> isspace
+click nxtask_setup_name href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L722" "sched/task/task_setup.c " _blank
+isspace --> nxtask_setup_name
+click isspace href "https://github.com/apache/nuttx/blob/master/libs/libc/ctype/lib_isspace.c#L34" "libs/libc/ctype/lib_isspace.c " _blank
+nxtask_setup_name --> isspace
+click nxtask_setup_name href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L744" "sched/task/task_setup.c " _blank
+isspace --> nxtask_setup_name
+click isspace href "https://github.com/apache/nuttx/blob/master/libs/libc/ctype/lib_isspace.c#L34" "libs/libc/ctype/lib_isspace.c " _blank
+nxtask_setup_name --> isspace
+click nxtask_setup_name href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L744" "sched/task/task_setup.c " _blank
+isspace --> nxtask_setup_name
+click isspace href "https://github.com/apache/nuttx/blob/master/libs/libc/ctype/lib_isspace.c#L34" "libs/libc/ctype/lib_isspace.c " _blank
+nxtask_setup_name --> isspace
+click nxtask_setup_name href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L744" "sched/task/task_setup.c " _blank
+isspace --> nxtask_setup_name
+click isspace href "https://github.com/apache/nuttx/blob/master/libs/libc/ctype/lib_isspace.c#L34" "libs/libc/ctype/lib_isspace.c " _blank
+nxtask_setup_name --> isspace
+click nxtask_setup_name href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L744" "sched/task/task_setup.c " _blank
+isspace --> nxtask_setup_name
+click isspace href "https://github.com/apache/nuttx/blob/master/libs/libc/ctype/lib_isspace.c#L34" "libs/libc/ctype/lib_isspace.c " _blank
+nxtask_setup_name --> isspace
+click nxtask_setup_name href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L744" "sched/task/task_setup.c " _blank
+isspace --> nxtask_setup_name
+click isspace href "https://github.com/apache/nuttx/blob/master/libs/libc/ctype/lib_isspace.c#L34" "libs/libc/ctype/lib_isspace.c " _blank
+nxtask_setup_name --> nxtask_init
+click nxtask_setup_name href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L744" "sched/task/task_setup.c " _blank
+nxtask_init --> up_create_stack
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L156" "sched/task/task_init.c " _blank
+up_create_stack --> kmm_memalign
+click up_create_stack href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_createstack.c#L94" "arch/arm64/src/common/arm64_createstack.c " _blank
+kmm_memalign --> mm_memalign
+click kmm_memalign href "https://github.com/apache/nuttx/blob/master/mm/kmm_heap/kmm_memalign.c#L55" "mm/kmm_heap/kmm_memalign.c " _blank
+mm_malloc --> mm_memalign
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L410" "mm/mm_heap/mm_malloc.c " _blank
+nxmutex_lock --> mm_memalign
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L259" "libs/libc/misc/lib_mutex.c " _blank
+mm_addfreechunk --> mm_memalign
+click mm_addfreechunk href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L336" "mm/mm_heap/mm.h " _blank
+mm_memalign --> mm_shrinkchunk
+click mm_memalign href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_memalign.c#L242" "mm/mm_heap/mm_memalign.c " _blank
+mm_addfreechunk --> mm_shrinkchunk
+click mm_addfreechunk href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L341" "mm/mm_heap/mm.h " _blank
+mm_shrinkchunk --> mm_memalign
+click mm_shrinkchunk href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_shrinkchunk.c#L131" "mm/mm_heap/mm_shrinkchunk.c " _blank
+mm_unlock --> mm_memalign
+click mm_unlock href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L117" "mm/mm_heap/mm_lock.c " _blank
+mm_memalign --> up_create_stack
+click mm_memalign href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_memalign.c#L289" "mm/mm_heap/mm_memalign.c " _blank
+up_create_stack --> nxtask_init
+click up_create_stack href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_createstack.c#L133" "arch/arm64/src/common/arm64_createstack.c " _blank
+nxtask_init --> tls_init_info
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L162" "sched/task/task_init.c " _blank
+tls_init_info --> up_stack_frame
+click tls_init_info href "https://github.com/apache/nuttx/blob/master/sched/tls/tls_initinfo.c#L50" "sched/tls/tls_initinfo.c " _blank
+up_stack_frame --> tls_init_info
+click up_stack_frame href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_stackframe.c#L85" "arch/arm64/src/common/arm64_stackframe.c " _blank
+tls_init_info --> nxtask_init
+click tls_init_info href "https://github.com/apache/nuttx/blob/master/sched/tls/tls_initinfo.c#L56" "sched/tls/tls_initinfo.c " _blank
+nxtask_init --> nxtask_setup_scheduler
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L172" "sched/task/task_init.c " _blank
+nxtask_setup_scheduler --> nxthread_setup_scheduler
+click nxtask_setup_scheduler href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L665" "sched/task/task_setup.c " _blank
+nxthread_setup_scheduler --> nxtask_assign_pid
+click nxthread_setup_scheduler href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L404" "sched/task/task_setup.c " _blank
+nxtask_assign_pid --> nxthread_setup_scheduler
+click nxtask_assign_pid href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L109" "sched/task/task_setup.c " _blank
+nxthread_setup_scheduler --> nxtask_save_parent
+click nxthread_setup_scheduler href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L429" "sched/task/task_setup.c " _blank
+nxtask_save_parent --> up_initial_state
+click nxtask_save_parent href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L267" "sched/task/task_setup.c " _blank
+up_initial_state --> arm64_new_task
+click up_initial_state href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_initialstate.c#L131" "arch/arm64/src/common/arm64_initialstate.c " _blank
+up_irq_save --> nxthread_setup_scheduler
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+nxtask_init --> nxtask_setup_stackargs
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L180" "sched/task/task_init.c " _blank
+nxtask_setup_stackargs --> up_stack_frame
+click nxtask_setup_stackargs href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L521" "sched/task/task_setup.c " _blank
+up_stack_frame --> nxtask_setup_stackargs
+click up_stack_frame href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_stackframe.c#L85" "arch/arm64/src/common/arm64_stackframe.c " _blank
+nxtask_init --> group_postinitialize
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L189" "sched/task/task_init.c " _blank
+group_postinitialize --> mm_map_initialize
+click group_postinitialize href "https://github.com/apache/nuttx/blob/master/sched/group/group_create.c#L220" "sched/group/group_create.c " _blank
+mm_map_initialize --> nxrmutex_init
+click mm_map_initialize href "https://github.com/apache/nuttx/blob/master/mm/map/mm_map.c#L112" "mm/map/mm_map.c " _blank
+nxmutex_init --> mm_map_initialize
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L129" "libs/libc/misc/lib_mutex.c " _blank
+mm_map_initialize --> group_postinitialize
+click mm_map_initialize href "https://github.com/apache/nuttx/blob/master/mm/map/mm_map.c#L115" "mm/map/mm_map.c " _blank
+nxtask_init --> nxthread_create
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L228" "sched/task/task_init.c " _blank
+nxthread_create --> nxtask_activate
+click nxthread_create href "https://github.com/apache/nuttx/blob/master/sched/task/task_create.c#L100" "sched/task/task_create.c " _blank
+nxtask_activate --> nxsched_remove_blocked
+click nxtask_activate href "https://github.com/apache/nuttx/blob/master/sched/task/task_activate.c#L60" "sched/task/task_activate.c " _blank
+nxsched_remove_blocked --> nxtask_activate
+click nxsched_remove_blocked href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_removeblocked.c#L59" "sched/sched/sched_removeblocked.c " _blank
+nxtask_activate --> nxsched_add_readytorun
+click nxtask_activate href "https://github.com/apache/nuttx/blob/master/sched/task/task_activate.c#L95" "sched/task/task_activate.c " _blank
+nxsched_add_readytorun --> nxsched_add_prioritized
+click nxsched_add_readytorun href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_addreadytorun.c#L70" "sched/sched/sched_addreadytorun.c " _blank
+nxsched_add_prioritized --> nxtask_activate
+click nxsched_add_prioritized href "https://github.com/apache/nuttx/blob/master/sched/sched/sched.h#L456" "sched/sched/sched.h " _blank
+up_irq_restore --> nxtask_activate
+click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
+nxtask_activate --> nxthread_create
+click nxtask_activate href "https://github.com/apache/nuttx/blob/master/sched/task/task_activate.c#L101" "sched/task/task_activate.c " _blank
+nxthread_create --> work_thread_create
+click nxthread_create href "https://github.com/apache/nuttx/blob/master/sched/task/task_create.c#L116" "sched/task/task_create.c " _blank
+work_thread_create --> sched_unlock
+click work_thread_create href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L282" "sched/wqueue/kwork_thread.c " _blank
+sched_unlock --> work_thread_create
+click sched_unlock href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_unlock.c#L59" "sched/sched/sched_unlock.c " _blank
+work_thread_create --> work_start_highpri
+click work_thread_create href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L295" "sched/wqueue/kwork_thread.c " _blank
+work_start_highpri --> nx_workqueues
+click work_start_highpri href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L478" "sched/wqueue/kwork_thread.c " _blank
+nx_workqueues --> work_start_lowpri
+click nx_workqueues href "https://github.com/apache/nuttx/blob/master/sched/init/nx_bringup.c#L211" "sched/init/nx_bringup.c " _blank
+work_start_lowpri --> work_thread_create
+click work_start_lowpri href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L498" "sched/wqueue/kwork_thread.c " _blank
+work_thread_create --> sched_lock
+click work_thread_create href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L253" "sched/wqueue/kwork_thread.c " _blank
+snprintf --> lib_memoutstream
+click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L37" "libs/libc/stdio/lib_snprintf.c " _blank
+snprintf --> streams
+click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L71" "libs/libc/stdio/lib_snprintf.c " _blank
+lib_vsprintf_internal --> __ultoa_invert
+click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1423" "libs/libc/stdio/lib_libvsprintf.c " _blank
+snprintf --> lib_memoutstream
+click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L37" "libs/libc/stdio/lib_snprintf.c " _blank
+snprintf --> streams
+click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L71" "libs/libc/stdio/lib_snprintf.c " _blank
+lib_vsprintf_internal --> __ultoa_invert
+click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1423" "libs/libc/stdio/lib_libvsprintf.c " _blank
+work_thread_create --> kthread_create_with_stack
+click work_thread_create href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L275" "sched/wqueue/kwork_thread.c " _blank
+kthread_create_with_stack --> nxthread_create
+click kthread_create_with_stack href "https://github.com/apache/nuttx/blob/master/sched/task/task_create.c#L253" "sched/task/task_create.c " _blank
+mm_zalloc --> nxthread_create
+click mm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_zalloc.c#L46" "mm/mm_heap/mm_zalloc.c " _blank
+nxtask_init --> group_initialize
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L92" "sched/task/task_init.c " _blank
+nxtask_init --> nxtask_joininit
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L115" "sched/task/task_init.c " _blank
+nxtask_init --> env_dup
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L134" "sched/task/task_init.c " _blank
+nxtask_init --> group_setuptaskfiles
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L134" "sched/task/task_init.c " _blank
+nxtask_init --> nxtask_setup_name
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L142" "sched/task/task_init.c " _blank
+nxtask_setup_name --> isspace
+click nxtask_setup_name href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L722" "sched/task/task_setup.c " _blank
+nxtask_setup_name --> isspace
+click nxtask_setup_name href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L744" "sched/task/task_setup.c " _blank
+nxtask_init --> up_create_stack
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L156" "sched/task/task_init.c " _blank
+up_create_stack --> kmm_memalign
+click up_create_stack href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_createstack.c#L94" "arch/arm64/src/common/arm64_createstack.c " _blank
+kmm_memalign --> mm_memalign
+click kmm_memalign href "https://github.com/apache/nuttx/blob/master/mm/kmm_heap/kmm_memalign.c#L55" "mm/kmm_heap/kmm_memalign.c " _blank
+mm_malloc --> mm_memalign
+click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L410" "mm/mm_heap/mm_malloc.c " _blank
+mm_memalign --> mm_shrinkchunk
+click mm_memalign href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_memalign.c#L242" "mm/mm_heap/mm_memalign.c " _blank
+mm_addfreechunk --> mm_shrinkchunk
+click mm_addfreechunk href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L341" "mm/mm_heap/mm.h " _blank
+mm_memalign --> up_create_stack
+click mm_memalign href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_memalign.c#L289" "mm/mm_heap/mm_memalign.c " _blank
+nxtask_init --> tls_init_info
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L162" "sched/task/task_init.c " _blank
+tls_init_info --> up_stack_frame
+click tls_init_info href "https://github.com/apache/nuttx/blob/master/sched/tls/tls_initinfo.c#L50" "sched/tls/tls_initinfo.c " _blank
+up_stack_frame --> tls_init_info
+click up_stack_frame href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_stackframe.c#L85" "arch/arm64/src/common/arm64_stackframe.c " _blank
+nxtask_init --> nxtask_setup_scheduler
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L172" "sched/task/task_init.c " _blank
+nxtask_setup_scheduler --> nxthread_setup_scheduler
+click nxtask_setup_scheduler href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L665" "sched/task/task_setup.c " _blank
+nxthread_setup_scheduler --> nxtask_assign_pid
+click nxthread_setup_scheduler href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L404" "sched/task/task_setup.c " _blank
+nxtask_assign_pid --> nxthread_setup_scheduler
+click nxtask_assign_pid href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L109" "sched/task/task_setup.c " _blank
+nxthread_setup_scheduler --> nxtask_save_parent
+click nxthread_setup_scheduler href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L429" "sched/task/task_setup.c " _blank
+nxtask_save_parent --> up_initial_state
+click nxtask_save_parent href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L267" "sched/task/task_setup.c " _blank
+up_initial_state --> arm64_new_task
+click up_initial_state href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_initialstate.c#L131" "arch/arm64/src/common/arm64_initialstate.c " _blank
+up_irq_save --> nxthread_setup_scheduler
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+nxtask_init --> nxtask_setup_stackargs
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L180" "sched/task/task_init.c " _blank
+nxtask_setup_stackargs --> up_stack_frame
+click nxtask_setup_stackargs href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L521" "sched/task/task_setup.c " _blank
+up_stack_frame --> nxtask_setup_stackargs
+click up_stack_frame href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_stackframe.c#L85" "arch/arm64/src/common/arm64_stackframe.c " _blank
+nxtask_init --> group_postinitialize
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L189" "sched/task/task_init.c " _blank
+group_postinitialize --> mm_map_initialize
+click group_postinitialize href "https://github.com/apache/nuttx/blob/master/sched/group/group_create.c#L220" "sched/group/group_create.c " _blank
+mm_map_initialize --> nxrmutex_init
+click mm_map_initialize href "https://github.com/apache/nuttx/blob/master/mm/map/mm_map.c#L112" "mm/map/mm_map.c " _blank
+nxmutex_init --> mm_map_initialize
+click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L129" "libs/libc/misc/lib_mutex.c " _blank
+mm_map_initialize --> group_postinitialize
+click mm_map_initialize href "https://github.com/apache/nuttx/blob/master/mm/map/mm_map.c#L115" "mm/map/mm_map.c " _blank
+nxtask_init --> nxthread_create
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L228" "sched/task/task_init.c " _blank
+nxthread_create --> nxtask_activate
+click nxthread_create href "https://github.com/apache/nuttx/blob/master/sched/task/task_create.c#L100" "sched/task/task_create.c " _blank
+nxtask_activate --> nxsched_remove_blocked
+click nxtask_activate href "https://github.com/apache/nuttx/blob/master/sched/task/task_activate.c#L60" "sched/task/task_activate.c " _blank
+nxsched_remove_blocked --> nxtask_activate
+click nxsched_remove_blocked href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_removeblocked.c#L59" "sched/sched/sched_removeblocked.c " _blank
+nxtask_activate --> nxsched_add_readytorun
+click nxtask_activate href "https://github.com/apache/nuttx/blob/master/sched/task/task_activate.c#L95" "sched/task/task_activate.c " _blank
+nxsched_add_readytorun --> nxsched_add_prioritized
+click nxsched_add_readytorun href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_addreadytorun.c#L70" "sched/sched/sched_addreadytorun.c " _blank
+nxsched_add_prioritized --> nxsched_add_readytorun
+click nxsched_add_prioritized href "https://github.com/apache/nuttx/blob/master/sched/sched/sched.h#L456" "sched/sched/sched.h " _blank
+nxsched_add_readytorun --> nxtask_activate
+click nxsched_add_readytorun href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_addreadytorun.c#L88" "sched/sched/sched_addreadytorun.c " _blank
+up_irq_restore --> nxtask_activate
+click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
+nxtask_activate --> nxthread_create
+click nxtask_activate href "https://github.com/apache/nuttx/blob/master/sched/task/task_activate.c#L101" "sched/task/task_activate.c " _blank
+work_thread_create --> sched_unlock
+click work_thread_create href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L282" "sched/wqueue/kwork_thread.c " _blank
+work_thread_create --> work_start_lowpri
+click work_thread_create href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L295" "sched/wqueue/kwork_thread.c " _blank
+work_start_lowpri --> nx_create_initthread
+click work_start_lowpri href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L506" "sched/wqueue/kwork_thread.c " _blank
+nx_create_initthread --> get_environ_ptr
+click nx_create_initthread href "https://github.com/apache/nuttx/blob/master/sched/init/nx_bringup.c#L437" "sched/init/nx_bringup.c " _blank
+get_environ_ptr --> nx_create_initthread
+click get_environ_ptr href "https://github.com/apache/nuttx/blob/master/sched/environ/env_getenvironptr.c#L58" "sched/environ/env_getenvironptr.c " _blank
+nxtask_init --> group_initialize
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L92" "sched/task/task_init.c " _blank
+nxtask_init --> nxtask_joininit
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L115" "sched/task/task_init.c " _blank
+nxtask_init --> env_dup
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L134" "sched/task/task_init.c " _blank
+nxtask_init --> group_setuptaskfiles
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L134" "sched/task/task_init.c " _blank
+nxtask_init --> up_create_stack
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L156" "sched/task/task_init.c " _blank
+up_create_stack --> kmm_memalign
+click up_create_stack href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_createstack.c#L94" "arch/arm64/src/common/arm64_createstack.c " _blank
+mm_memalign --> mm_shrinkchunk
+click mm_memalign href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_memalign.c#L242" "mm/mm_heap/mm_memalign.c " _blank
+mm_addfreechunk --> mm_shrinkchunk
+click mm_addfreechunk href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L341" "mm/mm_heap/mm.h " _blank
+mm_memalign --> up_create_stack
+click mm_memalign href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_memalign.c#L289" "mm/mm_heap/mm_memalign.c " _blank
+nxtask_init --> tls_init_info
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L162" "sched/task/task_init.c " _blank
+tls_init_info --> up_stack_frame
+click tls_init_info href "https://github.com/apache/nuttx/blob/master/sched/tls/tls_initinfo.c#L50" "sched/tls/tls_initinfo.c " _blank
+up_stack_frame --> tls_init_info
+click up_stack_frame href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_stackframe.c#L85" "arch/arm64/src/common/arm64_stackframe.c " _blank
+nxtask_init --> nxtask_setup_scheduler
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L172" "sched/task/task_init.c " _blank
+nxtask_setup_scheduler --> nxthread_setup_scheduler
+click nxtask_setup_scheduler href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L665" "sched/task/task_setup.c " _blank
+nxthread_setup_scheduler --> nxtask_assign_pid
+click nxthread_setup_scheduler href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L404" "sched/task/task_setup.c " _blank
+nxtask_assign_pid --> nxthread_setup_scheduler
+click nxtask_assign_pid href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L109" "sched/task/task_setup.c " _blank
+nxthread_setup_scheduler --> nxtask_save_parent
+click nxthread_setup_scheduler href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L429" "sched/task/task_setup.c " _blank
+nxtask_save_parent --> up_initial_state
+click nxtask_save_parent href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L267" "sched/task/task_setup.c " _blank
+up_initial_state --> arm64_new_task
+click up_initial_state href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_initialstate.c#L131" "arch/arm64/src/common/arm64_initialstate.c " _blank
+nxtask_init --> nxtask_setup_stackargs
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L180" "sched/task/task_init.c " _blank
+nxtask_setup_stackargs --> up_stack_frame
+click nxtask_setup_stackargs href "https://github.com/apache/nuttx/blob/master/sched/task/task_setup.c#L521" "sched/task/task_setup.c " _blank
+up_stack_frame --> nxtask_setup_stackargs
+click up_stack_frame href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_stackframe.c#L85" "arch/arm64/src/common/arm64_stackframe.c " _blank
+nxtask_init --> group_postinitialize
+click nxtask_init href "https://github.com/apache/nuttx/blob/master/sched/task/task_init.c#L189" "sched/task/task_init.c " _blank
+mm_map_initialize --> group_postinitialize
+click mm_map_initialize href "https://github.com/apache/nuttx/blob/master/mm/map/mm_map.c#L115" "mm/map/mm_map.c " _blank
+nxtask_activate --> nxsched_remove_blocked
+click nxtask_activate href "https://github.com/apache/nuttx/blob/master/sched/task/task_activate.c#L60" "sched/task/task_activate.c " _blank
+nxtask_activate --> nxsched_add_readytorun
+click nxtask_activate href "https://github.com/apache/nuttx/blob/master/sched/task/task_activate.c#L95" "sched/task/task_activate.c " _blank
+nxsched_add_readytorun --> nxsched_add_prioritized
+click nxsched_add_readytorun href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_addreadytorun.c#L70" "sched/sched/sched_addreadytorun.c " _blank
+nxsched_add_prioritized --> nxsched_add_readytorun
+click nxsched_add_prioritized href "https://github.com/apache/nuttx/blob/master/sched/sched/sched.h#L456" "sched/sched/sched.h " _blank
+nxthread_create --> nx_create_initthread
+click nxthread_create href "https://github.com/apache/nuttx/blob/master/sched/task/task_create.c#L116" "sched/task/task_create.c " _blank
+nx_create_initthread --> nx_bringup
+click nx_create_initthread href "https://github.com/apache/nuttx/blob/master/sched/init/nx_bringup.c#L438" "sched/init/nx_bringup.c " _blank
+nx_start --> sched_unlock
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L760" "sched/init/nx_start.c " _blank
+up_irq_save --> sched_unlock
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+sched_unlock --> nxsched_merge_pending
+click sched_unlock href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_unlock.c#L87" "sched/sched/sched_unlock.c " _blank
+nxsched_merge_pending --> sched_unlock
+click nxsched_merge_pending href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_mergepending.c#L84" "sched/sched/sched_mergepending.c " _blank
+sched_unlock --> sys_call0
+click sched_unlock href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_unlock.c#L89" "sched/sched/sched_unlock.c " _blank
+sys_call0 --> ***_HALT_***
+click sys_call0 href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/syscall.h#L151" "arch/arm64/include/syscall.h " _blank
