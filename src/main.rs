@@ -161,8 +161,10 @@ fn hook_block(
     if function == Some("a527_copy_overlap".into())
         || function == Some("a527_copy_ramdisk".into())
         || function == Some("arm64_data_initialize".into())
+        || function == Some("arm64_stack_color".into())
         || function == Some("memcmp".into())
         || function == Some("strcmp".into())
+        || function == Some("strcpy".into())
         { return; }
 
     print!("hook_block:  address={address:#010x}, size={size:02}");
@@ -235,7 +237,8 @@ fn map_address_to_location(
         if let Some(file) = loc.file {
             let s = String::from(file)
                 .replace("/Users/luppy/avaota/nuttx/", "")
-                .replace("arch/arm64/src/chip", "arch/arm64/src/a64");  // TODO: Handle other chips
+                .replace("include/arch/", "arch/arm64/include/")
+                .replace("arch/arm64/src/chip/", "arch/arm64/src/a527/");  // TODO: Handle other chips
             (Some(s), loc.line, loc.column)
         } else {
             (None, loc.line, loc.column)
