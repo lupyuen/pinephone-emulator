@@ -137,8 +137,8 @@ fn hook_memory(
     // Print the UART Output
     // https://lupyuen.github.io/articles/serial#transmit-uart
     if address == UART0_BASE_ADDRESS {
-        // println!("uart output: {:?}", value as u8 as char);
-        print!("{}", value as u8 as char);
+        println!("uart output: {:?}", value as u8 as char);
+        // print!("{}", value as u8 as char);
     }
 
     // Always return true, value is unused by caller
@@ -163,8 +163,13 @@ fn hook_block(
         || function == Some("arm64_data_initialize".into())
         || function == Some("arm64_stack_color".into())
         || function == Some("memcmp".into())
+        || function == Some("memcpy".into())
+        || function == Some("memset".into())
         || function == Some("strcmp".into())
         || function == Some("strcpy".into())
+        || function == Some("strlcpy".into())
+        || function == Some("strlen".into())
+        || function == Some("vsprintf_internal".into())        
         { return; }
 
     print!("hook_block:  address={address:#010x}, size={size:02}");
@@ -265,6 +270,7 @@ fn call_graph(
         Some(fname) => fname,
         None => map_location_to_function(&loc)
     };
+    if fname == "" { return; }
 
     // Skip if we are still in the same Function
     let mut last_fname = LAST_FNAME.lock().unwrap();
@@ -283,6 +289,7 @@ fn call_graph(
             let file = file.unwrap_or("".to_string());
             let line = line.unwrap_or(1) - 1;
             let url = format!("https://github.com/apache/nuttx/blob/master/{file}#L{line}");
+            assert!(fname != "");
             println!("call_graph:  {last_fname} --> {fname}");
             println!("call_graph:  click {last_fname} href \"{url}\" \"{file} \" _blank");
         }
