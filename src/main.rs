@@ -1,7 +1,9 @@
+use core::time;
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::rc::Rc;
 use std::sync::Mutex;
+use std::thread::sleep;
 use unicorn_engine::{Unicorn, RegisterARM64};
 use unicorn_engine::unicorn_const::{Arch, HookType, MemType, Mode, Permission};
 use once_cell::sync::Lazy;
@@ -9,15 +11,28 @@ use once_cell::sync::Lazy;
 /// ELF File for mapping Addresses to Function Names and Filenames
 const ELF_FILENAME: &str = "nuttx/nuttx";
 
+/// Memory Space for NuttX Kernel
+const KERNEL_SIZE: usize = 0x1000_0000;
+static mut kernel_code: [u8; KERNEL_SIZE] = [0; KERNEL_SIZE];
+
+/// UART Base Address
 const UART0_BASE_ADDRESS: u64 = 0x02500000;
 
 /// Emulate some Arm64 Machine Code
 fn main() {
-    // Arm64 Memory Address where emulation starts
+    // Test Arm64 MMU
+    // test_arm64_mmu(); return;
+
+    // Arm64 Memory Address where emulation starts.
+    // Memory Space for NuttX Kernel also begins here.
     const ADDRESS: u64 = 0x4080_0000;
 
-    // Arm64 Machine Code for the above address
-    let arm64_code = include_bytes!("../nuttx/Image");
+    // Copy NuttX Kernel into the above address
+    let kernel = include_bytes!("../nuttx/Image");
+    unsafe {
+        assert!(kernel_code.len() >= kernel.len());
+        kernel_code[0..kernel.len()].copy_from_slice(kernel);    
+    }
 
     // Init Emulator in Arm64 mode
     let mut unicorn = Unicorn::new(
@@ -28,37 +43,28 @@ fn main() {
     // Magical horse mutates to bird
     let emu = &mut unicorn;
 
-    // uc_ctl_tlb_mode(uc, UC_TLB_CPU)
-    // -> uc_ctl(uc, UC_CTL_WRITE(UC_CTL_TLB_TYPE, 1), (UC_TLB_CPU))
-
     // Enable MMU Translation
     emu.ctl_tlb_type(unicorn_engine::TlbType::CPU).unwrap();
 
     // Disable MMU Translation
     // emu.ctl_tlb_type(unicorn_engine::TlbType::VIRTUAL).unwrap();
 
-    // Map 128 MB Executable Memory at 0x4000 0000 for Arm64 Machine Code
-    // https://github.com/apache/nuttx/blob/master/arch/arm64/include/a64/chip.h#L44-L52
+    // Map 1 GB Read/Write Memory at 0x0000 0000 for Memory-Mapped I/O
     emu.mem_map(
-        0x4000_0000,        // Address
-        128 * 1024 * 1024,  // Size
-        Permission::ALL     // Read, Write and Execute Access
-    ).expect("failed to map code page");
+        0x0000_0000,  // Address
+        0x4000_0000,  // Size
+        Permission::READ | Permission::WRITE  // Read/Write/Execute Access
+    ).expect("failed to map memory");
 
-    // Map 1024 MB Read/Write Memory at 0x0000 0000 for
-    // Memory-Mapped I/O by Allwinner A64 Peripherals
-    // https://github.com/apache/nuttx/blob/master/arch/arm64/include/a64/chip.h#L44-L52
-    emu.mem_map(
-        0x0000_0000,         // Address
-        1024 * 1024 * 1024,  // Size
-        Permission::READ | Permission::WRITE  // Read and Write Access
-    ).expect("failed to map memory mapped I/O");
-
-    // Write Arm64 Machine Code to emulated Executable Memory
-    emu.mem_write(
-        ADDRESS, 
-        arm64_code
-    ).expect("failed to write instructions");
+    // Map the NuttX Kernel to 0x4080_0000
+    unsafe {
+        emu.mem_map_ptr(
+            ADDRESS, 
+            kernel_code.len(), 
+            Permission::READ | Permission::EXEC,
+            kernel_code.as_mut_ptr() as _
+        ).expect("failed to map kernel");
+    }
 
     // Allwinner A64 UART Line Status Register (UART_LSR) at Offset 0x14.
     // To indicate that the UART Transmit FIFO is ready:
@@ -76,7 +82,7 @@ fn main() {
     // Add Hook for emulating each Arm64 Instruction
     let _ = emu.add_code_hook(
         ADDRESS,  // Begin Address
-        ADDRESS + arm64_code.len() as u64,  // End Address
+        ADDRESS + KERNEL_SIZE as u64,  // End Address
         hook_code  // Hook Function for Code Emulation
     ).expect("failed to add code hook");
 
@@ -91,7 +97,7 @@ fn main() {
     // Emulate Arm64 Machine Code
     let err = emu.emu_start(
         ADDRESS,  // Begin Address
-        ADDRESS + arm64_code.len() as u64,  // End Address
+        ADDRESS + KERNEL_SIZE as u64,  // End Address
         0,  // No Timeout
         0   // Unlimited number of instructions
     );
@@ -364,3 +370,206 @@ static LAST_FNAME: Lazy<Mutex<String>> = Lazy::new(||
 static LAST_LOC: Lazy<Mutex<(Option<String>, Option<u32>, Option<u32>)>> = Lazy::new(||
     (None, None, None).into()
 );
+
+/// Unit Test for Arm64 MMU
+/// https://github.com/unicorn-engine/unicorn/blob/master/tests/unit/test_arm64.c#L378-L486
+fn test_arm64_mmu() {
+    /*
+     * Not exact the binary, but aarch64-linux-gnu-as generate this code and
+     reference sometimes data after ttb0_base.
+     * // Read data from physical address
+     * ldr X0, =0x40000000
+     * ldr X1, [X0]
+     * // Initialize translation table control registers
+     * ldr X0, =0x180803F20
+     * msr TCR_EL1, X0
+     * ldr X0, =0xFFFFFFFF
+     * msr MAIR_EL1, X0
+     * // Set translation table
+     * adr X0, ttb0_base
+     * msr TTBR0_EL1, X0
+     * // Enable caches and the MMU
+     * mrs X0, SCTLR_EL1
+     * orr X0, X0, #(0x1 << 2) // The C bit (data cache).
+     * orr X0, X0, #(0x1 << 12) // The I bit (instruction cache)
+     * orr X0, X0, #0x1 // The M bit (MMU).
+     * msr SCTLR_EL1, X0
+     * dsb SY
+     * isb
+     * // Read the same memory area through virtual address
+     * ldr X0, =0x80000000
+     * ldr X2, [X0]
+     *
+     * // Stop
+     * b .
+     */
+    let arm64_code = [
+        0x00, 0x81, 0x00, 0x58, 0x01, 0x00, 0x40, 0xf9, 0x00, 0x81, 0x00, 0x58, 0x40, 0x20, 0x18,
+        0xd5, 0x00, 0x81, 0x00, 0x58, 0x00, 0xa2, 0x18, 0xd5, 0x40, 0x7f, 0x00, 0x10, 0x00, 0x20,
+        0x18, 0xd5, 0x00, 0x10, 0x38, 0xd5, 0x00, 0x00, 0x7e, 0xb2, 0x00, 0x00, 0x74, 0xb2, 0x00,
+        0x00, 0x40, 0xb2, 0x00, 0x10, 0x18, 0xd5, 0x9f, 0x3f, 0x03, 0xd5, 0xdf, 0x3f, 0x03, 0xd5,
+        0xe0, 0x7f, 0x00, 0x58, 0x02, 0x00, 0x40, 0xf9, 0x00, 0x00, 0x00, 0x14, 0x1f, 0x20, 0x03,
+        0xd5, 0x1f, 0x20, 0x03, 0xd5, 0x1F, 0x20, 0x03, 0xD5, 0x1F, 0x20, 0x03, 0xD5,       
+    ];
+
+    // Init Emulator in Arm64 mode
+    // OK(uc_open(UC_ARCH_ARM64, UC_MODE_ARM, &uc));
+    let mut unicorn = Unicorn::new(
+        Arch::ARM64,
+        Mode::LITTLE_ENDIAN
+    ).expect("failed to init Unicorn");
+
+    // Magical horse mutates to bird
+    let emu = &mut unicorn;
+
+    // Enable MMU Translation
+    // OK(uc_ctl_tlb_mode(uc, UC_TLB_CPU));
+    emu.ctl_tlb_type(unicorn_engine::TlbType::CPU).unwrap();
+
+    // Map Read/Write/Execute Memory at 0x0000 0000
+    // OK(uc_mem_map(uc, 0, 0x2000, UC_PROT_ALL));
+    emu.mem_map(
+        0,       // Address
+        0x2000,  // Size
+        Permission::ALL  // Read/Write/Execute Access
+    ).expect("failed to map memory");
+
+    // Write Arm64 Machine Code to emulated Executable Memory
+    // OK(uc_mem_write(uc, 0, code, sizeof(code) - 1));
+    const ADDRESS: u64 = 0;
+    emu.mem_write(
+        ADDRESS, 
+        &arm64_code
+    ).expect("failed to write instructions");
+
+    // Generate the Page Table Entries
+    // Page Table Entry @ 0x1000: 0x0000_0741
+    // Physical Address: 0x0000_0000
+    // Bit 00-01: PTE_BLOCK_DESC=1
+    // Bit 06-07: PTE_BLOCK_DESC_AP_USER=1
+    // Bit 08-09: PTE_BLOCK_DESC_INNER_SHARE=3
+    // Bit 10:    PTE_BLOCK_DESC_AF=1  
+    let mut tlbe: [u8; 8] = [0; 8];
+    tlbe[0..2].copy_from_slice(&[0x41, 0x07]);
+    emu.mem_write(0x1000, &tlbe).unwrap();
+    log_tlbe(0x1000, &tlbe);
+
+    // Page Table Entry @ 0x1008: 0xC000_0741
+    // Physical Address: 0xC000_0000 (Same Bits as above)
+    tlbe[3] = 0xc0;
+    emu.mem_write(0x1008, &tlbe).unwrap();
+    log_tlbe(0x1008, &tlbe);
+
+    // Page Table Entry @ 0x1010: 0x4000_0741
+    // Physical Address: 0x4000_0000 (Same Bits as above)  
+    tlbe[3] = 0x40;
+    emu.mem_write(0x1010, &tlbe).unwrap();
+    log_tlbe(0x1010, &tlbe);
+
+    // Page Table Entry @ 0x1018: 0x8000_0741
+    // Physical Address: 0x8000_0000 (Same Bits as above)
+    tlbe[3] = 0x80;
+    emu.mem_write(0x1018, &tlbe).unwrap();
+    log_tlbe(0x1018, &tlbe);
+
+    // Not the Page Table, but
+    // Data Referenced by our Assembly Code
+    // Data @ 0x1020: 0x4000_0000
+    tlbe[0..4].copy_from_slice(&[0x00, 0x00, 0x00, 0x40]);
+    emu.mem_write(0x1020, &tlbe).unwrap();
+    log_tlbe(0x1020, &tlbe);
+
+    // Data @ 0x1028: 0x1_8080_3F20
+    tlbe[0..5].copy_from_slice(&[0x20, 0x3f, 0x80, 0x80, 0x1]);
+    emu.mem_write(0x1028, &tlbe).unwrap();
+    log_tlbe(0x1028, &tlbe);
+
+    // Data @ 0x1030: 0xFFFF_FFFF
+    tlbe[0..5].copy_from_slice(&[0xff, 0xff, 0xff, 0xff, 0x00]);
+    emu.mem_write(0x1030, &tlbe).unwrap();
+    log_tlbe(0x1030, &tlbe);
+
+    // Data @ 0x1038: 0x8000_0000
+    tlbe[0..4].copy_from_slice(&[0x00, 0x00, 0x00, 0x80]);
+    emu.mem_write(0x1038, &tlbe).unwrap();
+    log_tlbe(0x1038, &tlbe);
+
+    // 3 Chunks of Data filled with 0x44, 0x88, 0xCC respectively
+    let mut data:  [u8; 0x1000] = [0x44; 0x1000];
+    let mut data2: [u8; 0x1000] = [0x88; 0x1000];
+    let mut data3: [u8; 0x1000] = [0xcc; 0x1000];
+
+    unsafe {
+        // 0x4000_0000 becomes 0x44 44 44 44...
+        emu.mem_map_ptr(0x40000000, 0x1000, Permission::READ, data.as_mut_ptr() as _).unwrap();
+
+        // 0x8000_0000 becomes 0x88 88 88 88...
+        emu.mem_map_ptr(0x80000000, 0x1000, Permission::READ, data2.as_mut_ptr() as _).unwrap();
+
+        // 0xC000_0000 becomes 0xCC CC CC CC...
+        emu.mem_map_ptr(0xc0000000, 0x1000, Permission::READ, data3.as_mut_ptr() as _).unwrap();
+    }
+
+    // OK(uc_emu_start(uc, 0, 0x44, 0, 0));
+    let err = emu.emu_start(0, 0x44, 0, 0);
+
+    // Print the Emulator Error
+    println!("\nerr={:?}", err);
+
+    // Read registers X0, X1, X2
+    let x0 = emu.reg_read(RegisterARM64::X0).unwrap();
+    let x1 = emu.reg_read(RegisterARM64::X1).unwrap();
+    let x2 = emu.reg_read(RegisterARM64::X2).unwrap();
+    println!("x0=0x{x0:x}");
+    println!("x1=0x{x1:x}");
+    println!("x2=0x{x2:x}");
+
+    // Check the values
+    assert!(x0 == 0x80000000);
+    assert!(x1 == 0x4444444444444444);
+    assert!(x2 == 0x4444444444444444);
+}
+
+/// Log the MMU TLB Entry. 0x741 will print:
+/// Bit 00-01: PTE_BLOCK_DESC=1
+/// Bit 06: PTE_BLOCK_DESC_AP_USER=1
+/// Bit 08-09: PTE_BLOCK_DESC_INNER_SHARE=3
+/// Bit 10: PTE_BLOCK_DESC_AF=1
+fn log_tlbe(address: u64, tlbe: &[u8]) {
+    let mut n: u64 = 0;
+    tlbe.iter().rev()
+        .for_each(|b| n = (n << 8) | *b as u64);
+    println!("TLBE @ 0x{address:04x}: 0x{n:016x}");
+    println!("addr_pa=0x{:08x}", n & 0xfffff000);
+    println!("Bit 00-01: PTE_BLOCK_DESC={}", n & 0b11);
+    println!("Bit 06:    PTE_BLOCK_DESC_AP_USER={}", (n >> 6) & 0b1);
+    println!("Bit 08-09: PTE_BLOCK_DESC_INNER_SHARE={}", (n >> 8) & 0b11);
+    println!("Bit 10:    PTE_BLOCK_DESC_AF={}\n", (n >> 10) & 0b1);
+}
+
+/* Disassembly for Arm64 Machine Code:
+https://shell-storm.org/online/Online-Assembler-and-Disassembler/?opcodes=%22%5Cx00%5Cx81%5Cx00%5Cx58%5Cx01%5Cx00%5Cx40%5Cxf9%5Cx00%5Cx81%5Cx00%5Cx58%5Cx40%5Cx20%5Cx18%5Cxd5%5Cx00%5Cx81%5Cx00%5Cx58%5Cx00%5Cxa2%5Cx18%5Cxd5%5Cx40%5Cx7f%5Cx00%5Cx10%5Cx00%5Cx20%5Cx18%5Cxd5%5Cx00%5Cx10%5Cx38%5Cxd5%5Cx00%5Cx00%5Cx7e%5Cxb2%5Cx00%5Cx00%5Cx74%5Cxb2%5Cx00%5Cx00%5Cx40%5Cxb2%5Cx00%5Cx10%5Cx18%5Cxd5%5Cx9f%5Cx3f%5Cx03%5Cxd5%5Cxdf%5Cx3f%5Cx03%5Cxd5%5Cxe0%5Cx7f%5Cx00%5Cx58%5Cx02%5Cx00%5Cx40%5Cxf9%5Cx00%5Cx00%5Cx00%5Cx14%5Cx1f%5Cx20%5Cx03%5Cxd5%5Cx1f%5Cx20%5Cx03%5Cxd5%5Cx1F%5Cx20%5Cx03%5CxD5%5Cx1F%5Cx20%5Cx03%5CxD5%22&arch=arm64&endianness=little&baddr=0x00000000&dis_with_addr=True&dis_with_raw=True&dis_with_ins=True#disassembly
+"\x00\x81\x00\x58\x01\x00\x40\xf9\x00\x81\x00\x58\x40\x20\x18\xd5\x00\x81\x00\x58\x00\xa2\x18\xd5\x40\x7f\x00\x10\x00\x20\x18\xd5\x00\x10\x38\xd5\x00\x00\x7e\xb2\x00\x00\x74\xb2\x00\x00\x40\xb2\x00\x10\x18\xd5\x9f\x3f\x03\xd5\xdf\x3f\x03\xd5\xe0\x7f\x00\x58\x02\x00\x40\xf9\x00\x00\x00\x14\x1f\x20\x03\xd5\x1f\x20\x03\xd5\x1F\x20\x03\xD5\x1F\x20\x03\xD5"
+0x0000000000000000:  00 81 00 58    ldr x0, #0x1020
+0x0000000000000004:  01 00 40 F9    ldr x1, [x0]
+0x0000000000000008:  00 81 00 58    ldr x0, #0x1028
+0x000000000000000c:  40 20 18 D5    msr tcr_el1, x0
+0x0000000000000010:  00 81 00 58    ldr x0, #0x1030
+0x0000000000000014:  00 A2 18 D5    msr mair_el1, x0
+0x0000000000000018:  40 7F 00 10    adr x0, #0x1000
+0x000000000000001c:  00 20 18 D5    msr ttbr0_el1, x0
+0x0000000000000020:  00 10 38 D5    mrs x0, sctlr_el1
+0x0000000000000024:  00 00 7E B2    orr x0, x0, #4
+0x0000000000000028:  00 00 74 B2    orr x0, x0, #0x1000
+0x000000000000002c:  00 00 40 B2    orr x0, x0, #1
+0x0000000000000030:  00 10 18 D5    msr sctlr_el1, x0
+0x0000000000000034:  9F 3F 03 D5    dsb sy
+0x0000000000000038:  DF 3F 03 D5    isb 
+0x000000000000003c:  E0 7F 00 58    ldr x0, #0x1038
+0x0000000000000040:  02 00 40 F9    ldr x2, [x0]
+0x0000000000000044:  00 00 00 14    b   #0x44
+0x0000000000000048:  1F 20 03 D5    nop 
+0x000000000000004c:  1F 20 03 D5    nop 
+0x0000000000000050:  1F 20 03 D5    nop 
+0x0000000000000054:  1F 20 03 D5    nop 
+*/
