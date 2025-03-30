@@ -546,3 +546,5 @@ Based on [ESR-EL1 Doc](https://developer.arm.com/documentation/ddi0601/2025-03/A
 - Syndrome / FSR = 6 = 0b000110	
 - Meaning "Translation fault, level 2"
 - But why halt at syscall 0?
+
+![Unicorn Emulator for Avaota-A1 SBC](https://lupyuen.org/images/unicorn3-avaota.jpg)
