@@ -546,5 +546,6 @@ Based on [ESR-EL1 Doc](https://developer.arm.com/documentation/ddi0601/2025-03/A
 - Syndrome / FSR = 6 = 0b000110	
 - Meaning "Translation fault, level 2"
 - But why halt at syscall 0?
+- NuttX seems to be doing the Initial Context Switch, according to the [Call Graph](https://raw.githubusercontent.com/lupyuen/pinephone-emulator/refs/heads/avaota/nuttx-boot-flow.mmd)
 
 ![Unicorn Emulator for Avaota-A1 SBC](https://lupyuen.org/images/unicorn3-avaota.jpg)
