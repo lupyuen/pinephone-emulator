@@ -9,6 +9,41 @@
 					"label": ""
 				}
 			]
+		},
+		{
+			"path": "../.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unicorn-engine-2.1.3/qemu/softmmu/cpus.c",
+			"bookmarks": [
+				{
+					"line": 83,
+					"column": 18,
+					"label": ""
+				},
+				{
+					"line": 109,
+					"column": 30,
+					"label": ""
+				},
+				{
+					"line": 116,
+					"column": 34,
+					"label": ""
+				},
+				{
+					"line": 121,
+					"column": 25,
+					"label": ""
+				},
+				{
+					"line": 127,
+					"column": 29,
+					"label": ""
+				},
+				{
+					"line": 132,
+					"column": 28,
+					"label": ""
+				}
+			]
 		}
 	]
 }
