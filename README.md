@@ -536,3 +536,13 @@ ESR_EL3=Ok(0)
 call_graph:  sys_call0 --> ***_HALT_***
 call_graph:  click sys_call0 href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/syscall.h#L151" "arch/arm64/include/syscall.h " _blank
 ```
+
+Unicorn reports the exception...
+- syndrome=0x86000006
+- fsr=0x206
+- vaddress=0x507fffff
+
+Based on [ESR-EL1 Doc](https://developer.arm.com/documentation/ddi0601/2025-03/AArch64-Registers/ESR-EL1--Exception-Syndrome-Register--EL1-)...
+- Syndrome / FSR = 6 = 0b000110	
+- Meaning "Translation fault, level 2"
+- But why halt at syscall 0?
