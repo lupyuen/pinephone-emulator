@@ -612,7 +612,7 @@ Is Unicorn expecting us to Hook this Interrupt and handle it?
 
 # Handle NuttX SysCall in Unicorn
 
-So we handle the interrupt: [src/main.rs](src/main.rs)
+Unicorn expects us to handle the NuttX SysCall. So we hook the SysCall Interrupt: [src/main.rs](src/main.rs)
 
 ```rust
 fn main() {
@@ -650,6 +650,13 @@ call_graph:  sched_unlock --> sys_call0
 call_graph:  click sched_unlock href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_unlock.c#L89" "sched/sched/sched_unlock.c " _blank
 >> exception index = 2
 hook_interrupt: intno=2
+PC=0x40806d60
+WARNING: Your register accessing on id 290 is deprecated and will get UC_ERR_ARG in the future release (2.2.0) because the accessing is either no-op or not defined. If you believe the register should be implemented or there is a bug, please submit an issue to https://github.com/unicorn-engine/unicorn. Set UC_IGNORE_REG_BREAK=1 to ignore this warning.
+CP_REG=Ok(0)
+ESR_EL0=Ok(0)
+ESR_EL1=Ok(0)
+ESR_EL2=Ok(0)
+ESR_EL3=Ok(0)
 hook_block:  address=0x40806d60, size=16, sched_unlock, sched/sched/sched_unlock.c:104:28
 call_graph:  sys_call0 --> sched_unlock
 call_graph:  click sys_call0 href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/syscall.h#L151" "arch/arm64/include/syscall.h " _blank
