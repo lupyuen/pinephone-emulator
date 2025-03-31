@@ -1,10 +1,10 @@
 # Unicorn Emulator for Apache NuttX RTOS on Avaota-A1 Arm64 SBC
 
-See https://github.com/lupyuen/pinephone-emulator/tree/avaota
+See https://github.com/lupyuen/nuttx-arm64-emulator/tree/avaota
 
 # Unicorn Emulator for Apache NuttX RTOS on QEMU Arm64
 
-See https://github.com/lupyuen/pinephone-emulator/tree/qemu
+See https://github.com/lupyuen/nuttx-arm64-emulator/tree/qemu
 
 # Emulate PinePhone with Unicorn Emulator
 
@@ -34,15 +34,15 @@ We begin by emulating simple Arm64 Machine Code...
 
 Suppose we wish to emulate some Arm64 Machine Code...
 
-https://github.com/lupyuen/pinephone-emulator/blob/bc5643dea66c70f57a150955a12884f695acf1a4/src/main.rs#L7-L8
+https://github.com/lupyuen/nuttx-arm64-emulator/blob/bc5643dea66c70f57a150955a12884f695acf1a4/src/main.rs#L7-L8
 
 Here's our Rust Program that calls Unicorn Emulator to emulate the Arm64 Machine Code...
 
-https://github.com/lupyuen/pinephone-emulator/blob/bc5643dea66c70f57a150955a12884f695acf1a4/src/main.rs#L1-L55
+https://github.com/lupyuen/nuttx-arm64-emulator/blob/bc5643dea66c70f57a150955a12884f695acf1a4/src/main.rs#L1-L55
 
 We add `unicorn-engine` to [Cargo.toml](Cargo.toml)...
 
-https://github.com/lupyuen/pinephone-emulator/blob/bc5643dea66c70f57a150955a12884f695acf1a4/Cargo.toml#L8-L9
+https://github.com/lupyuen/nuttx-arm64-emulator/blob/bc5643dea66c70f57a150955a12884f695acf1a4/Cargo.toml#L8-L9
 
 And we run our Rust Program...
 
@@ -54,9 +54,9 @@ And we run our Rust Program...
   Fresh bitflags v1.3.2
   Fresh libc v0.2.139
   Fresh unicorn-engine v2.0.1
-  Fresh pinephone-emulator v0.1.0
+  Fresh nuttx-arm64-emulator v0.1.0
 Finished dev [unoptimized + debuginfo] target(s) in 0.08s
-  Running `target/debug/pinephone-emulator`
+  Running `target/debug/nuttx-arm64-emulator`
 ```
 
 Our Rust Program works OK for emulating Arm64 Memory and Arm64 Registers.
@@ -73,7 +73,7 @@ Unicorn Emulator lets us attach hooks to Emulate Memory Access.
 
 Here's a Hook Function for Memory Access...
 
-https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L83-L95
+https://github.com/lupyuen/nuttx-arm64-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L83-L95
 
 Our Hook Function prints all Read / Write Access to Emulated Arm64 Memory.
 
@@ -81,9 +81,9 @@ Our Hook Function prints all Read / Write Access to Emulated Arm64 Memory.
 
 This is how we attach the Hook Function to the Unicorn Emulator...
 
-https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L59-L74
+https://github.com/lupyuen/nuttx-arm64-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L59-L74
 
-When we run our Rust Program, we see the Read and Write Memory Accesses made by our [Emulated Arm64 Code](https://github.com/lupyuen/pinephone-emulator/blob/bc5643dea66c70f57a150955a12884f695acf1a4/src/main.rs#L7-L8)...
+When we run our Rust Program, we see the Read and Write Memory Accesses made by our [Emulated Arm64 Code](https://github.com/lupyuen/nuttx-arm64-emulator/blob/bc5643dea66c70f57a150955a12884f695acf1a4/src/main.rs#L7-L8)...
 
 ```text
 hook_memory: 
@@ -115,11 +115,11 @@ Yep we can call Unicorn Emulator to add a Code Execution Hook.
 
 Here's a sample Hook Function that will be called for every Arm64 Instruction...
 
-https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L108-L117
+https://github.com/lupyuen/nuttx-arm64-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L108-L117
 
 And this is how we call Unicorn Emulator to add the above Hook Function...
 
-https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L52-L57
+https://github.com/lupyuen/nuttx-arm64-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L52-L57
 
 When we run our Rust Program, we see the Address of every Arm64 Instruction emulated (and its size)...
 
@@ -147,11 +147,11 @@ Yep Unicorn Emulator supports Block Execution Hooks.
 
 This Hook Function will be called once when executing a Block of Arm64 Instructions...
 
-https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L97-L106
+https://github.com/lupyuen/nuttx-arm64-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L97-L106
 
 This is how we add the Block Execution Hook...
 
-https://github.com/lupyuen/pinephone-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L48-L50
+https://github.com/lupyuen/nuttx-arm64-emulator/blob/3655ac2875664376f42ad3a3ced5cbf067790782/src/main.rs#L48-L50
 
 When we run the Rust Program, we see that that the Block Size is 8...
 
@@ -190,7 +190,7 @@ nuttx/arch/arm64/src/chip/a64_lowputc.S:91
   40080204:	d65f03c0 	ret
 ```
 
-[(Arm64 Disassembly)](https://github.com/lupyuen/pinephone-emulator/blob/a1fb82d829856d86d6845c477709c2be24373aca/nuttx/nuttx.S#L3398-L3411)
+[(Arm64 Disassembly)](https://github.com/lupyuen/nuttx-arm64-emulator/blob/a1fb82d829856d86d6845c477709c2be24373aca/nuttx/nuttx.S#L3398-L3411)
 
 [(Source Code)](https://github.com/apache/nuttx/blob/master/arch/arm64/src/a64/a64_lowputc.S#L61-L71)
 
@@ -215,7 +215,7 @@ hook_code:   address=0x400801f8, size=4
 hook_code:   address=0x400801fc, size=4
 ```
 
-[(Source)](https://github.com/lupyuen/pinephone-emulator/blob/cd030954c2ace4cf0207872f275abc3ffb7343c6/README.md#block-execution-hooks-for-arm64-emulation)
+[(Source)](https://github.com/lupyuen/nuttx-arm64-emulator/blob/cd030954c2ace4cf0207872f275abc3ffb7343c6/README.md#block-execution-hooks-for-arm64-emulation)
 
 The Block ends at `400801fc` because there's an Arm64 Branch Instruction `b.eq`.
 
@@ -235,13 +235,13 @@ hook_memory:
   value=0x0
 ```
 
-[(Source)](https://github.com/lupyuen/pinephone-emulator/blob/b842358ba457b67ffa9f4c1a362b0386cfd97c4a/README.md#block-execution-hooks-for-arm64-emulation)
+[(Source)](https://github.com/lupyuen/nuttx-arm64-emulator/blob/b842358ba457b67ffa9f4c1a362b0386cfd97c4a/README.md#block-execution-hooks-for-arm64-emulation)
 
 The log above says that address `0x01c2` `8014` is unmapped.
 
 This is how we map the memory...
 
-https://github.com/lupyuen/pinephone-emulator/blob/cd030954c2ace4cf0207872f275abc3ffb7343c6/src/main.rs#L26-L32
+https://github.com/lupyuen/nuttx-arm64-emulator/blob/cd030954c2ace4cf0207872f275abc3ffb7343c6/src/main.rs#L26-L32
 
 [(See the NuttX Memory Map)](https://github.com/apache/nuttx/blob/master/arch/arm64/include/a64/chip.h#L44-L52)
 
@@ -259,7 +259,7 @@ We have compiled [Apache NuttX RTOS for PinePhone](nuttx) into an Arm64 Binary I
 
 This is how we load the NuttX Binary Image into Unicorn...
 
-https://github.com/lupyuen/pinephone-emulator/blob/aa24d1c61256f38f92cf627d52c3e9a0c189bfc6/src/main.rs#L6-L40
+https://github.com/lupyuen/nuttx-arm64-emulator/blob/aa24d1c61256f38f92cf627d52c3e9a0c189bfc6/src/main.rs#L6-L40
 
 In our Rust Program above, we mapped 2 Memory Regions for NuttX...
 
@@ -298,7 +298,7 @@ hook_code:   address=0x400801f4, size=4
 ...
 ```
 
-[(Source)](https://github.com/lupyuen/pinephone-emulator/blob/045fa5da84d9e07ead5a820a075c1445661328b6/README.md#unicorn-emulator-waits-forever-for-uart-controller-ready)
+[(Source)](https://github.com/lupyuen/nuttx-arm64-emulator/blob/045fa5da84d9e07ead5a820a075c1445661328b6/README.md#unicorn-emulator-waits-forever-for-uart-controller-ready)
 
 The above log shows that Unicorn Emulator loops forever at address `0x4008` `01f4`, while reading the data from address `0x01c2` `8014`.
 
@@ -321,7 +321,7 @@ nuttx/arch/arm64/src/chip/a64_lowputc.S:91
   40080204:	d65f03c0 	ret
 ```
 
-[(Arm64 Disassembly)](https://github.com/lupyuen/pinephone-emulator/blob/a1fb82d829856d86d6845c477709c2be24373aca/nuttx/nuttx.S#L3398-L3411)
+[(Arm64 Disassembly)](https://github.com/lupyuen/nuttx-arm64-emulator/blob/a1fb82d829856d86d6845c477709c2be24373aca/nuttx/nuttx.S#L3398-L3411)
 
 Which comes from this NuttX Source Code...
 
@@ -356,7 +356,7 @@ Bit 5 needs to be set to 1 to indicate that the UART Transmit FIFO is ready.
 
 We emulate the UART Ready Bit like so...
 
-https://github.com/lupyuen/pinephone-emulator/blob/4d78876ad6f40126bf68cb2da4a43f56d9ef6e76/src/main.rs#L42-L49
+https://github.com/lupyuen/nuttx-arm64-emulator/blob/4d78876ad6f40126bf68cb2da4a43f56d9ef6e76/src/main.rs#L42-L49
 
 And Unicorn Emulator stops looping! It continues execution to `memset()` (to init the BSS Section to 0)...
 
@@ -370,7 +370,7 @@ hook_memory: address=0x400b6a54, size=1, mem_type=WRITE, value=0x0
 ...
 ```
 
-[(Source)](https://github.com/lupyuen/pinephone-emulator/blob/045fa5da84d9e07ead5a820a075c1445661328b6/README.md#unicorn-emulator-waits-forever-for-uart-controller-ready)
+[(Source)](https://github.com/lupyuen/nuttx-arm64-emulator/blob/045fa5da84d9e07ead5a820a075c1445661328b6/README.md#unicorn-emulator-waits-forever-for-uart-controller-ready)
 
 But we don't see any UART Output. Let's print the UART Output...
 
@@ -388,7 +388,7 @@ NuttX RTOS will write the UART Output to the UART Transmit Holding Register (THR
 
 In our Memory Access Hook, let's intercept all writes to `0x01c2` `8000` and dump the characters written to UART Output...
 
-https://github.com/lupyuen/pinephone-emulator/blob/aa6dd986857231a935617e8346978d7750aa51e7/src/main.rs#L89-L111
+https://github.com/lupyuen/nuttx-arm64-emulator/blob/aa6dd986857231a935617e8346978d7750aa51e7/src/main.rs#L89-L111
 
 When we run this, we see a long chain of UART Output...
 
@@ -537,7 +537,7 @@ To find out the cause of the Arm64 Exception, let's dump the Exception Syndrome 
 
 But this won't work...
 
-https://github.com/lupyuen/pinephone-emulator/blob/1cbfa48de10ef4735ebaf91ab85631cb48e37591/src/main.rs#L86-L91
+https://github.com/lupyuen/nuttx-arm64-emulator/blob/1cbfa48de10ef4735ebaf91ab85631cb48e37591/src/main.rs#L86-L91
 
 Because `ESR_EL` is [no longer supported](https://github.com/unicorn-engine/unicorn/blob/master/bindings/rust/src/arm64.rs#L288-L307) and `CP_REG` can't be read in Rust...
 
@@ -704,7 +704,7 @@ err=Err(EXCEPTION)
 
 [(Source)](https://gist.github.com/lupyuen/f2e883b2b8054d75fbac7de661f0ee5a)
 
-Our Hook Function looks up the Address in the [__DWARF Debug Symbols__](https://crates.io/crates/gimli) of the [__NuttX ELF File__](https://github.com/lupyuen/pinephone-emulator/blob/main/nuttx/nuttx).
+Our Hook Function looks up the Address in the [__DWARF Debug Symbols__](https://crates.io/crates/gimli) of the [__NuttX ELF File__](https://github.com/lupyuen/nuttx-arm64-emulator/blob/main/nuttx/nuttx).
 
 This is explained here...
 
@@ -900,15 +900,15 @@ Which produces this [Mermaid Flowchart](https://mermaid.js.org/syntax/flowchart.
 
 The Call Graph is generated by our Block Execution Hook like so...
 
-https://github.com/lupyuen/pinephone-emulator/blob/b23c1d251a7fb244f2e396419d12ab532deb3e6b/src/main.rs#L130-L159
+https://github.com/lupyuen/nuttx-arm64-emulator/blob/b23c1d251a7fb244f2e396419d12ab532deb3e6b/src/main.rs#L130-L159
 
 `call_graph` prints the Call Graph by looking up the Block Address in the ELF Context...
 
-https://github.com/lupyuen/pinephone-emulator/blob/b23c1d251a7fb244f2e396419d12ab532deb3e6b/src/main.rs#L224-L265
+https://github.com/lupyuen/nuttx-arm64-emulator/blob/b23c1d251a7fb244f2e396419d12ab532deb3e6b/src/main.rs#L224-L265
 
 We map the Block Address to Function Name and Source File in `map_address_to_function` and `map_address_to_location`...
 
-https://github.com/lupyuen/pinephone-emulator/blob/b23c1d251a7fb244f2e396419d12ab532deb3e6b/src/main.rs#L175-L222
+https://github.com/lupyuen/nuttx-arm64-emulator/blob/b23c1d251a7fb244f2e396419d12ab532deb3e6b/src/main.rs#L175-L222
 
 `ELF_CONTEXT` is explained here...
 
