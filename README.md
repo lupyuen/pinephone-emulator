@@ -519,9 +519,9 @@ Previously...
 
 -   [Unicorn Emulator for Apache NuttX RTOS on PinePhone](https://github.com/lupyuen/nuttx-arm64-emulator/tree/main)
 
-# Unicorn Exception at sys_call0
+# Unicorn Exception at NuttX SysCall
 
-Unicorn is stuck at sys_call0. Is syscall supported in Unicorn?
+While booting NuttX on Unicorn: NuttX triggers an Arm64 Exception is stuck at sys_call0. Is syscall supported in Unicorn?
 
 ```bash
 $ cargo run
@@ -610,7 +610,7 @@ The above is more complex than Original QEMU: [accel/tcg/cpu-exec.c](https://git
 
 Is Unicorn expecting us to Hook this Interrupt and handle it?
 
-# Handle Interrupt
+# Handle NuttX SysCall in Unicorn
 
 So we handle the interrupt: [src/main.rs](src/main.rs)
 
