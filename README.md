@@ -513,11 +513,13 @@ Read the articles...
 
 -   ["(Clickable) Call Graph for Apache NuttX Real-Time Operating System"](https://lupyuen.github.io/articles/unicorn2)
 
-# TODO
+# Unicorn Exception at sys_call0
 
 Unicorn is stuck at sys_call0. Is syscall supported in Unicorn?
 
 ```bash
+$ cargo run
+...
 hook_block:  address=0x40806d4c, size=04, sched_unlock, sched/sched/sched_unlock.c:90:18
 call_graph:  nxsched_merge_pending --> sched_unlock
 call_graph:  click nxsched_merge_pending href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_mergepending.c#L84" "sched/sched/sched_mergepending.c " _blank
@@ -537,7 +539,23 @@ call_graph:  sys_call0 --> ***_HALT_***
 call_graph:  click sys_call0 href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/syscall.h#L151" "arch/arm64/include/syscall.h " _blank
 ```
 
-Unicorn reports the exception...
+PC 0x40806d60 points to Arm64 SysCall `svc 0`: [nuttx.S](./nuttx/nuttx.S)
+
+```c
+sys_call0():
+/Users/luppy/avaota/nuttx/include/arch/syscall.h:152
+/* SVC with SYS_ call number and no parameters */
+static inline uintptr_t sys_call0(unsigned int nbr)
+{
+  register uint64_t reg0 __asm__("x0") = (uint64_t)(nbr);
+    40806d58:	d2800040 	mov	x0, #0x2                   	// #2
+/Users/luppy/avaota/nuttx/include/arch/syscall.h:154
+  __asm__ __volatile__
+    40806d5c:	d4000001 	svc	#0x0
+// 0x40806d60 is the next instruction to be executed on return from SysCall
+```
+
+Unicorn reports the exception as...
 - syndrome=0x86000006
 - fsr=0x206
 - vaddress=0x507fffff
@@ -545,7 +563,7 @@ Unicorn reports the exception...
 Based on [ESR-EL1 Doc](https://developer.arm.com/documentation/ddi0601/2025-03/AArch64-Registers/ESR-EL1--Exception-Syndrome-Register--EL1-)...
 - Syndrome / FSR = 6 = 0b000110	
 - Meaning "Translation fault, level 2"
-- But why halt at syscall 0?
-- NuttX seems to be doing the Initial Context Switch, according to the [Call Graph](https://raw.githubusercontent.com/lupyuen/pinephone-emulator/refs/heads/avaota/nuttx-boot-flow.mmd)
+- But why halt at sys_call0?
+- NuttX seems to be triggering the SysCall for Initial Context Switch, according to the [Call Graph](https://raw.githubusercontent.com/lupyuen/pinephone-emulator/refs/heads/avaota/nuttx-boot-flow.mmd)
 
 ![Unicorn Emulator for Avaota-A1 SBC](https://lupyuen.org/images/unicorn3-avaota.jpg)
