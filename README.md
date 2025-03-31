@@ -600,6 +600,8 @@ static inline bool cpu_handle_exception(CPUState *cpu, int *ret) {
   }
 ```
 
-TODO: What exception is this?
+The above is more complex than Original QEMU: [accel/tcg/cpu-exec.c](https://github.com/qemu/qemu/blob/0f15892acaf3f50ecc20c6dad4b3ebdd701aa93e/accel/tcg/cpu-exec.c#L705)
+
+TODO: Is Unicorn expecting us to Hook this Interrupt and handle it?
 
 ![Unicorn Emulator for Avaota-A1 SBC](https://lupyuen.org/images/unicorn3-avaota.jpg)
