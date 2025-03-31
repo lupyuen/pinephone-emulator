@@ -527,6 +527,8 @@ hook_block:  address=0x40806d50, size=08, sched_unlock, sched/sched/sched_unlock
 hook_block:  address=0x40806d58, size=08, sys_call0, arch/arm64/include/syscall.h:152:21
 call_graph:  sched_unlock --> sys_call0
 call_graph:  click sched_unlock href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_unlock.c#L89" "sched/sched/sched_unlock.c " _blank
+>> exception index = 2
+AAAAAAAAAAAA
 >>> invalid memory accessed, STOP = 21!!!
 err=Err(EXCEPTION)
 PC=0x40806d60
