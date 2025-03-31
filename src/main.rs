@@ -94,6 +94,9 @@ fn main() {
         hook_memory  // Hook Function
     ).expect("failed to add memory hook");
 
+    // Add Interrupt Hook
+    let _ = emu.add_intr_hook(hook_interrupt).unwrap();
+
     // Emulate Arm64 Machine Code
     let err = emu.emu_start(
         ADDRESS,  // Begin Address
@@ -118,6 +121,14 @@ fn main() {
         Some("***_HALT_***".to_string()), // Function Name
         (None, None, None)  // Function Location
     );
+}
+
+/// Hook Function to Handle Interrupt
+fn hook_interrupt(
+    emu: &mut Unicorn<()>,  // Emulator
+    intno: u32, // Interrupt Number
+) {
+    println!("hook_interrupt: intno={intno}");
 }
 
 /// Hook Function for Memory Access.
