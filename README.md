@@ -602,6 +602,100 @@ static inline bool cpu_handle_exception(CPUState *cpu, int *ret) {
 
 The above is more complex than Original QEMU: [accel/tcg/cpu-exec.c](https://github.com/qemu/qemu/blob/0f15892acaf3f50ecc20c6dad4b3ebdd701aa93e/accel/tcg/cpu-exec.c#L705)
 
-TODO: Is Unicorn expecting us to Hook this Interrupt and handle it?
+Is Unicorn expecting us to Hook this Interrupt and handle it?
+
+# Handle Interrupt
+
+So we handle the interrupt: [src/main.rs](src/main.rs)
+
+```rust
+fn main() {
+    ...
+    // Add Interrupt Hook
+    let _ = emu.add_intr_hook(hook_interrupt).unwrap();
+
+    // Emulate Arm64 Machine Code
+    let err = emu.emu_start(
+        ADDRESS,  // Begin Address
+        ADDRESS + KERNEL_SIZE as u64,  // End Address
+        0,  // No Timeout
+        0   // Unlimited number of instructions
+    );
+    ...
+}
+
+/// Hook Function to Handle Interrupt
+fn hook_interrupt(
+    emu: &mut Unicorn<()>,  // Emulator
+    intno: u32, // Interrupt Number
+) {
+    println!("hook_interrupt: intno={intno}");
+}
+```
+
+And it works!
+
+```bash
+$ cargo run
+...
+hook_block:  address=0x40806d50, size=08, sched_unlock, sched/sched/sched_unlock.c:92:19
+hook_block:  address=0x40806d58, size=08, sys_call0, arch/arm64/include/syscall.h:152:21
+call_graph:  sched_unlock --> sys_call0
+call_graph:  click sched_unlock href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_unlock.c#L89" "sched/sched/sched_unlock.c " _blank
+>> exception index = 2
+hook_interrupt: intno=2
+hook_block:  address=0x40806d60, size=16, sched_unlock, sched/sched/sched_unlock.c:104:28
+call_graph:  sys_call0 --> sched_unlock
+call_graph:  click sys_call0 href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/syscall.h#L151" "arch/arm64/include/syscall.h " _blank
+hook_block:  address=0x40806d90, size=04, up_irq_restore, arch/arm64/include/irq.h:383:3
+hook_block:  address=0x40806d94, size=12, sched_unlock, sched/sched/sched_unlock.c:168:1
+call_graph:  up_irq_restore --> sched_unlock
+call_graph:  click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
+hook_block:  address=0x408062b4, size=04, nx_start, sched/init/nx_start.c:782:7
+hook_block:  address=0x408169c8, size=08, up_idle, arch/arm64/src/common/arm64_idle.c:62:3
+call_graph:  nx_start --> up_idle
+call_graph:  click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L781" "sched/init/nx_start.c " _blank
+>> exception index = 65537
+>>> stop with r = 10001, HLT=10001
+>>> got HLT!!!
+err=Ok(())
+PC=0x408169d0
+WARNING: Your register accessing on id 290 is deprecated and will get UC_ERR_ARG in the future release (2.2.0) because the accessing is either no-op or not defined. If you believe the register should be implemented or there is a bug, please submit an issue to https://github.com/unicorn-engine/unicorn. Set UC_IGNORE_REG_BREAK=1 to ignore this warning.
+CP_REG=Ok(0)
+ESR_EL0=Ok(0)
+ESR_EL1=Ok(0)
+ESR_EL2=Ok(0)
+ESR_EL3=Ok(0)
+call_graph:  up_idle --> ***_HALT_***
+call_graph:  click up_idle href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_idle.c#L61" "arch/arm64/src/common/arm64_idle.c " _blank
+```
+
+PC 0x408169d0 points to WFI: [nuttx/nuttx.S](nuttx/nuttx.S)
+
+```c
+00000000408169c8 <up_idle>:
+up_idle():
+/Users/luppy/avaota/nuttx/arch/arm64/src/common/arm64_idle.c:62
+  nxsched_process_timer();
+#else
+  /* Sleep until an interrupt occurs to save power */
+  asm("dsb sy");
+    408169c8:	d5033f9f 	dsb	sy
+/Users/luppy/avaota/nuttx/arch/arm64/src/common/arm64_idle.c:63
+  asm("wfi");
+    408169cc:	d503207f 	wfi
+/Users/luppy/avaota/nuttx/arch/arm64/src/common/arm64_idle.c:65
+#endif
+}
+// 408169d0 is the next instruction after WFI
+```
+
+NuttX Scheduler seems to be waiting for Timer Interrupt, to continue booting.
+
+TODO: Should we simulate the timer to start NuttX?
+
+TODO: Should we do something in `svc 0` interrupt?
+
+TODO: Why is Interrupt Number intno=2?
 
 ![Unicorn Emulator for Avaota-A1 SBC](https://lupyuen.org/images/unicorn3-avaota.jpg)
