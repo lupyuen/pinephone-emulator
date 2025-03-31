@@ -513,6 +513,12 @@ Read the articles...
 
 -   ["(Clickable) Call Graph for Apache NuttX Real-Time Operating System"](https://lupyuen.github.io/articles/unicorn2)
 
+Previously...
+
+-   [Unicorn Emulator for Apache NuttX RTOS on QEMU Arm64](https://github.com/lupyuen/nuttx-arm64-emulator/tree/qemu)
+
+-   [Unicorn Emulator for Apache NuttX RTOS on PinePhone](https://github.com/lupyuen/nuttx-arm64-emulator/tree/main)
+
 # Unicorn Exception at sys_call0
 
 Unicorn is stuck at sys_call0. Is syscall supported in Unicorn?
