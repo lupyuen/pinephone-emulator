@@ -598,4 +598,6 @@ static inline bool cpu_handle_exception(CPUState *cpu, int *ret) {
   }
 ```
 
+TODO: What exception is this?
+
 ![Unicorn Emulator for Avaota-A1 SBC](https://lupyuen.org/images/unicorn3-avaota.jpg)
