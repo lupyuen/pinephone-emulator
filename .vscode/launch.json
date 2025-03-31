@@ -7,15 +7,15 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'pinephone-emulator'",
+            "name": "Debug executable 'nuttx-arm64-emulator'",
             "cargo": {
                 "args": [
                     "build",
-                    "--bin=pinephone-emulator",
-                    "--package=pinephone-emulator"
+                    "--bin=nuttx-arm64-emulator",
+                    "--package=nuttx-arm64-emulator"
                 ],
                 "filter": {
-                    "name": "pinephone-emulator",
+                    "name": "nuttx-arm64-emulator",
                     "kind": "bin"
                 }
             },
@@ -25,16 +25,16 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'pinephone-emulator'",
+            "name": "Debug unit tests in executable 'nuttx-arm64-emulator'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin=pinephone-emulator",
-                    "--package=pinephone-emulator"
+                    "--bin=nuttx-arm64-emulator",
+                    "--package=nuttx-arm64-emulator"
                 ],
                 "filter": {
-                    "name": "pinephone-emulator",
+                    "name": "nuttx-arm64-emulator",
                     "kind": "bin"
                 }
             },

@@ -141,6 +141,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "nuttx-arm64-emulator"
+version = "0.1.0"
+dependencies = [
+ "addr2line",
+ "gimli",
+ "once_cell",
+ "unicorn-engine",
+]
+
+[[package]]
 name = "object"
 version = "0.30.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -155,16 +165,6 @@ name = "once_cell"
 version = "1.17.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b7e5500299e16ebb147ae15a00a942af264cf3688f47923b8fc2cd5858f23ad3"
-
-[[package]]
-name = "pinephone-emulator"
-version = "0.1.0"
-dependencies = [
- "addr2line",
- "gimli",
- "once_cell",
- "unicorn-engine",
-]
 
 [[package]]
 name = "pkg-config"
