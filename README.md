@@ -527,6 +527,7 @@ hook_block:  address=0x40806d50, size=08, sched_unlock, sched/sched/sched_unlock
 hook_block:  address=0x40806d58, size=08, sys_call0, arch/arm64/include/syscall.h:152:21
 call_graph:  sched_unlock --> sys_call0
 call_graph:  click sched_unlock href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_unlock.c#L89" "sched/sched/sched_unlock.c " _blank
+>>> invalid memory accessed, STOP = 21!!!
 err=Err(EXCEPTION)
 PC=0x40806d60
 WARNING: Your register accessing on id 290 is deprecated and will get UC_ERR_ARG in the future release (2.2.0) because the accessing is either no-op or not defined. If you believe the register should be implemented or there is a bug, please submit an issue to https://github.com/unicorn-engine/unicorn. Set UC_IGNORE_REG_BREAK=1 to ignore this warning.
@@ -565,5 +566,8 @@ Based on [ESR-EL1 Doc](https://developer.arm.com/documentation/ddi0601/2025-03/A
 - Meaning "Translation fault, level 2"
 - But why halt at sys_call0?
 - NuttX seems to be triggering the SysCall for Initial Context Switch, according to the [Call Graph](https://raw.githubusercontent.com/lupyuen/pinephone-emulator/refs/heads/avaota/nuttx-boot-flow.mmd)
+
+`invalid memory accessed, STOP = 21!!!`
+- 21 means UC_ERR_EXCEPTION
 
 ![Unicorn Emulator for Avaota-A1 SBC](https://lupyuen.org/images/unicorn3-avaota.jpg)
