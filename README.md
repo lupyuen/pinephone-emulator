@@ -1,3 +1,11 @@
+# Unicorn Emulator for Apache NuttX RTOS on Avaota-A1 Arm64 SBC
+
+See https://github.com/lupyuen/pinephone-emulator/tree/avaota
+
+# Unicorn Emulator for Apache NuttX RTOS on QEMU Arm64
+
+See https://github.com/lupyuen/pinephone-emulator/tree/qemu
+
 # Emulate PinePhone with Unicorn Emulator
 
 Read the articles...
