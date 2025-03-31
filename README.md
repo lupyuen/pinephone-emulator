@@ -567,7 +567,35 @@ Based on [ESR-EL1 Doc](https://developer.arm.com/documentation/ddi0601/2025-03/A
 - But why halt at sys_call0?
 - NuttX seems to be triggering the SysCall for Initial Context Switch, according to the [Call Graph](https://raw.githubusercontent.com/lupyuen/pinephone-emulator/refs/heads/avaota/nuttx-boot-flow.mmd)
 
-`invalid memory accessed, STOP = 21!!!`
+Unicorn prints `invalid memory accessed, STOP = 21!!!`
 - 21 means UC_ERR_EXCEPTION
+
+Unicorn Exception is triggered here: unicorn-engine-2.1.3/qemu/accel/tcg/cpu-exec.c
+
+```c
+static inline bool cpu_handle_exception(CPUState *cpu, int *ret) {
+  ...
+  // Unicorn: call registered interrupt callbacks
+  catched = false;
+  HOOK_FOREACH_VAR_DECLARE;
+  HOOK_FOREACH(uc, hook, UC_HOOK_INTR) {
+      if (hook->to_delete) {
+          continue;
+      }
+      JIT_CALLBACK_GUARD(((uc_cb_hookintr_t)hook->callback)(uc, cpu->exception_index, hook->user_data));
+      catched = true;
+  }
+  // Unicorn: If un-catched interrupt, stop executions.
+  if (!catched) {
+      printf("AAAAAAAAAAAA\n"); // qq
+      if (uc->invalid_error == UC_ERR_OK) {
+          //// EXCEPTION HAPPENS HERE
+          uc->invalid_error = UC_ERR_EXCEPTION;
+      }
+      cpu->halted = 1;
+      *ret = EXCP_HLT;
+      return true;
+  }
+```
 
 ![Unicorn Emulator for Avaota-A1 SBC](https://lupyuen.org/images/unicorn3-avaota.jpg)
