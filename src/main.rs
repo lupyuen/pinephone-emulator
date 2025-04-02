@@ -116,6 +116,26 @@ fn main() {
     println!("ESR_EL2={:?}", emu.reg_read(RegisterARM64::ESR_EL2));
     println!("ESR_EL3={:?}", emu.reg_read(RegisterARM64::ESR_EL3));
 
+    // Continue the Emulator
+    let pc = emu.reg_read(RegisterARM64::PC).unwrap();
+    let err = emu.emu_start(
+        pc,  // Begin Address
+        ADDRESS + KERNEL_SIZE as u64,  // End Address
+        0,  // No Timeout
+        0   // Unlimited number of instructions
+    );
+
+    // Print the Emulator Error
+    println!("err={:?}", err);
+
+    // Doesn't work for printing the Exception Registers
+    println!("PC=0x{:x}",  emu.reg_read(RegisterARM64::PC).unwrap());
+    println!("CP_REG={:?}",  emu.reg_read(RegisterARM64::CP_REG));
+    println!("ESR_EL0={:?}", emu.reg_read(RegisterARM64::ESR_EL0));
+    println!("ESR_EL1={:?}", emu.reg_read(RegisterARM64::ESR_EL1));
+    println!("ESR_EL2={:?}", emu.reg_read(RegisterARM64::ESR_EL2));
+    println!("ESR_EL3={:?}", emu.reg_read(RegisterARM64::ESR_EL3));
+
     // Close the Call Graph
     call_graph(0, 0,  // Address and Size
         Some("***_HALT_***".to_string()), // Function Name
