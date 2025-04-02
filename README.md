@@ -715,4 +715,6 @@ TODO: GICv3 won't work in Unicorn, so we have to simulate Timer Interrupts and I
 
 TODO: Read VBAR_EL1 to fetch Vector Table. Then trigger SVC 0 and Timer Interrupt.
 
+TODO: What's inside the Vector Table?
+
 ![Unicorn Emulator for Avaota-A1 SBC](https://lupyuen.org/images/unicorn3-avaota.jpg)
