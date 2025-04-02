@@ -754,4 +754,15 @@ void up_enable_irq(int irq) {
   ...
 ```
 
+# TODO
+
+```text
+Page C6-2411
+SVC
+Supervisor call
+This instruction causes an exception to be taken to EL1.
+On executing an SVC instruction, the PE records the exception as a Supervisor Call exception in ESR_ELx, using the EC
+value 0x15, and the value of the immediate argument.
+```
+
 ![Unicorn Emulator for Avaota-A1 SBC](https://lupyuen.org/images/unicorn3-avaota.jpg)
