@@ -705,7 +705,7 @@ up_idle():
 
 NuttX Scheduler seems to be waiting for Timer Interrupt, to continue booting.
 
-TODO: Should we simulate the timer to start NuttX?
+TODO: Should we simulate the timer to start NuttX? https://lupyuen.org/articles/interrupt.html#timer-interrupt-isnt-handled
 
 TODO: Should we do something in `svc 0` interrupt?
 
