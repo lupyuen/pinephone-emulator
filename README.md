@@ -711,4 +711,6 @@ TODO: Should we do something in `svc 0` interrupt?
 
 TODO: Why is Interrupt Number intno=2?
 
+TODO: GICv3 won't work in Unicorn, so we have to simulate Timer Interrupts and I/O Interrupts
+
 ![Unicorn Emulator for Avaota-A1 SBC](https://lupyuen.org/images/unicorn3-avaota.jpg)
