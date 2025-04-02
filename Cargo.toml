@@ -1,6 +1,6 @@
 [package]
 name = "nuttx-arm64-emulator"
-version = "1.0.2"
+version = "1.0.3"
 edition = "2021"
 license = "Apache-2.0"
 description = "Emulate Apache NuttX RTOS for Arm64 with Unicorn Emulator (Avaota-A1 SBC)"

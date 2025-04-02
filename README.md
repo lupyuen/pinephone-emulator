@@ -509,6 +509,8 @@ Read the articles...
 
 -   ["Inside Arm64 MMU: Unicorn Emulator vs Apache NuttX RTOS"](https://lupyuen.org/articles/unicorn3.html)
 
+-   ["Porting Apache NuttX RTOS to Avaota-A1 SBC (Allwinner A527 SoC)"](https://lupyuen.org/articles/avaota.html)
+
 -   ["(Possibly) Emulate PinePhone with Unicorn Emulator"](https://lupyuen.org/articles/unicorn.html)
 
 -   ["(Clickable) Call Graph for Apache NuttX Real-Time Operating System"](https://lupyuen.org/articles/unicorn2.html)
