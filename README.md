@@ -742,4 +742,16 @@ nxtask_activate: AppBringUp pid=3,TCB=0x4084c190
 nx_start: CPU0: Beginning Idle Loop
 ```
 
+# Emulate GICv3 in Unicorn
+
+up_enable_irq calls arm64_gic_irq_enable. So we should emulate GICv3:
+
+arch/arm64/src/common/arm64_gicv3.c:683
+
+```text
+void up_enable_irq(int irq) {
+  arm64_gic_irq_enable(irq);
+  ...
+```
+
 ![Unicorn Emulator for Avaota-A1 SBC](https://lupyuen.org/images/unicorn3-avaota.jpg)
