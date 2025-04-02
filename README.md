@@ -711,10 +711,33 @@ TODO: Should we do something in `svc 0` interrupt?
 
 TODO: Why is Interrupt Number intno=2?
 
-TODO: GICv3 won't work in Unicorn, so we have to simulate Timer Interrupts and I/O Interrupts
-
 TODO: Read VBAR_EL1 to fetch Vector Table. Then trigger SVC 0 and Timer Interrupt.
 
 TODO: What's inside the Vector Table?
+
+# Unicorn Output
+
+TODO: GICv3 won't work in Unicorn, so we have to simulate Timer Interrupts and I/O Interrupts
+
+TODO: Emulate the GIC Version, to make NuttX happt
+
+```bash
+$ cargo run | grep "uart output"
+- Ready to Boot Primary CPU
+- Boot from EL1
+- Boot to C runtime for OS Initialize
+nx_start: Entry
+up_allocate_kheap: heap_start=0x0x40849000, heap_size=0x77b7000
+gic_validate_dist_version: No GIC version detect
+arm64_gic_initialize: no distributor detected, giving up ret=-19
+uart_register: Registering /dev/console
+uart_register: Registering /dev/ttyS0
+work_start_highpri: Starting high-priority kernel worker thread(s)
+nxtask_activate: hpwork pid=1,TCB=0x40849e78
+work_start_lowpri: Starting low-priority kernel worker thread(s)
+nxtask_activate: lpwork pid=2,TCB=0x4084c008
+nxtask_activate: AppBringUp pid=3,TCB=0x4084c190
+nx_start: CPU0: Beginning Idle Loop
+```
 
 ![Unicorn Emulator for Avaota-A1 SBC](https://lupyuen.org/images/unicorn3-avaota.jpg)
