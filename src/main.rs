@@ -110,7 +110,7 @@ fn main() {
 
     // Doesn't work for printing the Exception Registers
     println!("PC=0x{:x}",  emu.reg_read(RegisterARM64::PC).unwrap());
-    println!("CP_REG={:?}",  emu.reg_read(RegisterARM64::CP_REG));
+    // println!("CP_REG={:?}",  emu.reg_read(RegisterARM64::CP_REG));
     println!("ESR_EL0={:?}", emu.reg_read(RegisterARM64::ESR_EL0));
     println!("ESR_EL1={:?}", emu.reg_read(RegisterARM64::ESR_EL1));
     println!("ESR_EL2={:?}", emu.reg_read(RegisterARM64::ESR_EL2));
@@ -130,7 +130,7 @@ fn main() {
 
     // Doesn't work for printing the Exception Registers
     println!("PC=0x{:x}",  emu.reg_read(RegisterARM64::PC).unwrap());
-    println!("CP_REG={:?}",  emu.reg_read(RegisterARM64::CP_REG));
+    // println!("CP_REG={:?}",  emu.reg_read(RegisterARM64::CP_REG));
     println!("ESR_EL0={:?}", emu.reg_read(RegisterARM64::ESR_EL0));
     println!("ESR_EL1={:?}", emu.reg_read(RegisterARM64::ESR_EL1));
     println!("ESR_EL2={:?}", emu.reg_read(RegisterARM64::ESR_EL2));
@@ -150,7 +150,7 @@ fn hook_interrupt(
 ) {
     println!("hook_interrupt: intno={intno}");
     println!("PC=0x{:x}",  emu.reg_read(RegisterARM64::PC).unwrap());
-    println!("CP_REG={:?}",  emu.reg_read(RegisterARM64::CP_REG));
+    // println!("CP_REG={:?}",  emu.reg_read(RegisterARM64::CP_REG));
     println!("ESR_EL0={:?}", emu.reg_read(RegisterARM64::ESR_EL0));
     println!("ESR_EL1={:?}", emu.reg_read(RegisterARM64::ESR_EL1));
     println!("ESR_EL2={:?}", emu.reg_read(RegisterARM64::ESR_EL2));
