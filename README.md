@@ -709,14 +709,6 @@ NuttX Scheduler seems to be waiting for Timer Interrupt, to continue booting.
 
 TODO: Should we simulate the timer to start NuttX? https://lupyuen.org/articles/interrupt.html#timer-interrupt-isnt-handled
 
-TODO: Should we do something in `svc 0` interrupt?
-
-TODO: Why is Interrupt Number intno=2?
-
-TODO: Read VBAR_EL1 to fetch Vector Table. Then trigger SVC 0 and Timer Interrupt.
-
-TODO: What's inside the Vector Table?
-
 # Unicorn Output
 
 TODO: GICv3 won't work in Unicorn, so we have to simulate Timer Interrupts and I/O Interrupts
@@ -771,6 +763,69 @@ SYSCALL_LOOKUP(sched_lockcount,            0)
 SYSCALL_LOOKUP(sched_unlock,               0)
 SYSCALL_LOOKUP(sched_yield,                0)
 ```
+
+Parameter to SysCall 0 is 2...
+
+```c
+/Users/luppy/avaota/nuttx/sched/sched/sched_unlock.c:92
+                {
+                  up_switch_context(this_task(), rtcb);
+    40807230:	d538d080 	mrs	x0, tpidr_el1
+    40807234:	37000060 	tbnz	w0, #0, 40807240 <sched_unlock+0x80>
+sys_call0():
+/Users/luppy/avaota/nuttx/include/arch/syscall.h:152
+/* SVC with SYS_ call number and no parameters */
+static inline uintptr_t sys_call0(unsigned int nbr)
+{
+  register uint64_t reg0 __asm__("x0") = (uint64_t)(nbr);
+    40807238:	d2800040 	mov	x0, #0x2                   	// #2
+/Users/luppy/avaota/nuttx/include/arch/syscall.h:154
+  __asm__ __volatile__
+    4080723c:	d4000001 	svc	#0x0
+```
+
+Which means Switch Context...
+
+https://github.com/apache/nuttx/blob/master/arch/arm64/include/syscall.h#L78-L83
+
+```c
+/* SYS call 2:
+ * void arm64_switchcontext(void **saveregs, void *restoreregs);
+ */
+#define SYS_switch_context        (2)
+```
+
+Which is implemented here...
+
+https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_syscall.c#L201-L216
+
+```c
+uint64_t *arm64_syscall(uint64_t *regs) {
+  ...
+      case SYS_switch_context:
+
+        /* Update scheduler parameters */
+
+        nxsched_suspend_scheduler(*running_task);
+        nxsched_resume_scheduler(tcb);
+        *running_task = tcb;
+
+        /* Restore the cpu lock */
+
+        restore_critical_section(tcb, cpu);
+#ifdef CONFIG_ARCH_ADDRENV
+        addrenv_switch(tcb);
+#endif
+        break;
+```
+
+TODO: Should we do something in `svc 0` interrupt?
+
+TODO: Why is Interrupt Number intno=2?
+
+TODO: Read VBAR_EL1 to fetch Vector Table. Then trigger SVC 0 and Timer Interrupt.
+
+TODO: What's inside the Vector Table?
 
 # TODO
 
