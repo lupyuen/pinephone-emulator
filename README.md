@@ -754,6 +754,24 @@ void up_enable_irq(int irq) {
   ...
 ```
 
+# NuttX SysCall 0
+
+_What's NuttX SysCall 0?_
+
+Look for SysCall 0 in the list below, it includes plenty of Scheduler Functions...
+
+https://github.com/apache/nuttx/blob/master/include/sys/syscall_lookup.h
+
+```c
+SYSCALL_LOOKUP(getpid,                     0)
+SYSCALL_LOOKUP(gettid,                     0)
+SYSCALL_LOOKUP(sched_getcpu,               0)
+SYSCALL_LOOKUP(sched_lock,                 0)
+SYSCALL_LOOKUP(sched_lockcount,            0)
+SYSCALL_LOOKUP(sched_unlock,               0)
+SYSCALL_LOOKUP(sched_yield,                0)
+```
+
 # TODO
 
 ```text
