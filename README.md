@@ -768,4 +768,6 @@ value 0x15, and the value of the immediate argument.
 do_arm_semihosting
 - https://github.com/search?q=repo%3Aunicorn-engine/unicorn%20do_arm_semihosting&type=code
 
+vbar_el1 = 1082290176
+
 ![Unicorn Emulator for Avaota-A1 SBC](https://lupyuen.org/images/unicorn3-avaota.jpg)
