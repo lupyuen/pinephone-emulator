@@ -819,13 +819,21 @@ uint64_t *arm64_syscall(uint64_t *regs) {
         break;
 ```
 
-TODO: Should we do something in `svc 0` interrupt?
+Who calls arm64_syscall? It's called by arm64_sync_exc to handle Synchronous Exception for AArch64:
+
+https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_vectors.S#L195
+
+Who calls arm64_sync_exc? It's called by the Vector Table for:
+- Synchronous Exception from same exception level, when using the SP_EL0 stack pointer
+- Synchronous Exception from same exception level, when using the SP_ELx stack pointer (we're using EL1)
+
+https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_vector_table.S#L158
+
+TODO: Read VBAR_EL1 to fetch Vector Table. Then trigger SVC 0 at EL1
+
+TODO: Read VBAR_EL1 to fetch Vector Table. Then trigger Timer Interrupt
 
 TODO: Why is Interrupt Number intno=2?
-
-TODO: Read VBAR_EL1 to fetch Vector Table. Then trigger SVC 0 and Timer Interrupt.
-
-TODO: What's inside the Vector Table?
 
 # TODO
 
