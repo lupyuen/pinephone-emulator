@@ -76,15 +76,15 @@ fn main() {
     ).expect("failed to set UART_LSR");
 
     // Add Hook for emulating each Basic Block of Arm64 Instructions
-    let _ = emu.add_block_hook(1, 0, hook_block)
-        .expect("failed to add block hook");
+    // let _ = emu.add_block_hook(1, 0, hook_block)
+    //     .expect("failed to add block hook");
 
     // Add Hook for emulating each Arm64 Instruction
-    let _ = emu.add_code_hook(
-        ADDRESS,  // Begin Address
-        ADDRESS + KERNEL_SIZE as u64,  // End Address
-        hook_code  // Hook Function for Code Emulation
-    ).expect("failed to add code hook");
+    // let _ = emu.add_code_hook(
+    //     ADDRESS,  // Begin Address
+    //     ADDRESS + KERNEL_SIZE as u64,  // End Address
+    //     hook_code  // Hook Function for Code Emulation
+    // ).expect("failed to add code hook");
 
     // Add Hook for Arm64 Memory Access
     let _ = emu.add_mem_hook(
