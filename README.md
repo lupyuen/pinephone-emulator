@@ -709,43 +709,6 @@ NuttX Scheduler seems to be waiting for Timer Interrupt, to continue booting.
 
 TODO: Should we simulate the timer to start NuttX? https://lupyuen.org/articles/interrupt.html#timer-interrupt-isnt-handled
 
-# Unicorn Output
-
-TODO: GICv3 won't work in Unicorn, so we have to simulate Timer Interrupts and I/O Interrupts
-
-TODO: Emulate the GIC Version, to make NuttX happt
-
-```bash
-$ cargo run | grep "uart output"
-- Ready to Boot Primary CPU
-- Boot from EL1
-- Boot to C runtime for OS Initialize
-nx_start: Entry
-up_allocate_kheap: heap_start=0x0x40849000, heap_size=0x77b7000
-gic_validate_dist_version: No GIC version detect
-arm64_gic_initialize: no distributor detected, giving up ret=-19
-uart_register: Registering /dev/console
-uart_register: Registering /dev/ttyS0
-work_start_highpri: Starting high-priority kernel worker thread(s)
-nxtask_activate: hpwork pid=1,TCB=0x40849e78
-work_start_lowpri: Starting low-priority kernel worker thread(s)
-nxtask_activate: lpwork pid=2,TCB=0x4084c008
-nxtask_activate: AppBringUp pid=3,TCB=0x4084c190
-nx_start: CPU0: Beginning Idle Loop
-```
-
-# Emulate GICv3 in Unicorn
-
-up_enable_irq calls arm64_gic_irq_enable. So we should emulate GICv3:
-
-arch/arm64/src/common/arm64_gicv3.c:683
-
-```text
-void up_enable_irq(int irq) {
-  arm64_gic_irq_enable(irq);
-  ...
-```
-
 # NuttX SysCall 0
 
 _What's NuttX SysCall 0?_
@@ -1050,6 +1013,8 @@ reserved_syscall:
 
 Aha ESR_EL1 is missing! That's why it's calling arm64_fatal_handler!
 
+# Fix ESR_EL1
+
 We fix ESR_EL1: [src/main.rs](src/main.rs)
 
 ```rust
@@ -1063,7 +1028,7 @@ emu.reg_write(RegisterARM64::ESR_EL1, esr_el1).unwrap();
 emu.reg_write(RegisterARM64::PC, svc).unwrap();
 ```
 
-Now we see...
+NuttX on Unicorn now boots to SysCall from NuttX Apps. Yay!
 
 ```bash
 - Ready to Boot Primary CPU
@@ -1179,7 +1144,60 @@ ESR_EL3=Ok(0)
 TODO: Handle SysCall from NuttX Apps
 ```
 
-TODO: What is SysCall Command 9?
+# SysCall from NuttX App
+
+_What is SysCall Command 9? Where in NSH Shell is 0xc0003f00?_
+
+It's from NSH Shell gettid: [nuttx/nuttx-init.S](nuttx/nuttx-init.S)
+
+```c
+0000000000002ef4 <gettid>:
+gettid():
+    2ef4:	d2800120 	mov	x0, #0x9                   	// #9
+    2ef8:	f81f0ffe 	str	x30, [sp, #-16]!
+    2efc:	d4000001 	svc	#0x0
+    2f00:	f84107fe 	ldr	x30, [sp], #16
+    2f04:	d65f03c0 	ret
+```
+
+TODO: Who calls gettid?
+
+# Unicorn Output
+
+TODO: GICv3 won't work in Unicorn, so we have to simulate Timer Interrupts and I/O Interrupts
+
+TODO: Emulate the GIC Version, to make NuttX happy
+
+```bash
+$ cargo run | grep "uart output"
+- Ready to Boot Primary CPU
+- Boot from EL1
+- Boot to C runtime for OS Initialize
+nx_start: Entry
+up_allocate_kheap: heap_start=0x0x40849000, heap_size=0x77b7000
+gic_validate_dist_version: No GIC version detect
+arm64_gic_initialize: no distributor detected, giving up ret=-19
+uart_register: Registering /dev/console
+uart_register: Registering /dev/ttyS0
+work_start_highpri: Starting high-priority kernel worker thread(s)
+nxtask_activate: hpwork pid=1,TCB=0x40849e78
+work_start_lowpri: Starting low-priority kernel worker thread(s)
+nxtask_activate: lpwork pid=2,TCB=0x4084c008
+nxtask_activate: AppBringUp pid=3,TCB=0x4084c190
+nx_start: CPU0: Beginning Idle Loop
+```
+
+# Emulate GICv3 in Unicorn
+
+TODO: up_enable_irq calls arm64_gic_irq_enable. So we should emulate GICv3:
+
+arch/arm64/src/common/arm64_gicv3.c:683
+
+```text
+void up_enable_irq(int irq) {
+  arm64_gic_irq_enable(irq);
+  ...
+```
 
 # TODO
 
