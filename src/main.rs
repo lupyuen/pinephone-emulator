@@ -46,9 +46,6 @@ fn main() {
     // Enable MMU Translation
     emu.ctl_tlb_type(unicorn_engine::TlbType::CPU).unwrap();
 
-    // Disable MMU Translation
-    // emu.ctl_tlb_type(unicorn_engine::TlbType::VIRTUAL).unwrap();
-
     // Map 1 GB Read/Write Memory at 0x0000 0000 for Memory-Mapped I/O
     emu.mem_map(
         0x0000_0000,  // Address
@@ -76,15 +73,8 @@ fn main() {
     ).expect("failed to set UART_LSR");
 
     // Add Hook for emulating each Basic Block of Arm64 Instructions
-    // let _ = emu.add_block_hook(1, 0, hook_block)
-    //     .expect("failed to add block hook");
-
-    // Add Hook for emulating each Arm64 Instruction
-    // let _ = emu.add_code_hook(
-    //     ADDRESS,  // Begin Address
-    //     ADDRESS + KERNEL_SIZE as u64,  // End Address
-    //     hook_code  // Hook Function for Code Emulation
-    // ).expect("failed to add code hook");
+    let _ = emu.add_block_hook(1, 0, hook_block)
+        .expect("failed to add block hook");
 
     // Add Hook for Arm64 Memory Access
     let _ = emu.add_mem_hook(
@@ -107,42 +97,21 @@ fn main() {
 
     // Print the Emulator Error
     println!("err={:?}", err);
-
-    // Doesn't work for printing the Exception Registers
     println!("PC=0x{:x}",  emu.reg_read(RegisterARM64::PC).unwrap());
-    // println!("CP_REG={:?}",  emu.reg_read(RegisterARM64::CP_REG));
     println!("ESR_EL0={:?}", emu.reg_read(RegisterARM64::ESR_EL0));
     println!("ESR_EL1={:?}", emu.reg_read(RegisterARM64::ESR_EL1));
     println!("ESR_EL2={:?}", emu.reg_read(RegisterARM64::ESR_EL2));
     println!("ESR_EL3={:?}", emu.reg_read(RegisterARM64::ESR_EL3));
+    finish();
+}
 
-    /*
-    // Continue the Emulator
-    let pc = emu.reg_read(RegisterARM64::PC).unwrap();
-    let err = emu.emu_start(
-        pc,  // Begin Address
-        ADDRESS + KERNEL_SIZE as u64,  // End Address
-        0,  // No Timeout
-        0   // Unlimited number of instructions
-    );
-
-    // Print the Emulator Error
-    println!("err={:?}", err);
-
-    // Doesn't work for printing the Exception Registers
-    println!("PC=0x{:x}",  emu.reg_read(RegisterARM64::PC).unwrap());
-    // println!("CP_REG={:?}",  emu.reg_read(RegisterARM64::CP_REG));
-    println!("ESR_EL0={:?}", emu.reg_read(RegisterARM64::ESR_EL0));
-    println!("ESR_EL1={:?}", emu.reg_read(RegisterARM64::ESR_EL1));
-    println!("ESR_EL2={:?}", emu.reg_read(RegisterARM64::ESR_EL2));
-    println!("ESR_EL3={:?}", emu.reg_read(RegisterARM64::ESR_EL3));
-     */
-
-    // Close the Call Graph
+/// Close the Call Graph and terminate
+fn finish() {
     call_graph(0, 0,  // Address and Size
         Some("***_HALT_***".to_string()), // Function Name
         (None, None, None)  // Function Location
-    );
+    );    
+    std::process::exit(0);
 }
 
 /// Hook Function to Handle Interrupt
@@ -150,13 +119,21 @@ fn hook_interrupt(
     emu: &mut Unicorn<()>,  // Emulator
     intno: u32, // Interrupt Number
 ) {
+    let pc = emu.reg_read(RegisterARM64::PC).unwrap();
+    let x0 = emu.reg_read(RegisterARM64::X0).unwrap();
     println!("hook_interrupt: intno={intno}");
-    println!("PC=0x{:x}",  emu.reg_read(RegisterARM64::PC).unwrap());
-    // println!("CP_REG={:?}",  emu.reg_read(RegisterARM64::CP_REG));
+    println!("PC=0x{pc:08x}");
+    println!("X0=0x{x0:08x}");
     println!("ESR_EL0={:?}", emu.reg_read(RegisterARM64::ESR_EL0));
     println!("ESR_EL1={:?}", emu.reg_read(RegisterARM64::ESR_EL1));
     println!("ESR_EL2={:?}", emu.reg_read(RegisterARM64::ESR_EL2));
     println!("ESR_EL3={:?}", emu.reg_read(RegisterARM64::ESR_EL3));
+
+    // We don't handle SysCalls from NuttX Apps yet
+    if pc >= 0xC000_0000 {
+        println!("TODO: Handle SysCall from NuttX Apps");
+        finish();
+    }
 
     if intno == 2 {
         // We are doing SVC (Synchronous Exception) at EL1.
@@ -215,6 +192,7 @@ fn hook_block(
     if function == Some("a527_copy_overlap".into())
         || function == Some("a527_copy_ramdisk".into())
         || function == Some("arm64_data_initialize".into())
+        || function == Some("arm64_dcache_range".into())
         || function == Some("arm64_stack_color".into())
         || function == Some("memcmp".into())
         || function == Some("memcpy".into())
@@ -241,20 +219,6 @@ fn hook_block(
 
     // Print the Call Graph
     call_graph(address, size, function, loc);
-}
-
-/// Hook Function for Code Emulation.
-/// Called once for each Arm64 Instruction.
-fn hook_code(
-    _: &mut Unicorn<()>,  // Emulator
-    address: u64,  // Instruction Address
-    _size: u32     // Instruction Size
-) {
-    // Ignore the memset() loop. TODO: Read the ELF Symbol Table to get address of memset().
-    if address >= 0x4008_9328 && address <= 0x4008_933c { return; }
-
-    // TODO: Handle special Arm64 Instructions
-    // println!("hook_code:   address={address:#010x}, size={_size:02}");
 }
 
 /// Map the Arm64 Code Address to the Function Name by looking up the ELF Context

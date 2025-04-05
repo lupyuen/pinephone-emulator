@@ -1080,30 +1080,106 @@ nxtask_activate: hpwork pid=1,TCB=0x40849e78
 work_start_lowpri: Starting low-priority kernel worker thread(s)
 nxtask_activate: lpwork pid=2,TCB=0x4084c008
 nxtask_activate: AppBringUp pid=3,TCB=0x4084c190
+>> exception index = 2
+hook_interrupt: intno=2
+PC=0x40807300
+X0=0x00000002
+ESR_EL0=Ok(0)
+ESR_EL1=Ok(0)
+ESR_EL2=Ok(0)
+ESR_EL3=Ok(0)
+esr_el1=0x54000000
+vbar_el1=0x40827000
+jump to svc=0x40827200
+>> exception index = 65536
+>>> stop with r = 10000, HLT=10001
+>> exception index = 4294967295
+
 arm64_dump_syscall: SYSCALL arm64_syscall: regs: 0x408483c0 cmd: 2
 arm64_dump_syscall: x0:  0x2                 x1:  0x0
 arm64_dump_syscall: x2:  0x4084c008          x3:  0x408432b8
 arm64_dump_syscall: x4:  0x40849e78          x5:  0x2
 arm64_dump_syscall: x6:  0x40843000          x7:  0x3
+
 nx_start_application: Starting init task: /system/bin/init
 nxtask_activate: /system/bin/init pid=4,TCB=0x4084c9f0
 nxtask_exit: AppBringUp pid=3,TCB=0x4084c190
+
+>> exception index = 2
+hook_interrupt: intno=2
+PC=0x40816be8
+X0=0x00000001
+ESR_EL0=Ok(0)
+ESR_EL1=Ok(1409286144)
+ESR_EL2=Ok(0)
+ESR_EL3=Ok(0)
+esr_el1=0x54000000
+vbar_el1=0x40827000
+jump to svc=0x40827200
+>> exception index = 65536
+>>> stop with r = 10000, HLT=10001
+>> exception index = 4294967295
+
 arm64_dump_syscall: SYSCALL arm64_syscall: regs: 0x40853c70 cmd: 1
 arm64_dump_syscall: x0:  0x1                 x1:  0x40843000
 arm64_dump_syscall: x2:  0x0                 x3:  0x1
 arm64_dump_syscall: x4:  0x3                 x5:  0x40844000
 arm64_dump_syscall: x6:  0x4                 x7:  0x0
+
+>> exception index = 2
+hook_interrupt: intno=2
+PC=0x4080b35c
+X0=0x00000002
+ESR_EL0=Ok(0)
+ESR_EL1=Ok(1409286144)
+ESR_EL2=Ok(0)
+ESR_EL3=Ok(0)
+esr_el1=0x54000000
+vbar_el1=0x40827000
+jump to svc=0x40827200
+>> exception index = 65536
+>>> stop with r = 10000, HLT=10001
+>> exception index = 4294967295
+
 arm64_dump_syscall: SYSCALL arm64_syscall: regs: 0x4084bc20 cmd: 2
 arm64_dump_syscall: x0:  0x2                 x1:  0xc0
 arm64_dump_syscall: x2:  0x4084c008          x3:  0x0
 arm64_dump_syscall: x4:  0x408432d0          x5:  0x0
 arm64_dump_syscall: x6:  0x0                 x7:  0x0
+
+>> exception index = 2
+hook_interrupt: intno=2
+PC=0x4080b35c
+X0=0x00000002
+ESR_EL0=Ok(0)
+ESR_EL1=Ok(1409286144)
+ESR_EL2=Ok(0)
+ESR_EL3=Ok(0)
+esr_el1=0x54000000
+vbar_el1=0x40827000
+jump to svc=0x40827200
+>> exception index = 65536
+>>> stop with r = 10000, HLT=10001
+>> exception index = 4294967295
+
 arm64_dump_syscall: SYSCALL arm64_syscall: regs: 0x4084fc20 cmd: 2
 arm64_dump_syscall: x0:  0x2                 x1:  0x64
 arm64_dump_syscall: x2:  0x4084c9f0          x3:  0x0
 arm64_dump_syscall: x4:  0x408432d0          x5:  0x0
 arm64_dump_syscall: x6:  0x0                 x7:  0x0
+
+>> exception index = 2
+hook_interrupt: intno=2
+PC=0xc0003f00
+X0=0x00000009
+ESR_EL0=Ok(0)
+ESR_EL1=Ok(1409286144)
+ESR_EL2=Ok(0)
+ESR_EL3=Ok(0)
+TODO: Handle SysCall from NuttX Apps
 ```
+
+TODO: What is SysCall Command 9?
 
 # TODO
 
