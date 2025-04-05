@@ -161,10 +161,13 @@ fn hook_interrupt(
     if intno == 2 {
         // We are doing SVC (Synchronous Exception) at EL1.
         // Which means Unicorn Emulator should jump to VBAR_EL1 + 0x200.
+        let esr_el1 = 0x15 << 26;  // Exception is SVC
         let vbar_el1 = emu.reg_read(RegisterARM64::VBAR_EL1).unwrap();
         let svc = vbar_el1 + 0x200;
+        println!("esr_el1=0x{esr_el1:08x}");
         println!("vbar_el1=0x{vbar_el1:08x}");
         println!("jump to svc=0x{svc:08x}");
+        emu.reg_write(RegisterARM64::ESR_EL1, esr_el1).unwrap();
         emu.reg_write(RegisterARM64::PC, svc).unwrap();
     } else {
         sleep(time::Duration::from_secs(10));
