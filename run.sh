@@ -29,3 +29,10 @@ sudo docker run \
   --configFile="mermaidRenderConfig.json" \
   -i nuttx-boot-flow.mmd \
   -o nuttx-boot-flow.png
+
+exit
+
+## Publish to crates.io
+rm nuttx-boot-flow.svg
+rm nuttx/nuttx.S
+cargo publish
