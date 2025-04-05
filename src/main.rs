@@ -155,6 +155,14 @@ fn hook_interrupt(
     println!("ESR_EL1={:?}", emu.reg_read(RegisterARM64::ESR_EL1));
     println!("ESR_EL2={:?}", emu.reg_read(RegisterARM64::ESR_EL2));
     println!("ESR_EL3={:?}", emu.reg_read(RegisterARM64::ESR_EL3));
+
+    // We are doing SVC (Synchronous Exception) at EL1.
+    // Which means Unicorn Emulator should jump to VBAR_EL1 + 0x200.
+    let vbar_el1 = emu.reg_read(RegisterARM64::VBAR_EL1).unwrap();
+    let svc = vbar_el1 + 0x200;
+    println!("vbar_el1=0x{vbar_el1:08x}");
+    println!("jump to svc=0x{svc:08x}");
+    emu.reg_write(RegisterARM64::PC, svc).unwrap();
 }
 
 /// Hook Function for Memory Access.

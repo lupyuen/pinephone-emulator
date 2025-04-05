@@ -829,13 +829,58 @@ Who calls arm64_sync_exc? It's called by the Vector Table for:
 
 https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_vector_table.S#L158
 
-TODO: Read VBAR_EL1 to fetch Vector Table. Then trigger SVC 0 at EL1
+# Arm64 Vector Table
+
+Let's read VBAR_EL1 to fetch Vector Table. Then trigger SVC 0 at EL1...
+
+https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_vector_table.S#L103-L145
+
+```c
+/* Four types of exceptions:
+ * - synchronous: aborts from MMU, SP/CP alignment checking, unallocated
+ *   instructions, SVCs/SMCs/HVCs, ...)
+ * - IRQ: group 1 (normal) interrupts
+ * - FIQ: group 0 or secure interrupts
+ * - SError: fatal system errors
+ *
+ * Four different contexts:
+ * - from same exception level, when using the SP_EL0 stack pointer
+ * - from same exception level, when using the SP_ELx stack pointer
+ * - from lower exception level, when this is AArch64
+ * - from lower exception level, when this is AArch32
+ *
+ * +------------------+------------------+-------------------------+
+ * |     Address      |  Exception type  |       Description       |
+ * +------------------+------------------+-------------------------+
+ * | VBAR_ELn + 0x000 | Synchronous      | Current EL with SP0     |
+ * |          + 0x080 | IRQ / vIRQ       |                         |
+ * |          + 0x100 | FIQ / vFIQ       |                         |
+ * |          + 0x180 | SError / vSError |                         |
+ * +------------------+------------------+-------------------------+
+ * |          + 0x200 | Synchronous      | Current EL with SPx     |
+ * |          + 0x280 | IRQ / vIRQ       |                         |
+ * |          + 0x300 | FIQ / vFIQ       |                         |
+ * |          + 0x380 | SError / vSError |                         |
+ * +------------------+------------------+-------------------------+
+ * |          + 0x400 | Synchronous      | Lower EL using AArch64  |
+ * |          + 0x480 | IRQ / vIRQ       |                         |
+ * |          + 0x500 | FIQ / vFIQ       |                         |
+ * |          + 0x580 | SError / vSError |                         |
+ * +------------------+------------------+-------------------------+
+ * |          + 0x600 | Synchronous      | Lower EL using AArch32  |
+ * |          + 0x680 | IRQ / vIRQ       |                         |
+ * |          + 0x700 | FIQ / vFIQ       |                         |
+ * |          + 0x780 | SError / vSError |                         |
+ * +------------------+------------------+-------------------------+
+```
+
+We are doing SVC (Synchronous Exception) at EL1. Which means Unicorn Emulator should jump to VBAR_EL1 + 0x200.
+
+# TODO
 
 TODO: Read VBAR_EL1 to fetch Vector Table. Then trigger Timer Interrupt
 
 TODO: Why is Interrupt Number intno=2?
-
-# TODO
 
 ```text
 Page C6-2411
