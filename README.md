@@ -501,7 +501,7 @@ mm_malloc --> mm_addfreechunk
 click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L227" "mm/mm_heap/mm_malloc.c " _blank
 ```
 
-[Download PDF](nuttx-boot-flow.pdf)
+[NuttX Boot Flow in PDF](nuttx-boot-flow.pdf) / [SVG](nuttx-boot-flow.svg) / [PNG](nuttx-boot-flow.png)
 
 # Unicorn Emulator for Apache NuttX RTOS on Avaota-A1 Arm64 SBC
 

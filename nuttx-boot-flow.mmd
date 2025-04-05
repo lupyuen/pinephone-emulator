@@ -206,8 +206,192 @@ u16550_setup --> arm64_boot_primary_c_routine
 click u16550_setup href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L928" "drivers/serial/uart_16550.c " _blank
 arm64_boot_primary_c_routine --> nx_start
 click arm64_boot_primary_c_routine href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_boot.c#L220" "arch/arm64/src/common/arm64_boot.c " _blank
-nx_start --> idle_task_initialize
+nx_start --> syslog
 click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L524" "sched/init/nx_start.c " _blank
+syslog --> vsyslog
+click syslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L95" "libs/libc/syslog/lib_syslog.c " _blank
+vsyslog --> nx_vsyslog
+click vsyslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L53" "libs/libc/syslog/lib_syslog.c " _blank
+nx_vsyslog --> lib_syslograwstream_open
+click nx_vsyslog href "https://github.com/apache/nuttx/blob/master/drivers/syslog/vsyslog.c#L84" "drivers/syslog/vsyslog.c " _blank
+lib_syslograwstream_open --> nx_vsyslog
+click lib_syslograwstream_open href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L259" "libs/libc/stream/lib_syslograwstream.c " _blank
+nx_vsyslog --> lib_vsprintf_internal
+click nx_vsyslog href "https://github.com/apache/nuttx/blob/master/drivers/syslog/vsyslog.c#L257" "drivers/syslog/vsyslog.c " _blank
+lib_vsprintf_internal --> strnlen
+click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1423" "libs/libc/stdio/lib_libvsprintf.c " _blank
+strnlen --> syslograwstream_puts
+click strnlen href "https://github.com/apache/nuttx/blob/master/libs/libc/machine/arm64/gnu/arch_strnlen.S#L89" "libs/libc/machine/arm64/gnu/arch_strnlen.S " _blank
+syslograwstream_puts --> syslog_write
+click syslograwstream_puts href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L189" "libs/libc/stream/lib_syslograwstream.c " _blank
+syslog_write --> syslog_safe_to_block
+click syslog_write href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L229" "drivers/syslog/syslog_write.c " _blank
+syslog_safe_to_block --> sched_idletask
+click syslog_safe_to_block href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L62" "drivers/syslog/syslog_write.c " _blank
+sched_idletask --> syslog_safe_to_block
+click sched_idletask href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_idletask.c#L60" "sched/sched/sched_idletask.c " _blank
+syslog_safe_to_block --> syslog_write_foreach
+click syslog_safe_to_block href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L62" "drivers/syslog/syslog_write.c " _blank
+syslog_write_foreach --> syslog_default_putc
+click syslog_write_foreach href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L102" "drivers/syslog/syslog_write.c " _blank
+syslog_default_putc --> up_putc
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L285" "drivers/syslog/syslog_channel.c " _blank
+up_putc --> u16550_putc
+click up_putc href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1709" "drivers/serial/uart_16550.c " _blank
+u16550_putc --> u16550_serialin
+click u16550_putc href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1849" "drivers/serial/uart_16550.c " _blank
+u16550_serialin --> u16550_mmio_getreg
+click u16550_serialin href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L650" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_getreg --> u16550_putc
+click u16550_mmio_getreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L623" "drivers/serial/uart_16550.c " _blank
+u16550_putc --> u16550_serialout
+click u16550_putc href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1850" "drivers/serial/uart_16550.c " _blank
+u16550_serialout --> u16550_mmio_putreg
+click u16550_serialout href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L663" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_putreg --> syslog_default_putc
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+syslog_default_putc --> syslog_write_foreach
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L299" "drivers/syslog/syslog_channel.c " _blank
+syslog_write_foreach --> syslog_default_putc
+click syslog_write_foreach href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L193" "drivers/syslog/syslog_write.c " _blank
+syslog_default_putc --> up_putc
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L285" "drivers/syslog/syslog_channel.c " _blank
+up_putc --> u16550_putc
+click up_putc href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1709" "drivers/serial/uart_16550.c " _blank
+u16550_putc --> u16550_serialin
+click u16550_putc href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1849" "drivers/serial/uart_16550.c " _blank
+u16550_serialin --> u16550_mmio_getreg
+click u16550_serialin href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L650" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_getreg --> u16550_putc
+click u16550_mmio_getreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L623" "drivers/serial/uart_16550.c " _blank
+u16550_putc --> u16550_serialout
+click u16550_putc href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1850" "drivers/serial/uart_16550.c " _blank
+u16550_serialout --> u16550_mmio_putreg
+click u16550_serialout href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L663" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_putreg --> syslog_default_putc
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+syslog_default_putc --> syslog_write_foreach
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L299" "drivers/syslog/syslog_channel.c " _blank
+syslog_write_foreach --> syslog_default_putc
+click syslog_write_foreach href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L193" "drivers/syslog/syslog_write.c " _blank
+syslog_default_putc --> up_putc
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L285" "drivers/syslog/syslog_channel.c " _blank
+up_putc --> u16550_putc
+click up_putc href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1709" "drivers/serial/uart_16550.c " _blank
+u16550_putc --> u16550_serialin
+click u16550_putc href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1849" "drivers/serial/uart_16550.c " _blank
+u16550_serialin --> u16550_mmio_getreg
+click u16550_serialin href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L650" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_getreg --> u16550_putc
+click u16550_mmio_getreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L623" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_putreg --> syslog_default_putc
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+syslog_default_putc --> syslog_write_foreach
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L299" "drivers/syslog/syslog_channel.c " _blank
+syslog_write_foreach --> syslog_default_putc
+click syslog_write_foreach href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L193" "drivers/syslog/syslog_write.c " _blank
+syslog_default_putc --> up_putc
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L285" "drivers/syslog/syslog_channel.c " _blank
+up_putc --> u16550_putc
+click up_putc href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1709" "drivers/serial/uart_16550.c " _blank
+u16550_putc --> u16550_serialin
+click u16550_putc href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1849" "drivers/serial/uart_16550.c " _blank
+u16550_serialin --> u16550_mmio_getreg
+click u16550_serialin href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L650" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_getreg --> u16550_putc
+click u16550_mmio_getreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L623" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_putreg --> syslog_default_putc
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+syslog_default_putc --> syslog_write_foreach
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L299" "drivers/syslog/syslog_channel.c " _blank
+syslog_default_putc --> up_putc
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L285" "drivers/syslog/syslog_channel.c " _blank
+u16550_putc --> u16550_serialin
+click u16550_putc href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1849" "drivers/serial/uart_16550.c " _blank
+u16550_serialin --> u16550_mmio_getreg
+click u16550_serialin href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L650" "drivers/serial/uart_16550.c " _blank
+syslog_default_putc --> syslog_write_foreach
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L299" "drivers/syslog/syslog_channel.c " _blank
+syslog_default_putc --> up_putc
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L285" "drivers/syslog/syslog_channel.c " _blank
+syslog_default_putc --> syslog_write_foreach
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L299" "drivers/syslog/syslog_channel.c " _blank
+syslog_default_putc --> up_putc
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L285" "drivers/syslog/syslog_channel.c " _blank
+syslog_default_putc --> syslog_write_foreach
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L299" "drivers/syslog/syslog_channel.c " _blank
+syslog_default_putc --> up_putc
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L285" "drivers/syslog/syslog_channel.c " _blank
+syslog_write_foreach --> syslograwstream_puts
+click syslog_write_foreach href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L193" "drivers/syslog/syslog_write.c " _blank
+syslograwstream_puts --> syslograwstream_putc
+click syslograwstream_puts href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L219" "libs/libc/stream/lib_syslograwstream.c " _blank
+syslograwstream_putc --> syslog_write
+click syslograwstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L141" "libs/libc/stream/lib_syslograwstream.c " _blank
+syslog_write --> syslog_safe_to_block
+click syslog_write href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L229" "drivers/syslog/syslog_write.c " _blank
+syslog_safe_to_block --> sched_idletask
+click syslog_safe_to_block href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L62" "drivers/syslog/syslog_write.c " _blank
+sched_idletask --> syslog_safe_to_block
+click sched_idletask href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_idletask.c#L60" "sched/sched/sched_idletask.c " _blank
+syslog_write_foreach --> syslograwstream_putc
+click syslog_write_foreach href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L193" "drivers/syslog/syslog_write.c " _blank
+syslograwstream_putc --> syslog_write
+click syslograwstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L171" "libs/libc/stream/lib_syslograwstream.c " _blank
+syslog_write --> syslog_safe_to_block
+click syslog_write href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L229" "drivers/syslog/syslog_write.c " _blank
+syslog_safe_to_block --> sched_idletask
+click syslog_safe_to_block href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L62" "drivers/syslog/syslog_write.c " _blank
+sched_idletask --> syslog_safe_to_block
+click sched_idletask href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_idletask.c#L60" "sched/sched/sched_idletask.c " _blank
+syslog_write_foreach --> syslograwstream_putc
+click syslog_write_foreach href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L193" "drivers/syslog/syslog_write.c " _blank
+syslograwstream_putc --> syslog_write
+click syslograwstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L171" "libs/libc/stream/lib_syslograwstream.c " _blank
+syslog_write --> syslog_safe_to_block
+click syslog_write href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L229" "drivers/syslog/syslog_write.c " _blank
+syslog_safe_to_block --> sched_idletask
+click syslog_safe_to_block href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L62" "drivers/syslog/syslog_write.c " _blank
+sched_idletask --> syslog_safe_to_block
+click sched_idletask href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_idletask.c#L60" "sched/sched/sched_idletask.c " _blank
+syslog_write_foreach --> syslograwstream_putc
+click syslog_write_foreach href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L193" "drivers/syslog/syslog_write.c " _blank
+syslograwstream_putc --> syslog_write
+click syslograwstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L171" "libs/libc/stream/lib_syslograwstream.c " _blank
+syslog_safe_to_block --> sched_idletask
+click syslog_safe_to_block href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L62" "drivers/syslog/syslog_write.c " _blank
+syslog_write_foreach --> syslograwstream_putc
+click syslog_write_foreach href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L193" "drivers/syslog/syslog_write.c " _blank
+syslograwstream_putc --> syslog_write
+click syslograwstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L171" "libs/libc/stream/lib_syslograwstream.c " _blank
+syslog_safe_to_block --> sched_idletask
+click syslog_safe_to_block href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L62" "drivers/syslog/syslog_write.c " _blank
+syslog_write_foreach --> syslograwstream_putc
+click syslog_write_foreach href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L193" "drivers/syslog/syslog_write.c " _blank
+syslograwstream_putc --> syslog_write
+click syslograwstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L171" "libs/libc/stream/lib_syslograwstream.c " _blank
+syslog_safe_to_block --> sched_idletask
+click syslog_safe_to_block href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L62" "drivers/syslog/syslog_write.c " _blank
+syslog_write_foreach --> syslograwstream_putc
+click syslog_write_foreach href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L193" "drivers/syslog/syslog_write.c " _blank
+syslograwstream_putc --> syslog_write
+click syslograwstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L171" "libs/libc/stream/lib_syslograwstream.c " _blank
+syslog_safe_to_block --> sched_idletask
+click syslog_safe_to_block href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L62" "drivers/syslog/syslog_write.c " _blank
+syslog_write_foreach --> syslograwstream_putc
+click syslog_write_foreach href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L193" "drivers/syslog/syslog_write.c " _blank
+syslograwstream_putc --> lib_vsprintf_internal
+click syslograwstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L171" "libs/libc/stream/lib_syslograwstream.c " _blank
+lib_vsprintf_internal --> nx_vsyslog
+click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1425" "libs/libc/stdio/lib_libvsprintf.c " _blank
+nx_vsyslog --> vsyslog
+click nx_vsyslog href "https://github.com/apache/nuttx/blob/master/drivers/syslog/vsyslog.c#L257" "drivers/syslog/vsyslog.c " _blank
+vsyslog --> syslog
+click vsyslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L75" "libs/libc/syslog/lib_syslog.c " _blank
+syslog --> tasklist_initialize
+click syslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L103" "libs/libc/syslog/lib_syslog.c " _blank
+tasklist_initialize --> idle_task_initialize
+click tasklist_initialize href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L241" "sched/init/nx_start.c " _blank
 idle_task_initialize --> nx_start
 click idle_task_initialize href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L362" "sched/init/nx_start.c " _blank
 nx_start --> drivers_early_initialize
@@ -216,8 +400,86 @@ drivers_early_initialize --> nx_start
 click drivers_early_initialize href "https://github.com/apache/nuttx/blob/master/drivers/drivers_initialize.c#L95" "drivers/drivers_initialize.c " _blank
 nx_start --> up_allocate_kheap
 click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L581" "sched/init/nx_start.c " _blank
-up_allocate_kheap --> nx_start
+up_allocate_kheap --> syslog
 click up_allocate_kheap href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_allocateheap.c#L129" "arch/arm64/src/common/arm64_allocateheap.c " _blank
+syslog --> vsyslog
+click syslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L95" "libs/libc/syslog/lib_syslog.c " _blank
+vsyslog --> nx_vsyslog
+click vsyslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L53" "libs/libc/syslog/lib_syslog.c " _blank
+nx_vsyslog --> lib_syslograwstream_open
+click nx_vsyslog href "https://github.com/apache/nuttx/blob/master/drivers/syslog/vsyslog.c#L84" "drivers/syslog/vsyslog.c " _blank
+lib_syslograwstream_open --> nx_vsyslog
+click lib_syslograwstream_open href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L259" "libs/libc/stream/lib_syslograwstream.c " _blank
+nx_vsyslog --> lib_vsprintf_internal
+click nx_vsyslog href "https://github.com/apache/nuttx/blob/master/drivers/syslog/vsyslog.c#L257" "drivers/syslog/vsyslog.c " _blank
+lib_vsprintf_internal --> strnlen
+click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1423" "libs/libc/stdio/lib_libvsprintf.c " _blank
+strnlen --> syslograwstream_puts
+click strnlen href "https://github.com/apache/nuttx/blob/master/libs/libc/machine/arm64/gnu/arch_strnlen.S#L89" "libs/libc/machine/arm64/gnu/arch_strnlen.S " _blank
+syslog_default_putc --> csection_available
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L285" "drivers/syslog/syslog_channel.c " _blank
+csection_available --> up_irq_save
+click csection_available href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L269" "drivers/syslog/syslog_channel.c " _blank
+u16550_mmio_putreg --> up_irq_restore
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+syslog_default_putc --> csection_available
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L285" "drivers/syslog/syslog_channel.c " _blank
+csection_available --> up_irq_save
+click csection_available href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L269" "drivers/syslog/syslog_channel.c " _blank
+u16550_mmio_putreg --> up_irq_restore
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+syslog_default_putc --> csection_available
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L285" "drivers/syslog/syslog_channel.c " _blank
+csection_available --> up_irq_save
+click csection_available href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L269" "drivers/syslog/syslog_channel.c " _blank
+u16550_mmio_putreg --> up_irq_restore
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+syslog_default_putc --> csection_available
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L285" "drivers/syslog/syslog_channel.c " _blank
+csection_available --> up_irq_save
+click csection_available href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L269" "drivers/syslog/syslog_channel.c " _blank
+u16550_mmio_putreg --> up_irq_restore
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+syslog_default_putc --> csection_available
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L285" "drivers/syslog/syslog_channel.c " _blank
+csection_available --> up_irq_save
+click csection_available href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L269" "drivers/syslog/syslog_channel.c " _blank
+u16550_mmio_putreg --> up_irq_restore
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+syslog_default_putc --> csection_available
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L285" "drivers/syslog/syslog_channel.c " _blank
+csection_available --> up_irq_save
+click csection_available href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L269" "drivers/syslog/syslog_channel.c " _blank
+u16550_mmio_putreg --> up_irq_restore
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+syslog_default_putc --> csection_available
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L285" "drivers/syslog/syslog_channel.c " _blank
+csection_available --> up_irq_save
+click csection_available href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L269" "drivers/syslog/syslog_channel.c " _blank
+u16550_mmio_putreg --> up_irq_restore
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+syslog_default_putc --> csection_available
+click syslog_default_putc href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L285" "drivers/syslog/syslog_channel.c " _blank
+csection_available --> up_irq_save
+click csection_available href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L269" "drivers/syslog/syslog_channel.c " _blank
+u16550_mmio_putreg --> up_irq_restore
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+syslog_write_foreach --> syslograwstream_puts
+click syslog_write_foreach href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L193" "drivers/syslog/syslog_write.c " _blank
+syslograwstream_putc --> __ultoa_invert
+click syslograwstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L171" "libs/libc/stream/lib_syslograwstream.c " _blank
+syslograwstream_putc --> __ultoa_invert
+click syslograwstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L171" "libs/libc/stream/lib_syslograwstream.c " _blank
+syslograwstream_putc --> lib_vsprintf_internal
+click syslograwstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L171" "libs/libc/stream/lib_syslograwstream.c " _blank
+lib_vsprintf_internal --> nx_vsyslog
+click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1425" "libs/libc/stdio/lib_libvsprintf.c " _blank
+nx_vsyslog --> vsyslog
+click nx_vsyslog href "https://github.com/apache/nuttx/blob/master/drivers/syslog/vsyslog.c#L257" "drivers/syslog/vsyslog.c " _blank
+vsyslog --> syslog
+click vsyslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L75" "libs/libc/syslog/lib_syslog.c " _blank
+syslog --> nx_start
+click syslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L103" "libs/libc/syslog/lib_syslog.c " _blank
 nx_start --> kmm_initialize
 click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L582" "sched/init/nx_start.c " _blank
 kmm_initialize --> mm_initialize
@@ -269,7 +531,7 @@ click mm_addfreechunk href "https://github.com/apache/nuttx/blob/master/mm/mm_he
 mm_size2ndx --> mm_addfreechunk
 click mm_size2ndx href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L314" "mm/mm_heap/mm.h " _blank
 mm_addfreechunk --> mm_addregion
-click mm_addfreechunk href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L335" "mm/mm_heap/mm.h " _blank
+click mm_addfreechunk href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L341" "mm/mm_heap/mm.h " _blank
 mm_addregion --> mm_unlock
 click mm_addregion href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_initialize.c#L207" "mm/mm_heap/mm_initialize.c " _blank
 mm_unlock --> nxmutex_unlock
@@ -314,14 +576,10 @@ mm_zalloc --> mm_malloc
 click mm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_zalloc.c#L45" "mm/mm_heap/mm_zalloc.c " _blank
 mm_malloc --> free_delaylist
 click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L170" "mm/mm_heap/mm_malloc.c " _blank
-free_delaylist --> up_irq_save
-click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L58" "mm/mm_heap/mm_malloc.c " _blank
 up_irq_save --> mm_lock_irq
 click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
 mm_lock_irq --> free_delaylist
 click mm_lock_irq href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L132" "mm/mm_heap/mm_lock.c " _blank
-free_delaylist --> up_irq_restore
-click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L85" "mm/mm_heap/mm_malloc.c " _blank
 up_irq_restore --> mm_unlock_irq
 click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
 mm_unlock_irq --> free_delaylist
@@ -476,14 +734,10 @@ mm_zalloc --> mm_malloc
 click mm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_zalloc.c#L45" "mm/mm_heap/mm_zalloc.c " _blank
 mm_malloc --> free_delaylist
 click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L170" "mm/mm_heap/mm_malloc.c " _blank
-free_delaylist --> up_irq_save
-click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L58" "mm/mm_heap/mm_malloc.c " _blank
 up_irq_save --> mm_lock_irq
 click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
 mm_lock_irq --> free_delaylist
 click mm_lock_irq href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L132" "mm/mm_heap/mm_lock.c " _blank
-free_delaylist --> up_irq_restore
-click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L85" "mm/mm_heap/mm_malloc.c " _blank
 up_irq_restore --> mm_unlock_irq
 click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
 mm_unlock_irq --> free_delaylist
@@ -548,14 +802,10 @@ kmm_zalloc --> mm_zalloc
 click kmm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/kmm_heap/kmm_zalloc.c#L52" "mm/kmm_heap/kmm_zalloc.c " _blank
 mm_malloc --> free_delaylist
 click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L170" "mm/mm_heap/mm_malloc.c " _blank
-free_delaylist --> up_irq_save
-click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L58" "mm/mm_heap/mm_malloc.c " _blank
 up_irq_save --> mm_lock_irq
 click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
 mm_lock_irq --> free_delaylist
 click mm_lock_irq href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_lock.c#L132" "mm/mm_heap/mm_lock.c " _blank
-free_delaylist --> up_irq_restore
-click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L85" "mm/mm_heap/mm_malloc.c " _blank
 up_irq_restore --> mm_unlock_irq
 click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
 mm_malloc --> mm_lock
@@ -596,12 +846,8 @@ group_zalloc --> group_malloc
 click group_zalloc href "https://github.com/apache/nuttx/blob/master/sched/group/group_zalloc.c#L50" "sched/group/group_zalloc.c " _blank
 group_malloc --> kmm_malloc
 click group_malloc href "https://github.com/apache/nuttx/blob/master/sched/group/group_malloc.c#L55" "sched/group/group_malloc.c " _blank
-free_delaylist --> up_irq_save
-click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L58" "mm/mm_heap/mm_malloc.c " _blank
 up_irq_save --> mm_lock_irq
 click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
-free_delaylist --> up_irq_restore
-click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L85" "mm/mm_heap/mm_malloc.c " _blank
 up_irq_restore --> mm_unlock_irq
 click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
 nxmutex_lock --> nxsem_wait
@@ -702,12 +948,8 @@ inode_namelen --> kmm_zalloc
 click inode_namelen href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L59" "fs/inode/fs_inodereserve.c " _blank
 kmm_zalloc --> mm_zalloc
 click kmm_zalloc href "https://github.com/apache/nuttx/blob/master/mm/kmm_heap/kmm_zalloc.c#L52" "mm/kmm_heap/kmm_zalloc.c " _blank
-free_delaylist --> up_irq_save
-click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L58" "mm/mm_heap/mm_malloc.c " _blank
 up_irq_save --> mm_lock_irq
 click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
-free_delaylist --> up_irq_restore
-click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L85" "mm/mm_heap/mm_malloc.c " _blank
 up_irq_restore --> mm_unlock_irq
 click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
 nxmutex_lock --> nxsem_wait
@@ -726,20 +968,68 @@ inode_namecpy --> inode_root_reserve
 click inode_namecpy href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L73" "fs/inode/fs_inodereserve.c " _blank
 inode_root_reserve --> fs_initialize
 click inode_root_reserve href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L147" "fs/inode/fs_inodereserve.c " _blank
-fs_initialize --> up_irq_save
-click fs_initialize href "https://github.com/apache/nuttx/blob/master/fs/fs_initialize.c#L111" "fs/fs_initialize.c " _blank
 up_irq_save --> register_reboot_notifier
 click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
 nx_start --> irq_initialize
 click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L652" "sched/init/nx_start.c " _blank
 irq_initialize --> up_irqinitialize
 click irq_initialize href "https://github.com/apache/nuttx/blob/master/sched/irq/irq_initialize.c#L79" "sched/irq/irq_initialize.c " _blank
-up_irqinitialize --> getreg32
+up_irqinitialize --> arm64_gic_initialize
 click up_irqinitialize href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_doirq.c#L136" "arch/arm64/src/common/arm64_doirq.c " _blank
-getreg32 --> gic_validate_dist_version
-click getreg32 href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch.h#L353" "arch/arm64/src/common/arm64_arch.h " _blank
-gic_validate_dist_version --> up_irq_enable
+arm64_gic_initialize --> gic_validate_dist_version
+click arm64_gic_initialize href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_gicv3.c#L978" "arch/arm64/src/common/arm64_gicv3.c " _blank
+gic_validate_dist_version --> syslog
 click gic_validate_dist_version href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_gicv3.c#L883" "arch/arm64/src/common/arm64_gicv3.c " _blank
+syslog --> vsyslog
+click syslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L95" "libs/libc/syslog/lib_syslog.c " _blank
+vsyslog --> nx_vsyslog
+click vsyslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L53" "libs/libc/syslog/lib_syslog.c " _blank
+nx_vsyslog --> lib_syslograwstream_open
+click nx_vsyslog href "https://github.com/apache/nuttx/blob/master/drivers/syslog/vsyslog.c#L84" "drivers/syslog/vsyslog.c " _blank
+lib_syslograwstream_open --> nx_vsyslog
+click lib_syslograwstream_open href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L259" "libs/libc/stream/lib_syslograwstream.c " _blank
+nx_vsyslog --> lib_vsprintf_internal
+click nx_vsyslog href "https://github.com/apache/nuttx/blob/master/drivers/syslog/vsyslog.c#L257" "drivers/syslog/vsyslog.c " _blank
+lib_vsprintf_internal --> strnlen
+click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1423" "libs/libc/stdio/lib_libvsprintf.c " _blank
+strnlen --> syslograwstream_puts
+click strnlen href "https://github.com/apache/nuttx/blob/master/libs/libc/machine/arm64/gnu/arch_strnlen.S#L89" "libs/libc/machine/arm64/gnu/arch_strnlen.S " _blank
+syslog_write_foreach --> syslograwstream_puts
+click syslog_write_foreach href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L193" "drivers/syslog/syslog_write.c " _blank
+syslograwstream_putc --> lib_vsprintf_internal
+click syslograwstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L171" "libs/libc/stream/lib_syslograwstream.c " _blank
+nx_vsyslog --> vsyslog
+click nx_vsyslog href "https://github.com/apache/nuttx/blob/master/drivers/syslog/vsyslog.c#L257" "drivers/syslog/vsyslog.c " _blank
+vsyslog --> syslog
+click vsyslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L75" "libs/libc/syslog/lib_syslog.c " _blank
+syslog --> arm64_gic_initialize
+click syslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L103" "libs/libc/syslog/lib_syslog.c " _blank
+arm64_gic_initialize --> syslog
+click arm64_gic_initialize href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_gicv3.c#L984" "arch/arm64/src/common/arm64_gicv3.c " _blank
+syslog --> vsyslog
+click syslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L95" "libs/libc/syslog/lib_syslog.c " _blank
+nx_vsyslog --> lib_syslograwstream_open
+click nx_vsyslog href "https://github.com/apache/nuttx/blob/master/drivers/syslog/vsyslog.c#L84" "drivers/syslog/vsyslog.c " _blank
+nx_vsyslog --> lib_vsprintf_internal
+click nx_vsyslog href "https://github.com/apache/nuttx/blob/master/drivers/syslog/vsyslog.c#L257" "drivers/syslog/vsyslog.c " _blank
+lib_vsprintf_internal --> strnlen
+click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1423" "libs/libc/stdio/lib_libvsprintf.c " _blank
+strnlen --> syslograwstream_puts
+click strnlen href "https://github.com/apache/nuttx/blob/master/libs/libc/machine/arm64/gnu/arch_strnlen.S#L89" "libs/libc/machine/arm64/gnu/arch_strnlen.S " _blank
+syslog_write_foreach --> syslograwstream_puts
+click syslog_write_foreach href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L193" "drivers/syslog/syslog_write.c " _blank
+syslograwstream_putc --> __ultoa_invert
+click syslograwstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L171" "libs/libc/stream/lib_syslograwstream.c " _blank
+syslograwstream_putc --> lib_vsprintf_internal
+click syslograwstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L171" "libs/libc/stream/lib_syslograwstream.c " _blank
+nx_vsyslog --> vsyslog
+click nx_vsyslog href "https://github.com/apache/nuttx/blob/master/drivers/syslog/vsyslog.c#L257" "drivers/syslog/vsyslog.c " _blank
+vsyslog --> syslog
+click vsyslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L75" "libs/libc/syslog/lib_syslog.c " _blank
+syslog --> gic_validate_dist_version
+click syslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L103" "libs/libc/syslog/lib_syslog.c " _blank
+gic_validate_dist_version --> up_irq_enable
+click gic_validate_dist_version href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_gicv3.c#L890" "arch/arm64/src/common/arm64_gicv3.c " _blank
 up_irq_enable --> up_irqinitialize
 click up_irq_enable href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L367" "arch/arm64/include/irq.h " _blank
 nx_start --> clock_initialize
@@ -750,12 +1040,8 @@ up_timer_initialize --> arm64_oneshot_initialize
 click up_timer_initialize href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/a527/a527_timer.c#L34" "arch/arm64/src/a527/a527_timer.c " _blank
 arm64_oneshot_initialize --> kmm_zalloc
 click arm64_oneshot_initialize href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_arch_timer.c#L422" "arch/arm64/src/common/arm64_arch_timer.c " _blank
-free_delaylist --> up_irq_save
-click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L58" "mm/mm_heap/mm_malloc.c " _blank
 up_irq_save --> mm_lock_irq
 click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
-free_delaylist --> up_irq_restore
-click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L85" "mm/mm_heap/mm_malloc.c " _blank
 up_irq_restore --> mm_unlock_irq
 click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
 nxmutex_lock --> nxsem_wait
@@ -860,6 +1146,14 @@ nxsem_init --> uart_register
 click nxsem_init href "https://github.com/apache/nuttx/blob/master/libs/libc/semaphore/sem_init.c#L68" "libs/libc/semaphore/sem_init.c " _blank
 nxsem_init --> uart_register
 click nxsem_init href "https://github.com/apache/nuttx/blob/master/libs/libc/semaphore/sem_init.c#L68" "libs/libc/semaphore/sem_init.c " _blank
+nx_vsyslog --> lib_syslograwstream_open
+click nx_vsyslog href "https://github.com/apache/nuttx/blob/master/drivers/syslog/vsyslog.c#L84" "drivers/syslog/vsyslog.c " _blank
+lib_vsprintf_internal --> strnlen
+click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1423" "libs/libc/stdio/lib_libvsprintf.c " _blank
+syslograwstream_putc --> strnlen
+click syslograwstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L171" "libs/libc/stream/lib_syslograwstream.c " _blank
+syslog --> uart_register
+click syslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L103" "libs/libc/syslog/lib_syslog.c " _blank
 uart_register --> register_driver
 click uart_register href "https://github.com/apache/nuttx/blob/master/drivers/serial/serial.c#L2122" "drivers/serial/serial.c " _blank
 register_driver --> inode_lock
@@ -902,12 +1196,8 @@ inode_alloc --> inode_namelen
 click inode_alloc href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L80" "fs/inode/fs_inodereserve.c " _blank
 inode_namelen --> kmm_zalloc
 click inode_namelen href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L56" "fs/inode/fs_inodereserve.c " _blank
-free_delaylist --> up_irq_save
-click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L58" "mm/mm_heap/mm_malloc.c " _blank
 up_irq_save --> mm_lock_irq
 click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
-free_delaylist --> up_irq_restore
-click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L85" "mm/mm_heap/mm_malloc.c " _blank
 up_irq_restore --> mm_unlock_irq
 click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
 mm_malloc --> mm_heapmember
@@ -934,8 +1224,6 @@ inode_namelen --> kmm_zalloc
 click inode_namelen href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_inodereserve.c#L56" "fs/inode/fs_inodereserve.c " _blank
 up_irq_save --> mm_lock_irq
 click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
-free_delaylist --> up_irq_restore
-click free_delaylist href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L85" "mm/mm_heap/mm_malloc.c " _blank
 up_irq_restore --> mm_unlock_irq
 click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
 mm_malloc --> mm_heapmember
@@ -966,8 +1254,12 @@ register_driver --> u16550_serialinit
 click register_driver href "https://github.com/apache/nuttx/blob/master/fs/driver/fs_registerdriver.c#L98" "fs/driver/fs_registerdriver.c " _blank
 u16550_serialinit --> uart_register
 click u16550_serialinit href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1683" "drivers/serial/uart_16550.c " _blank
-nxmutex_init --> uart_register
-click nxmutex_init href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L129" "libs/libc/misc/lib_mutex.c " _blank
+nx_vsyslog --> lib_syslograwstream_open
+click nx_vsyslog href "https://github.com/apache/nuttx/blob/master/drivers/syslog/vsyslog.c#L84" "drivers/syslog/vsyslog.c " _blank
+lib_vsprintf_internal --> strnlen
+click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1423" "libs/libc/stdio/lib_libvsprintf.c " _blank
+syslograwstream_putc --> strnlen
+click syslograwstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L171" "libs/libc/stream/lib_syslograwstream.c " _blank
 uart_register --> register_driver
 click uart_register href "https://github.com/apache/nuttx/blob/master/drivers/serial/serial.c#L2122" "drivers/serial/serial.c " _blank
 register_driver --> inode_lock
@@ -1188,10 +1480,6 @@ u16550_attach --> uart_open
 click u16550_attach href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1000" "drivers/serial/uart_16550.c " _blank
 uart_open --> u16550_rxint
 click uart_open href "https://github.com/apache/nuttx/blob/master/drivers/serial/serial.c#L769" "drivers/serial/serial.c " _blank
-u16550_rxint --> u16550_serialout
-click u16550_rxint href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L1246" "drivers/serial/uart_16550.c " _blank
-u16550_serialout --> u16550_mmio_putreg
-click u16550_serialout href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L663" "drivers/serial/uart_16550.c " _blank
 up_irq_restore --> uart_open
 click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
 nxmutex_unlock --> uart_open
@@ -1219,7 +1507,7 @@ click nx_vopen href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_open.
 nx_open --> group_setupidlefiles
 click nx_open href "https://github.com/apache/nuttx/blob/master/fs/vfs/fs_open.c#L451" "fs/vfs/fs_open.c " _blank
 group_setupidlefiles --> nx_dup2
-click group_setupidlefiles href "https://github.com/apache/nuttx/blob/master/sched/group/group_setupidlefiles.c#L80" "sched/group/group_setupidlefiles.c " _blank
+click group_setupidlefiles href "https://github.com/apache/nuttx/blob/master/sched/group/group_setupidlefiles.c#L76" "sched/group/group_setupidlefiles.c " _blank
 nx_dup2 --> nx_dup2_from_tcb
 click nx_dup2 href "https://github.com/apache/nuttx/blob/master/fs/inode/fs_files.c#L904" "fs/inode/fs_files.c " _blank
 nx_dup2_from_tcb --> nx_dup3_from_tcb
@@ -1380,10 +1668,6 @@ lib_memoutstream --> snprintf
 click lib_memoutstream href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L98" "libs/libc/stream/lib_memoutstream.c " _blank
 snprintf --> streams
 click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L71" "libs/libc/stdio/lib_snprintf.c " _blank
-streams --> lib_vsprintf_internal
-click streams href "https://github.com/apache/nuttx/blob/master/include/nuttx/streams.h#L774" "include/nuttx/streams.h " _blank
-lib_vsprintf_internal --> strnlen
-click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1423" "libs/libc/stdio/lib_libvsprintf.c " _blank
 strnlen --> memoutstream_puts
 click strnlen href "https://github.com/apache/nuttx/blob/master/libs/libc/machine/arm64/gnu/arch_strnlen.S#L89" "libs/libc/machine/arm64/gnu/arch_strnlen.S " _blank
 memoutstream_puts --> memoutstream_putc
@@ -1392,12 +1676,8 @@ memoutstream_putc --> memoutstream_puts
 click memoutstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L69" "libs/libc/stream/lib_memoutstream.c " _blank
 memoutstream_puts --> memoutstream_putc
 click memoutstream_puts href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L40" "libs/libc/stream/lib_memoutstream.c " _blank
-memoutstream_putc --> strnlen
-click memoutstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L72" "libs/libc/stream/lib_memoutstream.c " _blank
 strnlen --> memoutstream_puts
 click strnlen href "https://github.com/apache/nuttx/blob/master/libs/libc/machine/arm64/gnu/arch_strnlen.S#L89" "libs/libc/machine/arm64/gnu/arch_strnlen.S " _blank
-memoutstream_puts --> lib_vsprintf_internal
-click memoutstream_puts href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L40" "libs/libc/stream/lib_memoutstream.c " _blank
 lib_vsprintf_internal --> snprintf
 click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1425" "libs/libc/stdio/lib_libvsprintf.c " _blank
 up_irq_restore --> setenv
@@ -1428,10 +1708,6 @@ lib_memoutstream --> snprintf
 click lib_memoutstream href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L98" "libs/libc/stream/lib_memoutstream.c " _blank
 snprintf --> streams
 click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L71" "libs/libc/stdio/lib_snprintf.c " _blank
-streams --> lib_vsprintf_internal
-click streams href "https://github.com/apache/nuttx/blob/master/include/nuttx/streams.h#L774" "include/nuttx/streams.h " _blank
-lib_vsprintf_internal --> strnlen
-click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1423" "libs/libc/stdio/lib_libvsprintf.c " _blank
 strnlen --> memoutstream_puts
 click strnlen href "https://github.com/apache/nuttx/blob/master/libs/libc/machine/arm64/gnu/arch_strnlen.S#L89" "libs/libc/machine/arm64/gnu/arch_strnlen.S " _blank
 memoutstream_puts --> memoutstream_putc
@@ -1440,20 +1716,20 @@ memoutstream_putc --> memoutstream_puts
 click memoutstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L69" "libs/libc/stream/lib_memoutstream.c " _blank
 memoutstream_puts --> memoutstream_putc
 click memoutstream_puts href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L40" "libs/libc/stream/lib_memoutstream.c " _blank
-memoutstream_putc --> strnlen
-click memoutstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L72" "libs/libc/stream/lib_memoutstream.c " _blank
 strnlen --> memoutstream_puts
 click strnlen href "https://github.com/apache/nuttx/blob/master/libs/libc/machine/arm64/gnu/arch_strnlen.S#L89" "libs/libc/machine/arm64/gnu/arch_strnlen.S " _blank
-memoutstream_puts --> lib_vsprintf_internal
-click memoutstream_puts href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L40" "libs/libc/stream/lib_memoutstream.c " _blank
 lib_vsprintf_internal --> snprintf
 click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1425" "libs/libc/stdio/lib_libvsprintf.c " _blank
 setenv --> nx_workqueues
 click setenv href "https://github.com/apache/nuttx/blob/master/sched/environ/env_setenv.c#L107" "sched/environ/env_setenv.c " _blank
 nx_workqueues --> work_start_highpri
 click nx_workqueues href "https://github.com/apache/nuttx/blob/master/sched/init/nx_bringup.c#L202" "sched/init/nx_bringup.c " _blank
+nx_vsyslog --> lib_syslograwstream_open
+click nx_vsyslog href "https://github.com/apache/nuttx/blob/master/drivers/syslog/vsyslog.c#L84" "drivers/syslog/vsyslog.c " _blank
+syslog --> work_start_highpri
+click syslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L103" "libs/libc/syslog/lib_syslog.c " _blank
 work_start_highpri --> work_thread_create
-click work_start_highpri href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L470" "sched/wqueue/kwork_thread.c " _blank
+click work_start_highpri href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L475" "sched/wqueue/kwork_thread.c " _blank
 work_thread_create --> sched_lock
 click work_thread_create href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L253" "sched/wqueue/kwork_thread.c " _blank
 sched_lock --> work_thread_create
@@ -1468,8 +1744,6 @@ lib_memoutstream --> snprintf
 click lib_memoutstream href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L98" "libs/libc/stream/lib_memoutstream.c " _blank
 snprintf --> streams
 click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L71" "libs/libc/stdio/lib_snprintf.c " _blank
-streams --> lib_vsprintf_internal
-click streams href "https://github.com/apache/nuttx/blob/master/include/nuttx/streams.h#L774" "include/nuttx/streams.h " _blank
 lib_vsprintf_internal --> __ultoa_invert
 click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1423" "libs/libc/stdio/lib_libvsprintf.c " _blank
 __ultoa_invert --> memoutstream_putc
@@ -1484,20 +1758,14 @@ memoutstream_puts --> memoutstream_putc
 click memoutstream_puts href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L40" "libs/libc/stream/lib_memoutstream.c " _blank
 memoutstream_puts --> memoutstream_putc
 click memoutstream_puts href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L40" "libs/libc/stream/lib_memoutstream.c " _blank
-memoutstream_putc --> lib_vsprintf_internal
-click memoutstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L72" "libs/libc/stream/lib_memoutstream.c " _blank
 snprintf --> work_thread_create
 click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L75" "libs/libc/stdio/lib_snprintf.c " _blank
 snprintf --> lib_memoutstream
 click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L37" "libs/libc/stdio/lib_snprintf.c " _blank
 snprintf --> streams
 click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L71" "libs/libc/stdio/lib_snprintf.c " _blank
-streams --> lib_vsprintf_internal
-click streams href "https://github.com/apache/nuttx/blob/master/include/nuttx/streams.h#L774" "include/nuttx/streams.h " _blank
 lib_vsprintf_internal --> __ultoa_invert
 click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1423" "libs/libc/stdio/lib_libvsprintf.c " _blank
-memoutstream_putc --> lib_vsprintf_internal
-click memoutstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_memoutstream.c#L72" "libs/libc/stream/lib_memoutstream.c " _blank
 snprintf --> work_thread_create
 click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L75" "libs/libc/stdio/lib_snprintf.c " _blank
 work_thread_create --> kthread_create_with_stack
@@ -1562,10 +1830,8 @@ mm_malloc --> mm_memalign
 click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L410" "mm/mm_heap/mm_malloc.c " _blank
 nxmutex_lock --> mm_memalign
 click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L259" "libs/libc/misc/lib_mutex.c " _blank
-mm_addfreechunk --> mm_memalign
-click mm_addfreechunk href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L336" "mm/mm_heap/mm.h " _blank
 mm_memalign --> mm_shrinkchunk
-click mm_memalign href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_memalign.c#L242" "mm/mm_heap/mm_memalign.c " _blank
+click mm_memalign href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_memalign.c#L150" "mm/mm_heap/mm_memalign.c " _blank
 mm_addfreechunk --> mm_shrinkchunk
 click mm_addfreechunk href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm.h#L341" "mm/mm_heap/mm.h " _blank
 mm_shrinkchunk --> mm_memalign
@@ -1624,6 +1890,14 @@ nxtask_activate --> nxsched_remove_blocked
 click nxtask_activate href "https://github.com/apache/nuttx/blob/master/sched/task/task_activate.c#L60" "sched/task/task_activate.c " _blank
 nxsched_remove_blocked --> nxtask_activate
 click nxsched_remove_blocked href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_removeblocked.c#L59" "sched/sched/sched_removeblocked.c " _blank
+nx_vsyslog --> lib_syslograwstream_open
+click nx_vsyslog href "https://github.com/apache/nuttx/blob/master/drivers/syslog/vsyslog.c#L84" "drivers/syslog/vsyslog.c " _blank
+syslograwstream_putc --> __ultoa_invert
+click syslograwstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L171" "libs/libc/stream/lib_syslograwstream.c " _blank
+syslograwstream_putc --> __ultoa_invert
+click syslograwstream_putc href "https://github.com/apache/nuttx/blob/master/libs/libc/stream/lib_syslograwstream.c#L171" "libs/libc/stream/lib_syslograwstream.c " _blank
+syslog --> nxtask_activate
+click syslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L103" "libs/libc/syslog/lib_syslog.c " _blank
 nxtask_activate --> nxsched_add_readytorun
 click nxtask_activate href "https://github.com/apache/nuttx/blob/master/sched/task/task_activate.c#L95" "sched/task/task_activate.c " _blank
 nxsched_add_readytorun --> nxsched_add_prioritized
@@ -1646,8 +1920,10 @@ work_start_highpri --> nx_workqueues
 click work_start_highpri href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L478" "sched/wqueue/kwork_thread.c " _blank
 nx_workqueues --> work_start_lowpri
 click nx_workqueues href "https://github.com/apache/nuttx/blob/master/sched/init/nx_bringup.c#L211" "sched/init/nx_bringup.c " _blank
+syslog --> work_start_lowpri
+click syslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L103" "libs/libc/syslog/lib_syslog.c " _blank
 work_start_lowpri --> work_thread_create
-click work_start_lowpri href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L498" "sched/wqueue/kwork_thread.c " _blank
+click work_start_lowpri href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L503" "sched/wqueue/kwork_thread.c " _blank
 work_thread_create --> sched_lock
 click work_thread_create href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L253" "sched/wqueue/kwork_thread.c " _blank
 snprintf --> lib_memoutstream
@@ -1660,8 +1936,6 @@ snprintf --> lib_memoutstream
 click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L37" "libs/libc/stdio/lib_snprintf.c " _blank
 snprintf --> streams
 click snprintf href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_snprintf.c#L71" "libs/libc/stdio/lib_snprintf.c " _blank
-lib_vsprintf_internal --> __ultoa_invert
-click lib_vsprintf_internal href "https://github.com/apache/nuttx/blob/master/libs/libc/stdio/lib_libvsprintf.c#L1423" "libs/libc/stdio/lib_libvsprintf.c " _blank
 work_thread_create --> kthread_create_with_stack
 click work_thread_create href "https://github.com/apache/nuttx/blob/master/sched/wqueue/kwork_thread.c#L275" "sched/wqueue/kwork_thread.c " _blank
 kthread_create_with_stack --> nxthread_create
@@ -1690,6 +1964,8 @@ kmm_memalign --> mm_memalign
 click kmm_memalign href "https://github.com/apache/nuttx/blob/master/mm/kmm_heap/kmm_memalign.c#L55" "mm/kmm_heap/kmm_memalign.c " _blank
 mm_malloc --> mm_memalign
 click mm_malloc href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_malloc.c#L410" "mm/mm_heap/mm_malloc.c " _blank
+nxmutex_lock --> mm_memalign
+click nxmutex_lock href "https://github.com/apache/nuttx/blob/master/libs/libc/misc/lib_mutex.c#L259" "libs/libc/misc/lib_mutex.c " _blank
 mm_memalign --> mm_shrinkchunk
 click mm_memalign href "https://github.com/apache/nuttx/blob/master/mm/mm_heap/mm_memalign.c#L242" "mm/mm_heap/mm_memalign.c " _blank
 mm_addfreechunk --> mm_shrinkchunk
@@ -1742,16 +2018,14 @@ nxtask_activate --> nxsched_remove_blocked
 click nxtask_activate href "https://github.com/apache/nuttx/blob/master/sched/task/task_activate.c#L60" "sched/task/task_activate.c " _blank
 nxsched_remove_blocked --> nxtask_activate
 click nxsched_remove_blocked href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_removeblocked.c#L59" "sched/sched/sched_removeblocked.c " _blank
+syslog --> nxtask_activate
+click syslog href "https://github.com/apache/nuttx/blob/master/libs/libc/syslog/lib_syslog.c#L103" "libs/libc/syslog/lib_syslog.c " _blank
 nxtask_activate --> nxsched_add_readytorun
 click nxtask_activate href "https://github.com/apache/nuttx/blob/master/sched/task/task_activate.c#L95" "sched/task/task_activate.c " _blank
 nxsched_add_readytorun --> nxsched_add_prioritized
 click nxsched_add_readytorun href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_addreadytorun.c#L70" "sched/sched/sched_addreadytorun.c " _blank
 nxsched_add_prioritized --> nxsched_add_readytorun
 click nxsched_add_prioritized href "https://github.com/apache/nuttx/blob/master/sched/sched/sched.h#L456" "sched/sched/sched.h " _blank
-nxsched_add_readytorun --> nxtask_activate
-click nxsched_add_readytorun href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_addreadytorun.c#L88" "sched/sched/sched_addreadytorun.c " _blank
-up_irq_restore --> nxtask_activate
-click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
 nxtask_activate --> nxthread_create
 click nxtask_activate href "https://github.com/apache/nuttx/blob/master/sched/task/task_activate.c#L101" "sched/task/task_activate.c " _blank
 work_thread_create --> sched_unlock
@@ -1834,5 +2108,61 @@ nxsched_merge_pending --> sched_unlock
 click nxsched_merge_pending href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_mergepending.c#L84" "sched/sched/sched_mergepending.c " _blank
 sched_unlock --> sys_call0
 click sched_unlock href "https://github.com/apache/nuttx/blob/master/sched/sched/sched_unlock.c#L89" "sched/sched/sched_unlock.c " _blank
-sys_call0 --> ***_HALT_***
+sys_call0 --> sched_unlock
 click sys_call0 href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/syscall.h#L151" "arch/arm64/include/syscall.h " _blank
+up_irq_restore --> sched_unlock
+click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
+syslog_safe_to_block --> nxsched_self
+click syslog_safe_to_block href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L62" "drivers/syslog/syslog_write.c " _blank
+syslog_write_foreach --> syslog_default_write
+click syslog_write_foreach href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L102" "drivers/syslog/syslog_write.c " _blank
+up_irq_save --> syslog_default_write
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+syslog_default_write --> up_nputs
+click syslog_default_write href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_channel.c#L318" "drivers/syslog/syslog_channel.c " _blank
+u16550_mmio_putreg --> up_nputs
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_putreg --> up_nputs
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_putreg --> up_nputs
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_putreg --> up_nputs
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_putreg --> up_nputs
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_putreg --> up_nputs
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+u16550_mmio_putreg --> up_nputs
+click u16550_mmio_putreg href "https://github.com/apache/nuttx/blob/master/drivers/serial/uart_16550.c#L635" "drivers/serial/uart_16550.c " _blank
+up_irq_restore --> syslog_default_write
+click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
+syslog_safe_to_block --> nxsched_self
+click syslog_safe_to_block href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L62" "drivers/syslog/syslog_write.c " _blank
+syslog_write_foreach --> syslog_default_write
+click syslog_write_foreach href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L102" "drivers/syslog/syslog_write.c " _blank
+up_irq_save --> syslog_default_write
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+up_irq_restore --> syslog_default_write
+click up_irq_restore href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L382" "arch/arm64/include/irq.h " _blank
+syslog_safe_to_block --> nxsched_self
+click syslog_safe_to_block href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L62" "drivers/syslog/syslog_write.c " _blank
+syslog_write_foreach --> syslog_default_write
+click syslog_write_foreach href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L102" "drivers/syslog/syslog_write.c " _blank
+up_irq_save --> syslog_default_write
+click up_irq_save href "https://github.com/apache/nuttx/blob/master/arch/arm64/include/irq.h#L349" "arch/arm64/include/irq.h " _blank
+syslog_safe_to_block --> nxsched_self
+click syslog_safe_to_block href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L62" "drivers/syslog/syslog_write.c " _blank
+syslog_safe_to_block --> nxsched_self
+click syslog_safe_to_block href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L62" "drivers/syslog/syslog_write.c " _blank
+syslog_safe_to_block --> nxsched_self
+click syslog_safe_to_block href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L62" "drivers/syslog/syslog_write.c " _blank
+syslog_safe_to_block --> nxsched_self
+click syslog_safe_to_block href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L62" "drivers/syslog/syslog_write.c " _blank
+syslog_safe_to_block --> nxsched_self
+click syslog_safe_to_block href "https://github.com/apache/nuttx/blob/master/drivers/syslog/syslog_write.c#L62" "drivers/syslog/syslog_write.c " _blank
+nx_start --> up_idle
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L781" "sched/init/nx_start.c " _blank
+nx_start --> up_idle
+click nx_start href "https://github.com/apache/nuttx/blob/master/sched/init/nx_start.c#L777" "sched/init/nx_start.c " _blank
+up_idle --> ***_HALT_***
+click up_idle href "https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_idle.c#L61" "arch/arm64/src/common/arm64_idle.c " _blank
