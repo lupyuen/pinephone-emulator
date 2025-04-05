@@ -1162,6 +1162,8 @@ gettid():
 
 TODO: Who calls gettid?
 
+TODO: Renegerate nuttx-init.S with Debug Symbols
+
 # Unicorn Output
 
 TODO: GICv3 won't work in Unicorn, so we have to simulate Timer Interrupts and I/O Interrupts

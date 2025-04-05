@@ -142,7 +142,7 @@ dependencies = [
 
 [[package]]
 name = "nuttx-arm64-emulator"
-version = "1.0.4"
+version = "1.0.5"
 dependencies = [
  "addr2line",
  "gimli",
