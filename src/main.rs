@@ -166,6 +166,8 @@ fn hook_interrupt(
         println!("vbar_el1=0x{vbar_el1:08x}");
         println!("jump to svc=0x{svc:08x}");
         emu.reg_write(RegisterARM64::PC, svc).unwrap();
+    } else {
+        sleep(time::Duration::from_secs(10));
     }
 }
 
