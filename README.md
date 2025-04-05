@@ -876,6 +876,91 @@ https://github.com/apache/nuttx/blob/master/arch/arm64/src/common/arm64_vector_t
 
 We are doing SVC (Synchronous Exception) at EL1. Which means Unicorn Emulator should jump to VBAR_EL1 + 0x200.
 
+# Jump to SysCall 0
+
+We jump to jump to VBAR_EL1 + 0x200: [src/main.rs](src/main.rs)
+
+```rust
+/// Hook Function to Handle Interrupt
+fn hook_interrupt(
+    emu: &mut Unicorn<()>,  // Emulator
+    intno: u32, // Interrupt Number
+) {
+    println!("hook_interrupt: intno={intno}");
+    println!("PC=0x{:x}",  emu.reg_read(RegisterARM64::PC).unwrap());
+    // println!("CP_REG={:?}",  emu.reg_read(RegisterARM64::CP_REG));
+    println!("ESR_EL0={:?}", emu.reg_read(RegisterARM64::ESR_EL0));
+    println!("ESR_EL1={:?}", emu.reg_read(RegisterARM64::ESR_EL1));
+    println!("ESR_EL2={:?}", emu.reg_read(RegisterARM64::ESR_EL2));
+    println!("ESR_EL3={:?}", emu.reg_read(RegisterARM64::ESR_EL3));
+
+    // We are doing SVC (Synchronous Exception) at EL1.
+    // Which means Unicorn Emulator should jump to VBAR_EL1 + 0x200.
+    let vbar_el1 = emu.reg_read(RegisterARM64::VBAR_EL1).unwrap();
+    let svc = vbar_el1 + 0x200;
+    println!("vbar_el1=0x{vbar_el1:08x}");
+    println!("jump to svc=0x{svc:08x}");
+    emu.reg_write(RegisterARM64::PC, svc).unwrap();
+}
+```
+
+And it crashes...
+
+```bash
+- Ready to Boot Primary CPU
+- Boot from EL1
+- Boot to C runtime for OS Initialize
+\rnx_start: Entry
+up_allocate_kheap: heap_start=0x0x40849000, heap_size=0x77b7000
+gic_validate_dist_version: No GIC version detect
+arm64_gic_initialize: no distributor detected, giving up ret=-19
+uart_register: Registering /dev/console
+uart_register: Registering /dev/ttyS0
+work_start_highpri: Starting high-priority kernel worker thread(s)
+nxtask_activate: hpwork pid=1,TCB=0x40849e78
+work_start_lowpri: Starting low-priority kernel worker thread(s)
+nxtask_activate: lpwork pid=2,TCB=0x4084c008
+nxtask_activate: AppBringUp pid=3,TCB=0x4084c190
+
+vbar_el1=0x40827000
+jump to svc=0x40827200
+
+arm64_el1_undef: Undefined instruction at 0x0, dump:
+dump_assert_info: Current Version: NuttX  12.8.0 c9f38c13eb Apr  5 2025 09:08:34 arm64
+dump_assert_info: Assertion failed !(({ uint64_t __val; __asm__ volatile ("mrs %0, " "tpidr_el1" : "=r" (__val) :: "memory"); __val; }) & 1): at file: common/arm64_fatal.c:558 task: Idle_Task process: Kernel 0x40806568
+up_dump_register: stack = 0x408440a0
+up_dump_register: x0:   0x408440a0          x1:   0x408443e0
+up_dump_register: x2:   0x1                 x3:   0x1
+up_dump_register: x4:   0x4                 x5:   0x40801000
+up_dump_register: x6:   0x0                 x7:   0x0
+up_dump_register: x8:   0x80000000008000    x9:   0x0
+up_dump_register: x10:  0x0                 x11:  0x0
+up_dump_register: x12:  0x101010101010101   x13:  0x8
+up_dump_register: x14:  0xffffffffffffffe   x15:  0x0
+up_dump_register: x16:  0x4080d884          x17:  0x0
+up_dump_register: x18:  0x0                 x19:  0x40843048
+up_dump_register: x20:  0x408282ec          x21:  0x40828356
+up_dump_register: x22:  0x408440a0          x23:  0x408440a0
+up_dump_register: x24:  0x40843000          x25:  0x2c0
+up_dump_register: x26:  0x6                 x27:  0x22e
+up_dump_register: x28:  0x0                 x29:  0x0
+up_dump_register: x30:  0x40806ce8        
+up_dump_register: 
+up_dump_register: STATUS Registers:
+up_dump_register: SPSR:      0x0               
+up_dump_register: ELR:       0x0               
+up_dump_register: SP_EL0:    0x0               
+up_dump_register: SP_ELX:    0x40847ea0        
+up_dump_register: EXE_DEPTH: 0x0               
+up_dump_register: SCTLR_EL1: 0x30d0180d        
+dump_tasks:    PID GROUP PRI POLICY   TYPE    NPX STATE   EVENT      SIGMASK          STACKBASE  STACKSIZE      USED   FILLED    COMMAND
+dump_tasks:   ----   --- --- -------- ------- --- ------- ---------- ---------------- 0x40845760      4096         0     0.0%    irq
+dump_task:       0     0   0 FIFO     Kthread -   Ready              0000000000000000 0x40846770      8176      3088    37.7%    Idle_Task
+dump_task:       1     0 192 RR       Kthread -   Ready              0000000000000000 0x4084a050      8112       832    10.2%    hpwork 0x40836568 0x408365b8
+dump_task:       2     0 100 RR       Kthread -   Ready              0000000000000000 0x4084e050      8112       832    10.2%    lpwork 0x408364e8 0x40836538
+dump_task:       3     0 240 RR       Kthread -   Running            0000000000000000 0x40852030      8144       832    10.2%    AppBringUp
+```
+
 # TODO
 
 TODO: Read VBAR_EL1 to fetch Vector Table. Then trigger Timer Interrupt
